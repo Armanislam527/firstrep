@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigma CSS selector</title>
+    <style>
+        /* Element selector */
+        div {
+            /* background-color: red; */
+        }
+
+        /* Class selector */
+        .red {
+            background-color: red;
+        }
+
+        #green {
+            background-color: green;
+        }
+
+        /* child selector */
+        div>p {
+            color: blue;
+            background-color: rgb(13, 58, 103);
+        }
+
+        /* descendent selector */
+        div p {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* universal slelector */
+        * {
+            margin: 10 solid blue;
+            padding: 10 solid orange;
+        }
+
+        /* pseudo selector */
+        a:visited {
+            background-color: brown;
+            color: blueviolet;
+        }
+
+        a:link {
+            color: darkcyan;
+        }
+
+        a:active {
+            background-color: black;
+        }
+
+        a:hover {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background-color: dimgray;
+            color: violet;
+
+        }
+
+       main p:first-child {
+            background-color: aqua;
+        }
+    main p:nth-child(2) {
+        color: aliceblue;
+        background-color:black;
+    }
+    main p:not(:first-child){
+        border: 20px dotted rgb(211, 224, 32);
+        border-image: url(arman.jpg) ;
+    }
+        /* attributre selector */
+        [data-x=a]{
+            background-color:beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="green">
+        thi is a div
+        <p>this is a paragrapg inside div 1</p>
+    </div>
+    <main class="one">
+        <p>i am first </p>
+        <p>i am second</p>
+    </main>
+    <div class="red">
+        <article>
+            <p>this is a paragraph inside articel inside div</p>
+        </article>
+    </div>
+    <span data-x="a">this is a spantinopole</span>
+    <a target="_blank" href="https://google.com">Go to GOOGLE</a>
+    <a target="_blank" href="https://facebook.com">Go to Facebook</a>
+</body>
+
+</html>

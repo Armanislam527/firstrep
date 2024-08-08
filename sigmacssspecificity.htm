@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS specificity</title>
+    <style>
+        body {
+            color: rgb(219, 219, 173) !important;
+
+        }
+
+        div {
+            color: forestgreen !important;
+        }
+
+        p {
+            color: limegreen !important;
+        }
+
+        .b {
+            color: teal !important;
+        }
+
+        p.c {
+            color: goldenrod !important;
+        }
+
+        #a {
+            color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p style="color: darkgrey;" id="a" class="b c d e">this is a pera graph</p>
+    </div>
+</body>
+
+</html>
