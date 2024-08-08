@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS measurement scale</title>
+    <style>
+        * {
+            /* margin: 0; */
+            /* margin: auto; */
+            font-size: 12px;
+            padding: 0;
+            /* border-image: url(arman.jpg); */
+        }
+
+        .box {
+            margin: auto;
+            box-sizing: border-box;
+            border: 2px solid darkolivegreen;
+            /* width: 611px; */
+            width: 80vw;
+            height: 80vh;
+            background-color: fuchsia;
+        }
+
+        span {
+            /* why dont work */
+            border: 2px solid darkolivegreen;
+            /* width: 611px; */
+            width: 80vw;
+
+            background-color: fuchsia;
+        }
+
+        .container {
+            margin: 23px auto;
+            box-sizing: border-box;
+            border: 2px solid darkolivegreen;
+            /* width: 611px; */
+            width: 80vw;
+            height: 80vh;
+            font-size: 16px;
+            background-color: fuchsia;
+        }
+
+        .container p {
+            font-size: 1.5em;
+            min-width: 20vw;
+            width: auto;
+            height: auto;
+            font-size: auto;
+        }
+        .mycont{
+            box-sizing: border-box;
+            margin: 23px auto;
+            box-sizing: border-box;
+            border: 2px solid darkolivegreen;
+            /* width: 611px; */
+            width: 80vw;
+            height: 100vmin;
+            text-align: center;
+            border-color: bisque;
+            background-image: url(arman.jpg);
+            background-color: azure;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        this is a box
+    </div>
+    <span>this is a span</span>
+    <div class="container">
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit eveniet vero veritatis. Ut accusamus inventore
+            autem animi, hic et enim quos dicta quas.</p>
+        this is a div and container
+    </div>
+    <div class="mycont">i am a another container</div>
+</body>
+
+</html>
