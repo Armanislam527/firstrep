@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS boxmodel</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+
+        }
+
+        div {
+            /* display: contents; */
+        }
+
+        .box {
+            background-color: rgb(92, 141, 184);
+        }
+
+        .box1 {
+            height: 40px;
+            width: 60px;
+            color: rgb(217, 127, 8);
+            padding: 10px;
+            background: #000;
+            border: 10px solid aqua;
+            margin: 2px;
+            box-sizing: content-box;
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+            /* border-bottom: 1px;
+            border-top: 1px;
+            border-left: 1px; */
+        }
+
+        .box2 {
+            color: bisque;
+            /* height: 40px;
+            width: 60px; */
+            /* color: rgb(217, 127, 8); */
+            padding: 10px;
+            background: #a71e1e;
+            border: 10px solid aqua;
+            margin: 2px;
+            box-sizing: content-box;
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+            /* border-bottom: 1px;
+            border-top: 1px;
+            border-left: 1px; */
+        }
+
+        /* #one{
+        border:5px solid blue; 
+        margin: 20px;
+    } */
+        img {
+            height: 30px;
+            width: 30px;
+            border-radius: 30px;
+
+        }
+
+        div span {
+            text-align: right;
+
+
+        }
+
+        #arman {
+            border: 2px solid #000;
+            border-radius: 30px;
+            box-sizing: border-box;
+        }
+
+        span {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box box1" id="one">i am a box</div>
+    <div class="box box2" id="boxer">i am a boxer</div>
+    <div id="arman">
+        <img src="arman.jpg" alt="this is my image">
+        <span>
+            <!-- <center> -->
+            arman islam
+        <!-- </center> -->
+
+        </span>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS animation</title>
+    <style>
+        .con {
+            background-color: beige;
+            height: 80vh;
+            width: 30vw;
+        }
+
+        .box {
+            width: 34px;
+            height: 45px;
+            background-color: aquamarine;
+            animation-name: arman;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate-reverse;
+            /* animation-play-state: paused; */
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes arman {
+            from {
+                transform: translateX(10px);
+                background-color: black;
+                color: white;
+            }
+
+            to {
+                transform: translateX(1000px);
+                background-color: red;
+                color: white;
+                text-shadow: 5px 5px 5px white;
+            }
+
+            0% {
+                background-color: aliceblue;
+            }
+
+            20% {
+                background-color: antiquewhite;
+            }
+
+            40% {
+                background-color: aqua;
+            }
+
+            60% {
+                background-color: blue;
+            }
+
+            80% {
+                border-color: chartreuse;
+            }
+        }
+
+        @keyframes arman2 {
+            01% {
+                background-color: aliceblue;
+            }
+
+            20% {
+                background-color: antiquewhite;
+            }
+
+            40% {
+                background-color: aqua;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="con">
+        <div class="box">BOX</div>
+    </div>
+</body>
+
+</html>

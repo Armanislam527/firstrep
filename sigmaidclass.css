@@ -1,0 +1,26 @@
+.b {
+    background-color: antiquewhite;
+    font-size: 100px;
+}
+
+#a {
+    color: rgb(200, 13, 242);
+}
+
+#c {
+    color: blue;
+}
+
+.d {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: rgb(74, 87, 74);
+    border-radius: 300px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.d :hover{
+   background-color:  aqua;
+}

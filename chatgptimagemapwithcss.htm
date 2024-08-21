@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Map Example</title>
+    <style>
+        .output {
+            margin-top: 2px;
+            font-size: 200px;
+        }
+    </style>
+    <script>
+        function showText(text) {
+            document.getElementById('output').textContent = text;
+        }
+    </script>
+</head>
+<body>
+
+<h2>Click on different areas of the image:</h2>
+
+<img src="https://via.placeholder.com/600x400" alt="Example Image" usemap="#image-map">
+
+<map name="image-map">
+    <area shape="rect" coords="50,50,150,150" href="javascript:void(0);" alt="Area 1" onclick="showText('arman')">
+    <area shape="circle" coords="300,200,50" href="javascript:void(0);" alt="Area 2" onclick="showText('islam')">
+    <area shape="poly" coords="400,50,500,100,450,200" href="javascript:void(0);" alt="Area 3" onclick="showText('runner')">
+</map>
+
+<div id="output" class="output"></div>
+
+</body>
+</html>
