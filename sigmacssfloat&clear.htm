@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="a1">Float and Clear</title>
+    <style>
+        /* .a1{
+            text-transform: capitalize;
+        } */
+         .cards{
+            border: 3px groove aqua;
+            /* overflow: auto; */
+            display: flow-root;
+         }
+         img{
+            float: left;
+            border: 2px solid green;
+            border-radius: 5px;
+         }
+         .card{
+            border: 2px solid black;
+            font-size: 30px;
+         }
+        .card:nth-child(3){
+            background-color: aquamarine;
+            clear: both;
+            border-radius: 10px;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="cards">
+        <img src="arman.jpg" alt="this is my image" width="300px"height="400px">
+        <div class="card">Card 1=Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam natus cupiditate doloremque quod velit, esse nostrum saepe maiores hic recusandae magnam, sint ab tempore aut at accusamus, voluptate magni quibusdam eum sed aspernatur qui beatae. Veritatis quidem dolorum cumque tenetur facere necessitatibus officia ducimus.</div>
+        <div class="card">Card 2=Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum inventore necessitatibus tenetur, perferendis nemo illo voluptas recusandae? Asperiores blanditiis, dolor dignissimos totam distinctio ducimus maiores quasi et rerum sequi architecto, consectetur molestias natus excepturi sit cum officia! Soluta quis magni, officia voluptatem inventore repudiandae est itaque, sint, vitae maxime assumenda!</div>
+        <div class="card">Card 3</div>
+    </div>
+</body>
+</html>

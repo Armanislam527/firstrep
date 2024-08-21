@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS media query</title>
+    <style>
+        body{
+            background-color: rgba(0, 0, 0, 0.462);
+        }
+        .boxes{
+            width: 200px;
+            height: 200px;
+            background-color: steelblue;
+            padding: 3px;
+            margin: 3px;
+
+        }
+        .box{
+            display: flex;
+        }
+        @media screen and (max-width: 600px) {
+            body{
+            background-color: aqua;
+            }
+            .box {
+                flex-direction: column;
+            }             
+        }
+        @media screen and (orientation:landscape) 
+        {
+            body{
+                background-color: purple;
+                border: 2px aqua;
+                border-style: groove;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>hey i am coffee body guy</div>
+    <div class="box">
+        <div class="boxes"></div>
+        <div class="boxes"></div>
+        <div class="boxes"></div>
+        <div class="boxes"></div>
+    </div>
+</body>
+</html>

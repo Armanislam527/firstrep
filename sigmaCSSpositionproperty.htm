@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS posiition property</title>
+    <style>
+        * {
+            margin: auto;
+            padding: 0;
+        }
+
+        .box {
+            height: 200px;
+            /* position: absolute !important; */
+            width: 80vw;
+            margin: 3px;
+            padding: 30px;
+            border: 2px blueviolet;
+            border-style: inset;
+        }
+
+        .box1 {
+            background-color: rgb(39, 146, 28);
+            /* position: relative;
+            top: -180px;
+            left: 15px;
+            z-index: 6; */
+        }
+
+        .box2 {
+            position: sticky;
+            z-index: 20;
+            margin: 0;
+            top: 0px;
+            left: 10vw;
+            padding: 0;
+            background-color: rgb(176, 117, 27);
+        }
+
+        .box3 {
+            position: relative;
+            /* position: absolute; */
+            top: -120px;
+            left: 10px;
+            z-index: 3;
+            background-color: rgb(185, 168, 144);
+        }
+
+        .box4 {
+            position: relative;
+            top: -60px;
+            left: 5px;
+            z-index: 5;
+
+            background-color: rgb(27, 22, 14);
+            color: cyan;
+        }
+
+        .box5 {
+            position: relative;
+            top: -240px;
+            left: 20px;
+            z-index: 7;
+            background-color: blanchedalmond;
+        }
+
+        .fixbox {
+            position: fixed;
+            top: 20px;
+            height: 60vh;
+            left: 200px;
+            z-index: 20;
+            width: 60vw;
+            background-color: cornflowerblue;
+        }
+
+        .parent {
+            margin: 3px;
+            padding: 3px;
+            height: 500px;
+overflow: scroll;
+            position: absolute;
+            /* filter:contrast(20); */
+            /* transform filter or perspective property can also make a elelment make as positioned */
+            border: 4px rgb(149, 189, 175);
+            border-style: groove;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="box box1">I am a Box and i have to show some property</div>
+        <div class="box box2">I am a Box and i have to show some property</div>
+        <div class="box box3">I am a Box and i have to show some property</div>
+        <div class="box box4">I am a Box and i have to show some property</div>
+        <div class="box box5">I am a Box and i have to show some property</div>
+        <div class="box fixbox">i am a fixbox
+            <img src="arman.jpg" alt="this is my image" height="100px" width="80px">
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Clock</title>
+    <! link rel="stylesheet" href="styles.css">
+        <style>
+            .clock {
+                position: relative;
+                width: 200px;
+                height: 200px;
+                border-radius: 30%;
+                border: 10px solid #000;
+                border-style: groove;
+                outline: 2px groove navy;
+
+            }
+
+            .hour,
+            .minute,
+            .second {
+                position: relative;
+                width: 50%;
+                height: 20px;
+                top: 60px;
+                left: -50px;
+                margin: auto;
+                background-color: #3fab2f;
+                transform-origin: 100%;
+                z-index: 1;
+                /* top: 50%; Set the top position to 50% */
+            }
+
+            .hour {
+                /* left: 50%; Set the left position to 50% */
+                transform: translateY(-50%) rotate(90deg);
+                /* Adjust transform to translateY(-50%) */
+            }
+
+            .minute {
+                /* left: 50%; Set the left position to 50% */
+                transform: translateY(-50%) rotate(180deg);
+                /* Adjust transform to translateY(-50%) */
+            }
+
+            .second {
+                /* left: 50%; Set the left position to 50% */
+                transform: translateY(-50%) rotate(270deg);
+                /* Adjust transform to translateY(-50%) */
+            }
+        </style>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+    </div>
+    <div>
+        <span></span>
+    </div>
+    <!script src="script.js">
+        <script>
+            function updateClock() {
+                const now = new Date();
+                const hours = now.getHours() % 12; // Convert to 12-hour format
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+
+                const hourHand = document.querySelector('.hour');
+                const minuteHand = document.querySelector('.minute');
+                const secondHand = document.querySelector('.second');
+
+                const hourDegrees = (hours * 30) + (0.5 * minutes); // 30 degrees per hour, plus 0.5 degrees per minute
+                const minuteDegrees = (minutes * 6) + (0.1 * seconds); // 6 degrees per minute, plus 0.1 degrees per second
+                const secondDegrees = seconds * 6; // 6 degrees per second
+
+                hourHand.style.transform = `translateY(-50%) rotate(${hourDegrees}deg)`;
+                minuteHand.style.transform = `translateY(-50%) rotate(${minuteDegrees}deg)`;
+                secondHand.style.transform = `translateY(-50%) rotate(${secondDegrees}deg)`;
+            }
+
+            // Update clock every second
+            setInterval(updateClock, 1000);
+
+            // Initial call to update clock immediately when the page loads
+            updateClock();
+
+        </script>
+</body>
+
+</html>
