@@ -11,3 +11,17 @@ var myname ="arman" //global
 myname = 8;
 let name="jscode"//local
 const pi=3.14 //unchangable
+var a ;
+var b =2;
+a=7;
+b=a;
+console.log(b)
+//var initializatiion
+var a =5 ;
+var b=10;
+var c= "i am a"
+//DO not change below this line
+a =a+ 1;
+b= b+ 5;
+c = c + "String"
+console.log(b)
