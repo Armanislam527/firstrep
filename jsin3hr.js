@@ -22,6 +22,11 @@ var b=10;
 var c= "i am a"
 //DO not change below this line
 a =a+ 1;
-b= b+ 5;
+b= b+ 5;//semicolon is not necessary
 c = c + "String"
 console.log(b)
+var mystr="I am a \"double quoted \" string inside \"double quote\""
+console.log(mystr)
+var str=`'<a href="htttp://www.example.com" target="_blank">link</a>'`
+console.log(str)
+console.log("First Line\nSecond Line\twith a tab\rCarriage return\bBackspace\fForm feed");
