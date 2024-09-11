@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Rental System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        width: 50%;
+        margin: 0 auto;
+      }
+      .car-details,
+      .luxury-car-details {
+        margin-top: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input {
+        padding: 8px;
+        width: 100%;
+        box-sizing: content-box;
+      }
+      .btn {
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background-color: #45a049;
+      }
+      .output {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Car Rental System</h1>
+
+      <!-- Car Rental Form -->
+      <form id="rental-form">
+        <div class="form-group">
+          <label for="car-type">Car Type:</label>
+          <select id="car-type">
+            <option value="regular">Regular Car</option>
+            <option value="luxury">Luxury Car</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="brand">Car Brand:</label>
+          <input
+            type="text"
+            id="brand"
+            placeholder="Enter car brand"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="model">Car Model:</label>
+          <input
+            type="text"
+            id="model"
+            placeholder="Enter car model"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="dailyRate">Daily Rental Rate ($):</label>
+          <input
+            type="number"
+            id="dailyRate"
+            placeholder="Enter daily rate"
+            required
+          />
+        </div>
+
+        <div class="form-group" id="luxury-feature-group" style="display: none">
+          <label for="luxuryFeature">Luxury Feature:</label>
+          <input
+            type="text"
+            id="luxuryFeature"
+            placeholder="Enter luxury feature"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="days">Number of Days:</label>
+          <input
+            type="number"
+            id="days"
+            placeholder="Enter number of rental days"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn">Calculate Rental Cost</button>
+      </form>
+
+      <div class="output" id="output"></div>
+    </div>
+
+    <script>
+      // Car Class
+      class Car {
+        constructor(brand, model, dailyRate) {
+          this.brand = brand;
+          this.model = model;
+          this.dailyRate = dailyRate;
+        }
+
+        getDetails() {
+          return `${this.brand} ${this.model}, Rate: $${this.dailyRate}/day`;
+        }
+      }
+
+      // LuxuryCar Class that extends Car
+      class LuxuryCar extends Car {
+        constructor(brand, model, dailyRate, luxuryFeature) {
+          super(brand, model, dailyRate);
+          this.luxuryFeature = luxuryFeature;
+        }
+
+        getLuxuryDetails() {
+          return `${this.getDetails()}, Luxury Feature: ${this.luxuryFeature}`;
+        }
+      }
+
+      // Function to calculate rental cost
+      function calculateRentalCost(days, dailyRate) {
+        return days * dailyRate;
+      }
+
+      // DOM Elements
+      const form = document.getElementById("rental-form");
+      const carTypeSelect = document.getElementById("car-type");
+      const luxuryFeatureGroup = document.getElementById(
+        "luxury-feature-group"
+      );
+      const outputDiv = document.getElementById("output");
+
+      // Show/hide luxury feature input based on car type
+      carTypeSelect.addEventListener("change", function () {
+        if (carTypeSelect.value === "luxury") {
+          luxuryFeatureGroup.style.display = "block";
+        } else {
+          luxuryFeatureGroup.style.display = "none";
+        }
+      });
+
+      // Handle form submission
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form from submitting
+
+        // Get input values
+        const brand = document.getElementById("brand").value;
+        const model = document.getElementById("model").value;
+        const dailyRate = parseFloat(
+          document.getElementById("dailyRate").value
+        );
+        const days = parseInt(document.getElementById("days").value);
+        const carType = carTypeSelect.value;
+        let car;
+
+        // Check car type and create corresponding object
+        if (carType === "luxury") {
+          const luxuryFeature = document.getElementById("luxuryFeature").value;
+          car = new LuxuryCar(brand, model, dailyRate, luxuryFeature);
+          outputDiv.innerHTML = `
+                <p><strong>Car Details:</strong> ${car.getLuxuryDetails()}</p>
+                <p><strong>Rental Cost for ${days} days:</strong> $${calculateRentalCost(
+            days,
+            car.dailyRate
+          )}</p>
+            `;
+        } else {
+          car = new Car(brand, model, dailyRate);
+          outputDiv.innerHTML = `
+                <p><strong>Car Details:</strong> ${car.getDetails()}</p>
+                <p><strong>Rental Cost for ${days} days:</strong> $${calculateRentalCost(
+            days,
+            car.dailyRate
+          )}</p>
+            `;
+        }
+      });
+    </script>
+  </body>
+</html>
