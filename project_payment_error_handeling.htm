@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Form</title>
+  </head>
+  <body>
+    <h1>Payment Form</h1>
+    <form id="payment-form">
+      <label for="card-number">Card Number:</label>
+      <input type="text" id="card-number" required /><br /><br />
+
+      <label for="amount">Amount ($):</label>
+      <input type="number" id="amount" required /><br /><br />
+
+      <button type="submit">Submit Payment</button>
+    </form>
+
+    <p id="sms"></p>
+    <p id="message"></p>
+    <script>
+      // Function to simulate payment processing
+      function processPayment(cardNumber, amount) {
+        // Simulate network error or invalid card number
+        if (!cardNumber || cardNumber.length !== 16) {
+          throw new Error("Invalid Card Number");
+        }
+        if (amount <= 0) {
+          throw new Error("Amount must be greater than zero");
+        }
+
+        // Simulate success if no errors occur
+        return `Payment of $${amount} successful!`;
+      }
+
+      // Event listener for form submission
+      document
+        .getElementById("payment-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent actual form submission
+
+          let cardNumber = document.getElementById("card-number").value;
+          let amount = parseFloat(document.getElementById("amount").value);
+          let messageElement = document.getElementById("message");
+          let sms = document.getElementById("sms");
+
+          try {
+            // Try to process the payment
+            let successMessage = processPayment(cardNumber, amount);
+            messageElement.textContent = successMessage;
+            messageElement.style.color = "green";
+          } catch (error) {
+            // If an error occurs, handle it here
+            messageElement.textContent = `Error: ${error.message}`;
+            messageElement.style.color = "red";
+          } finally {
+            sms.textContent="Payment attempt made. Card Number: " + cardNumber;
+            sms.style.color= "black"
+            // This code runs no matter what, success or error
+            console.log("Payment attempt made. Card Number: " + cardNumber);
+          }
+        });
+    </script>
+  </body>
+</html>
