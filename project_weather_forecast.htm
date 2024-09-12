@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        
+        #location-input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        
+        #search-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #detect-location-btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .weather-result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .weather-result p {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        #error-message {
+            color: red;
+        }
+        
+     </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Forecast</h1>
+        <div class="search-bar">
+            <input type="text" id="location-input" placeholder="Enter location" />
+            <button id="search-btn">Search</button>
+        </div>
+        <div class="auto-detect">
+            <button id="detect-location-btn">Detect My Location</button>
+        </div>
+        <div id="weather-result" class="weather-result">
+            <!-- Weather forecast will be displayed here -->
+        </div>
+    </div>
+
+    <!-- <script src="script.js"></script> -->
+     <script>
+        // Weather API Key (Sign up at https://openweathermap.org/api)
+const apiKey = 'ae18c68ad5c166fa37f8ac1d0509a6ed';
+const apiBaseUrl = 'https://api.openweathermap.org/data/2.5/weather';
+
+document.getElementById('search-btn').addEventListener('click', () => {
+    const location = document.getElementById('location-input').value;
+    if (location) {
+        getWeather(location);
+    }
+});
+
+document.getElementById('detect-location-btn').addEventListener('click', () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const { latitude, longitude } = position.coords;
+            getWeatherByCoordinates(latitude, longitude);
+        }, error => {
+            showError("Unable to detect your location.");
+        });
+    } else {
+        showError("Geolocation is not supported by your browser.");
+    }
+});
+
+// Fetch weather by location name
+function getWeather(location) {
+    const url = `${apiBaseUrl}?q=${location}&appid=${apiKey}&units=metric`;
+    fetchWeather(url);
+}
+
+// Fetch weather by coordinates (latitude and longitude)
+function getWeatherByCoordinates(latitude, longitude) {
+    const url = `${apiBaseUrl}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+    fetchWeather(url);
+}
+
+// General function to fetch weather
+function fetchWeather(url) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => displayWeather(data))
+        .catch(error => {
+            showError("Something went wrong. Please try again.");
+        });
+}
+
+// Display weather data
+function displayWeather(data) {
+    const weatherResult = document.getElementById('weather-result');
+    
+    if (data.cod === 200) {
+        const weather = data.weather[0];
+        const temperature = data.main.temp;
+        const location = data.name;
+        const description = weather.description;
+
+        weatherResult.innerHTML = `
+            <p><strong>Location:</strong> ${location}</p>
+            <p><strong>Temperature:</strong> ${temperature}°C</p>
+            <p><strong>Condition:</strong> ${description}</p>
+        `;
+    } else {
+        showError("Location not found. Please try a different search.");
+    }
+}
+
+// Show error message
+function showError(message) {
+    const weatherResult = document.getElementById('weather-result');
+    weatherResult.innerHTML = `<p id="error-message">${message}</p>`;
+}
+
+     </script>
+</body>
+</html>
