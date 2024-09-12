@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Forecast App</title>
+    <style>
+      /* Global Styles */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom right, #00c6ff, #0072ff);
+        color: #ffffff;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-top: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      label {
+        font-size: 1.2rem;
+        margin-right: 10px;
+      }
+
+      input,
+      select,
+      button {
+        padding: 10px;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        border: none;
+        margin: 10px;
+      }
+      #suggestions {
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        width: 250px;
+        max-height: 150px;
+        overflow-y: auto;
+        z-index: 100;
+      }
+      .fade-in {
+        animation: fadeIn 1s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      #suggestions li {
+        padding: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      #suggestions li:hover {
+        background: #f0f0f0;
+      }
+
+      input {
+        width: 250px;
+      }
+
+      button {
+        background-color: #0072ff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #005bb5;
+      }
+
+      #forecastDuration {
+        width: 150px;
+      }
+
+      /* Weather and Forecast Display */
+      #weatherDisplay,
+      #forecastDisplay {
+        margin-top: 20px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        width: 90%;
+        max-width: 700px;
+        text-align: left;
+      }
+
+      #weatherDisplay h2,
+      #forecastDisplay h2 {
+        font-size: 2rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      #currentWeather,
+      #forecastDetails {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      #forecastDetails > div {
+        margin-top: 15px;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+      }
+
+      /* Input and Buttons Container */
+      div {
+        margin-bottom: 20px;
+      }
+
+      /* Small responsive tweaks */
+      @media (max-width: 768px) {
+        input {
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather Forecast Application</h1>
+
+    <!-- Location Input -->
+    <div>
+      <label for="location">Enter Location:</label>
+      <input
+        type="text"
+        id="location"
+        placeholder="Enter city or location name"
+      />
+      <button onclick="getWeatherByCity()">Get Weather</button>
+      <button onclick="getWeatherByGeolocation()">Use My Location</button>
+    </div>
+
+    <!-- Forecast Options -->
+    <div>
+      <label for="forecastDuration">Select Forecast Duration:</label>
+      <select id="forecastDuration">
+        <option value="3">3 Days</option>
+        <option value="7">7 Days</option>
+        <option value="30">30 Days</option>
+      </select>
+      <button onclick="getWeatherForecast()">Get Forecast</button>
+    </div>
+    <!-- Location Input -->
+    <div>
+      <label for="location">Enter Location:</label>
+      <input
+        type="text"
+        id="location"
+        placeholder="Enter city or location name"
+      />
+      <button onclick="getWeatherByCity()">Get Weather</button>
+      <button onclick="getWeatherByGeolocation()">Use My Location</button>
+      <ul
+        id="suggestions"
+        style="
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          background: #fff;
+          position: absolute;
+          width: 250px;
+        "
+      ></ul>
+    </div>
+
+    <!-- Weather Display -->
+    <div id="weatherDisplay" style="margin-top: 20px">
+      <h2>Current Weather</h2>
+      <p id="currentWeather"></p>
+    </div>
+
+    <!-- Forecast Display -->
+    <div id="forecastDisplay" style="margin-top: 20px">
+      <h2>Forecast</h2>
+      <div id="forecastDetails"></div>
+    </div>
+
+    <script>
+      // Your JavaScript code will go here (You'll handle the OpenWeatherMap API, geolocation, and UI updates).
+      const apiKey = "ae18c68ad5c166fa37f8ac1d0509a6ed"; // Your OpenWeatherMap API key
+      let selectedCity = "";
+
+      // Function to get weather data by city name
+      async function getWeatherByCity() {
+        const city = document.getElementById("location").value.trim();
+        if (!city) {
+          alert("Please enter a city name.");
+          return;
+        }
+        selectedCity = city;
+        fetchWeatherData(city);
+      }
+
+      // Function to get weather data using geolocation
+      function getWeatherByGeolocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            selectedCity = "";
+            fetchWeatherDataByCoords(lat, lon);
+          }, showError);
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+
+      // Function to fetch weather data by city
+      async function fetchWeatherData(city) {
+        try {
+          const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+          );
+          const data = await response.json();
+          if (data.cod === 200) {
+            displayCurrentWeather(data);
+          } else {
+            alert("City not found. Please try again.");
+          }
+        } catch (error) {
+          console.error("Error fetching weather data:", error);
+        }
+      }
+
+      // Function to fetch weather data by coordinates
+      async function fetchWeatherDataByCoords(lat, lon) {
+        try {
+          const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+          );
+          const data = await response.json();
+          displayCurrentWeather(data);
+        } catch (error) {
+          console.error("Error fetching weather data by coordinates:", error);
+        }
+      }
+
+      // Function to display current weather
+      function displayCurrentWeather(data) {
+        const weatherDiv = document.getElementById("currentWeather");
+        weatherDiv.innerHTML = `
+        <p><strong>Location:</strong> ${data.name}</p>
+        <p><strong>Temperature:</strong> ${data.main.temp} °C</p>
+        <p><strong>Humidity:</strong> ${data.main.humidity} %</p>
+        <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+        <p><strong>Condition:</strong> ${data.weather[0].description}</p>
+        <img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="${data.weather[0].description}">
+    `;
+      }
+
+      // Function to get forecast based on selected duration (3, 7, or 30 days)
+      async function getWeatherForecast() {
+        const days = document.getElementById("forecastDuration").value;
+        if (!selectedCity) {
+          alert("Please select a city or use geolocation.");
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/forecast?q=${selectedCity}&cnt=${days}&appid=${apiKey}&units=metric`
+          );
+          const data = await response.json();
+          displayForecast(data, days);
+        } catch (error) {
+          console.error("Error fetching forecast data:", error);
+        }
+      }
+
+      // Function to display the forecast
+      function displayForecast(data, days) {
+        const forecastDiv = document.getElementById("forecastDetails");
+        forecastDiv.innerHTML = `<h3>${days}-Day Forecast</h3>`;
+        data.list.forEach((forecast) => {
+          const date = new Date(forecast.dt * 1000).toLocaleDateString();
+          forecastDiv.innerHTML += `
+            <div>
+                <p><strong>Date:</strong> ${date}</p>
+                <p><strong>Temperature:</strong> ${forecast.main.temp} °C</p>
+                <p><strong>Humidity:</strong> ${forecast.main.humidity} %</p>
+                <p><strong>Wind Speed:</strong> ${forecast.wind.speed} m/s</p>
+                <p><strong>Condition:</strong> ${forecast.weather[0].description}</p>
+                <img src="https://openweathermap.org/img/w/${forecast.weather[0].icon}.png" alt="${forecast.weather[0].description}">
+            </div>
+        `;
+        });
+      }
+
+      // Function to handle geolocation errors
+      function showError(error) {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+          case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.");
+            break;
+        }
+      }
+
+      // Function to show city suggestions in the search bar
+      function citySuggestions() {
+        const input = document.getElementById("location");
+        const suggestionList = document.getElementById("suggestions");
+        const cities = [
+          "New York",
+          "Los Angeles",
+          "Chicago",
+          "Houston",
+          "London",
+          "Paris",
+          "Berlin",
+          "Tokyo",
+          "Sydney",
+          "Mumbai",
+        ];
+
+        input.addEventListener("input", () => {
+          const query = input.value.toLowerCase();
+          suggestionList.innerHTML = "";
+          if (query) {
+            const suggestions = cities.filter((city) =>
+              city.toLowerCase().startsWith(query)
+            );
+            suggestions.forEach((city) => {
+              const suggestionItem = document.createElement("li");
+              suggestionItem.textContent = city;
+              suggestionItem.onclick = () => {
+                input.value = city;
+                suggestionList.innerHTML = "";
+              };
+              suggestionList.appendChild(suggestionItem);
+            });
+          }
+        });
+      }
+
+      // Initialize city suggestions on page load
+      window.onload = citySuggestions;
+    </script>
+  </body>
+</html>

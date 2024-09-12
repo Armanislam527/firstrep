@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Browser Location</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      #location {
+        font-size: 1.2em;
+        margin-top: 20px;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Browser Geolocation</h1>
+    <p>Click the button below to get your current location:</p>
+    <button onclick="getLocation()">Get Location</button>
+
+    <div id="location"></div>
+
+    <script>
+      function getLocation() {
+        const locationElement = document.getElementById("location");
+
+        // Check if geolocation is supported
+        if (navigator.geolocation)
+         {
+          // Get the current position
+          navigator.geolocation.getCurrentPosition(showPosition, showError);
+          locationElement.innerHTML = "Getting location...";
+        } else {
+          locationElement.innerHTML =
+            "Geolocation is not supported by this browser.";
+        }
+      }
+
+      // Function to show the position (latitude and longitude)
+      function showPosition(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const accuracy = position.coords.accuracy;
+
+        document.getElementById("location").innerHTML = `
+                <p><strong>Latitude:</strong> ${latitude}</p>
+                <p><strong>Longitude:</strong> ${longitude}</p>
+                <p><strong>Accuracy:</strong> ${accuracy} meters</p>
+                <p><a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">View on Google Maps</a></p>
+            `;
+      }
+
+      // Function to handle errors
+      function showError(error) {
+        let message = "";
+
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            message = "User denied the request for Geolocation.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            message = "Location information is unavailable.";
+            break;
+          case error.TIMEOUT:
+            message = "The request to get user location timed out.";
+            break;
+          case error.UNKNOWN_ERROR:
+            message = "An unknown error occurred.";
+            break;
+        }
+
+        document.getElementById(
+          "location"
+        ).innerHTML = `<p class="error">${message}</p>`;
+      }
+    </script>
+  </body>
+</html>
