@@ -219,6 +219,7 @@
             <label for="location">Enter Location:</label>
             <input type="text" id="location" placeholder="Enter city or location name" autocomplete="off">
             <ul id="suggestions"></ul>
+            <div id="jiolocation"></div>
             <button onclick="getWeatherByCity()">Get Weather</button>
             <button onclick="getWeatherByGeolocation()">Use My Location</button>
         </section>
@@ -270,6 +271,7 @@ const airQualitySpan = document.getElementById('airQuality');
 const sunriseSpan = document.getElementById('sunrise');
 const sunsetSpan = document.getElementById('sunset');
 const loadingDiv = document.getElementById('loading');
+const jiolocation = document.getElementById('jiolocation');
 
 // Function to fetch weather data by city name
 async function getWeatherByCity() {
@@ -300,7 +302,11 @@ function getWeatherByGeolocation() {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             await fetchWeatherData(lat, lon);
-        }, (error) => {
+            jiolocation.innerHTML = 
+            <p><strong>Location:</strong> ${lat}</p>
+            <!-- <p><strong>Temperature:</strong> ${temperature}°C</p>
+            <p><strong>Condition:</strong> ${description}</p>
+        }, (error) => { -->
             alert('Unable to retrieve location. Please enter manually.');
         });
     } else {
