@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DOM tree</title>
-</head>
-<body>
-    <div class="item">Item 1</div>
-<div class="item">Item 2</div>
+  </head>
+  <body>
+    <div id="head">old header</div>
     <div id="container">Hello, World!</div>
-<script>
-    let items = document.getElementsByClassName('item');
-    console.log(items[0].innerText);  // Output: "Item 1"
-    let container = document.getElementById('container');
-    console.log(container.innerText);  // Output: "Hello, World!"
-</script>
-
-</body>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <script>
+      let item = document.getElementsByClassName("item");
+      console.log(item[1].innerText); // Output: "Item 1"
+      let container = document.getElementById("container");
+      console.log(container.innerText); // Output: "Hello, World!"
+      container = document.querySelector("#container");
+      let firstitem = document.querySelector(".item");
+      console.log(container.innerHTML);
+      console.log(firstitem.innerText);
+      let items = document.querySelectorAll(".item");
+      items.forEach((items) => {
+        console.log(items.innerHTML);
+      });
+      let header = document.getElementById("head");
+      header.innerText =
+        "new header which s replaced this replacer is samne to textcontent";
+      container.innerHTML =
+        "<strong>new content added that are strong</strong>";
+    </script>
+  </body>
 </html>
