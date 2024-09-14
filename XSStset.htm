@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS Test</title>
+</head>
+<body>
+    <h1>XSS Vulnerability Test</h1>
+    
+    <!-- Form where user submits input -->
+    <form id="testForm" onsubmit="return false;">
+        <label for="inputField">Enter some text:</label>
+        <input type="text" id="inputField" />
+        <button onclick="submitInput()">Submit</button>
+    </form>
+
+    <!-- Div where the input will be reflected -->
+    <div id="outputs"></div>
+
+    <script>
+        alert('XSS Attack!')
+        function submitInput() {
+            // Grabbing user input
+            let userInput = document.getElementById('inputField').value;
+
+            // Reflecting input back to the page using innerHTML (unsafe!)
+            document.getElementById('outputs').innerHTML = "You entered: " + userInput;
+        }
+    </script>
+</body>
+</html>
