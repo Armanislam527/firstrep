@@ -13,7 +13,18 @@
     <div class="item">Item 3</div>
     <div id="deletion">item to be delete</div>
     <img src="favicon.ico" alt="hare is an image" />
+    <button id="btn">click me</button>
     <button onclick="location.reload();">Reload Page</button>
+    <div id="outerdiv">
+      <button id="innerbtn">click</button>
+    </div>
+    <h2>click the list below to see effect</h2>
+    <ul id="itemlist">
+      <li>list 1</li>
+      <li>list 2</li>
+      <li>list 3</li>
+      <li>list 4</li>
+    </ul>
     <script>
       let item = document.getElementsByClassName("item");
       console.log(item[1].innerText); // Output: "Item 1"
@@ -42,11 +53,40 @@
       newElement.innerText =
         "i am new div! here insertbefore is need to know more";
       container.append(newElement);
-      <!-- container.insertBefore(item); -->
+      console.error("<!-- container.insertBefore(item); need to learn -->");
       deletion = document.getElementById("deletion");
       deletion.remove();
-      <!-- here removechild is need to learn -->
-      console.error('some error is occured here');
+
+      console.error(" <!-- here removechild is need to learn -->");
+      let btn = document.querySelector("#btn");
+      btn.addEventListener("click", function () {
+        location.reload();
+        alert(
+          " hey boss. now the page is reloaded why are you click the buttton and the button is clicked by you"
+        );
+      });
+      console.error("removeeventlistener is need to learn");
+      console.error('function handleClick() {alert("Button clicked!");}');
+      document
+        .getElementById("outerdiv")
+        .addEventListener("click", function () {
+          alert("outerdiv is clicked (event bubbling)");
+        });
+      document
+        .getElementById("innerbtn")
+        .addEventListener("click", function (event) {
+          alert("iinner button is clicked (event capture)");
+          event.stopPropagation();
+        });
+      let itemlist = document.getElementById('itemlist');
+      itemlist.addEventListener("click", function (event) {
+
+          alert(event.target.innerText + "clicked");
+        <!-- this word can be done also by this method  if (event.target && event.target.nodeName == 'LI') {
+          alert(event.target.innerText + ' clicked');
+      } -->
+      });
+      console.error('what is nodename and what is iits purpose')
     </script>
   </body>
 </html>
