@@ -25,6 +25,10 @@
       <li>list 3</li>
       <li>list 4</li>
     </ul>
+    <form action="post" id="myform">
+      <input type="text" id="nameinput" placeholder="Enter your name" />
+      <button type="submit">Submit</button>
+    </form>
     <script>
       let item = document.getElementsByClassName("item");
       console.log(item[1].innerText); // Output: "Item 1"
@@ -56,7 +60,6 @@
       console.error("<!-- container.insertBefore(item); need to learn -->");
       deletion = document.getElementById("deletion");
       deletion.remove();
-
       console.error(" <!-- here removechild is need to learn -->");
       let btn = document.querySelector("#btn");
       btn.addEventListener("click", function () {
@@ -78,15 +81,22 @@
           alert("iinner button is clicked (event capture)");
           event.stopPropagation();
         });
-      let itemlist = document.getElementById('itemlist');
+      let itemlist = document.getElementById("itemlist");
       itemlist.addEventListener("click", function (event) {
-
-          alert(event.target.innerText + "clicked");
-        <!-- this word can be done also by this method  if (event.target && event.target.nodeName == 'LI') {
-          alert(event.target.innerText + ' clicked');
-      } -->
+        alert(event.target.innerText + " clicked");
+        //   this word can be done also by this method
+        // if (event.target && event.target.nodeName == 'LI') {
+        //   alert(event.target.innerText  + ' clicked');
+        //}
       });
-      console.error('what is nodename and what is iits purpose')
+      console.error("what is nodename and what is iits purpose");
+      document
+        .getElementById("myform")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          let name = document.getElementById("nameinput").value;
+          alert("Form submitted with name:   " + name);
+        });
     </script>
   </body>
 </html>
