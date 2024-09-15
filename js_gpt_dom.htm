@@ -11,6 +11,9 @@
     <div class="item">Item 1</div>
     <div class="item">Item 2</div>
     <div class="item">Item 3</div>
+    <div id="deletion">item to be delete</div>
+    <img src="favicon.ico" alt="hare is an image" />
+    <button onclick="location.reload();">Reload Page</button>
     <script>
       let item = document.getElementsByClassName("item");
       console.log(item[1].innerText); // Output: "Item 1"
@@ -26,9 +29,24 @@
       });
       let header = document.getElementById("head");
       header.innerText =
-        "new header which s replaced this replacer is samne to textcontent";
+        "this is new text which is replaced by += " + header.innerText;
       container.innerHTML =
         "<strong>new content added that are strong</strong>";
+      let image = document.querySelector("img");
+      image.setAttribute("src", "arman.jpg");
+      image.setAttribute("height", "30px");
+      image.style.borderRadius = "30px";
+      let src = image.getAttribute("src");
+      console.log(src);
+      let newElement = document.createElement("div");
+      newElement.innerText =
+        "i am new div! here insertbefore is need to know more";
+      container.append(newElement);
+      <!-- container.insertBefore(item); -->
+      deletion = document.getElementById("deletion");
+      deletion.remove();
+      <!-- here removechild is need to learn -->
+      console.error('some error is occured here');
     </script>
   </body>
 </html>
