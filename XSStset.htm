@@ -7,7 +7,8 @@
 </head>
 <body>
     <h1>XSS Vulnerability Test</h1>
-    
+    <!-- <button onclick="location.reload();">Reload Page</button> -->
+
     <!-- Form where user submits input -->
     <form id="testForm" onsubmit="return false;">
         <label for="inputField">Enter some text:</label>
@@ -19,10 +20,10 @@
     <div id="outputs"></div>
 
     <script>
-        alert('XSS Attack!')
         function submitInput() {
             // Grabbing user input
             let userInput = document.getElementById('inputField').value;
+            <!-- location.reload(true); -->
 
             // Reflecting input back to the page using innerHTML (unsafe!)
             document.getElementById('outputs').innerHTML = "You entered: " + userInput;
