@@ -17,6 +17,7 @@
     <button onclick="location.reload();">Reload Page</button>
     <div id="outerdiv">
       <button id="innerbtn">click</button>
+      <button id="hoverbtn">Hover over me</button>
     </div>
     <h2>click the list below to see effect</h2>
     <ul id="itemlist">
@@ -28,7 +29,19 @@
     <form action="post" id="myform">
       <input type="text" id="nameinput" placeholder="Enter your name" />
       <button type="submit">Submit</button>
+      <input
+        type="text"
+        id="nameInput"
+        placeholder="ctrl+shift+i and type here"
+      />
     </form>
+    <button id="draggable" draggable="true">Drag Me!</button>
+    <div
+      id="dropzone"
+      style="width: 200px; height: 200px; background: lightblue"
+    >
+      Drop Here!
+    </div>
     <script>
       let item = document.getElementsByClassName("item");
       console.log(item[1].innerText); // Output: "Item 1"
@@ -97,6 +110,44 @@
           let name = document.getElementById("nameinput").value;
           alert("Form submitted with name:   " + name);
         });
+      console.error("learn about input and change event");
+      console.error("about keyboard event");
+      document
+        .getElementById("nameInput")
+        .addEventListener("keydown", function (event) {
+          console.log("key pressed down: " + event.key);
+        });
+      document
+        .getElementById("nameInput")
+        .addEventListener("keyup", function (event) {
+          console.log("key pressed ^: " + event.key);
+        });
+      console.error("need to know about keyboard shortcut");
+      let hover = document.getElementById("hoverbtn");
+      hover.addEventListener("mouseenter", function () {
+        hover.innerText = "mouse is over";
+      });
+      hover.addEventListener("mouseleave", function () {
+        hover.innerText = "you pass going throught me";
+      });
+      console.error("more about mouse pointing");
+
+      let dragitem = document.getElementById("draggable");
+      let dropzone = document.getElementById("dropzone");
+      dragitem.addEventListener("dragstart", function (event) {
+        even.dataTransfer.setData("text", event.target.id);
+      });
+      dropzone.addEventListener("dragover", function (event) {
+        event.preventDefault();
+      });
+      dropzone.addEventListener("drop", function (event) {
+        event.preventDefault();
+        let data = event.dataTransfer.getData("text");
+        let dragging = document.getElementById(data);
+        dropzone.appendChild(dragging);
+      });
+
+      console.error();
     </script>
   </body>
 </html>
