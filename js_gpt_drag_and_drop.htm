@@ -29,8 +29,8 @@
       dropZone.addEventListener("drop", function (event) {
         event.preventDefault();
         let data = event.dataTransfer.getData("text");
-        let draggedElement = document.getElementById(data);
-        dropZone.appendChild(draggedElement); // Move the dragged element
+        let dragElement = document.getElementById(data);
+        dropZone.appendChild(dragElement); // Move the dragged element
       });
     </script>
   </body>

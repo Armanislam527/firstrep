@@ -131,22 +131,26 @@
         hover.innerText = "you pass going throught me";
       });
       console.error("more about mouse pointing");
+// Define constants for readability
+const DRAGGABLE_ITEM_ID = "draggable";
+const DROPZONE_ID = "dropzone";
 
-      let dragitem = document.getElementById("draggable");
-      let dropzone = document.getElementById("dropzone");
-      dragitem.addEventListener("dragstart", function (event) {
-        even.dataTransfer.setData("text", event.target.id);
+// Get the draggable item and dropzone elements
+let dragitem = document.getElementById(DRAGGABLE_ITEM_ID);
+let dropzone = document.getElementById(DROPZONE_ID);
+
+      dragitem.addEventListener("dragstart", function(event) {
+        event.dataTransfer.setData("text", event.target.id);
       });
-      dropzone.addEventListener("dragover", function (event) {
+      dropzone.addEventListener("dragover", function(event) {
         event.preventDefault();
       });
-      dropzone.addEventListener("drop", function (event) {
+      dropzone.addEventListener("drop", function(event) {
         event.preventDefault();
         let data = event.dataTransfer.getData("text");
-        let dragging = document.getElementById(data);
-        dropzone.appendChild(dragging);
+        let dragElement = document.getElementById(data);
+        dropzone.appendChild(dragElement);
       });
-
       console.error();
     </script>
   </body>
