@@ -35,38 +35,60 @@
         placeholder="ctrl+shift+i and type here"
       />
     </form>
-    <button id="draggable" draggable="true">Drag Me!</button>
-    <div
+    <button id="dr1" class="draggable" draggable="true">Drag Me!</button>
+    <button id="ohuhcvbnl" class="draggable" draggable="true">
+      Drag Me 2!
+    </button>
+    <textarea
       id="dropzone"
+      style="width: 200px; height: 200px; background: lightblue"
+    >
+      Drop Here!
+    </textarea>
+    <div
+      id="dropzone2"
       style="width: 200px; height: 200px; background: lightblue"
     >
       Drop Here!
     </div>
     <script>
       let item = document.getElementsByClassName("item");
-      console.log(item[1].innerText); // Output: "Item 1"
       let container = document.getElementById("container");
+      let firstitem = document.querySelector(".item");
+      let items = document.querySelectorAll(".item");
+      let header = document.getElementById("head");
+      let image = document.querySelector("img");
+      console.log(item[1].innerText); // Output: "Item 1"
       console.log(container.innerText); // Output: "Hello, World!"
       container = document.querySelector("#container");
-      let firstitem = document.querySelector(".item");
       console.log(container.innerHTML);
       console.log(firstitem.innerText);
-      let items = document.querySelectorAll(".item");
       items.forEach((items) => {
         console.log(items.innerHTML);
       });
-      let header = document.getElementById("head");
       header.innerText =
         "this is new text which is replaced by += " + header.innerText;
       container.innerHTML =
         "<strong>new content added that are strong</strong>";
-      let image = document.querySelector("img");
       image.setAttribute("src", "arman.jpg");
       image.setAttribute("height", "30px");
       image.style.borderRadius = "30px";
       let src = image.getAttribute("src");
-      console.log(src);
       let newElement = document.createElement("div");
+      console.log(src);
+      let btn = document.querySelector("#btn");
+      let itemlist = document.getElementById("itemlist");
+      let name = document.getElementById("nameinput").value;
+      let hover = document.getElementById("hoverbtn");
+      // Define constants for readability
+      // Get the draggable item and dropzone elements
+      const DRAGGABLE_ITEM_ID = "draggable";
+      const DROPZONE_ID = "dropzone";
+      let count = 0;
+      let dragitem = document.querySelectorAll(".draggable");
+      let dropzone = document.getElementById(DROPZONE_ID);
+      let data = event.dataTransfer.getData("text");
+      let dragElement = document.getElementById(data);
       newElement.innerText =
         "i am new div! here insertbefore is need to know more";
       container.append(newElement);
@@ -74,7 +96,6 @@
       deletion = document.getElementById("deletion");
       deletion.remove();
       console.error(" <!-- here removechild is need to learn -->");
-      let btn = document.querySelector("#btn");
       btn.addEventListener("click", function () {
         location.reload();
         alert(
@@ -94,7 +115,6 @@
           alert("iinner button is clicked (event capture)");
           event.stopPropagation();
         });
-      let itemlist = document.getElementById("itemlist");
       itemlist.addEventListener("click", function (event) {
         alert(event.target.innerText + " clicked");
         //   this word can be done also by this method
@@ -107,7 +127,6 @@
         .getElementById("myform")
         .addEventListener("submit", function (event) {
           event.preventDefault();
-          let name = document.getElementById("nameinput").value;
           alert("Form submitted with name:   " + name);
         });
       console.error("learn about input and change event");
@@ -123,7 +142,6 @@
           console.log("key pressed ^: " + event.key);
         });
       console.error("need to know about keyboard shortcut");
-      let hover = document.getElementById("hoverbtn");
       hover.addEventListener("mouseenter", function () {
         hover.innerText = "mouse is over";
       });
@@ -131,25 +149,27 @@
         hover.innerText = "you pass going throught me";
       });
       console.error("more about mouse pointing");
-// Define constants for readability
-const DRAGGABLE_ITEM_ID = "draggable";
-const DROPZONE_ID = "dropzone";
 
-// Get the draggable item and dropzone elements
-let dragitem = document.getElementById(DRAGGABLE_ITEM_ID);
-let dropzone = document.getElementById(DROPZONE_ID);
-
-      dragitem.addEventListener("dragstart", function(event) {
-        event.dataTransfer.setData("text", event.target.id);
+      dragitem.forEach((item) => {
+        item.addEventListener("dragstart", function (event) {
+          event.dataTransfer.setData("text", event.target.id);
+        });
       });
-      dropzone.addEventListener("dragover", function(event) {
+      dropzone.addEventListener("dragover", function (event) {
         event.preventDefault();
       });
-      dropzone.addEventListener("drop", function(event) {
+      dropzone.addEventListener("drop", function (event) {
         event.preventDefault();
-        let data = event.dataTransfer.getData("text");
-        let dragElement = document.getElementById(data);
         dropzone.appendChild(dragElement);
+        count += 1;
+        console.log(count);
+        if (count === 1) {
+          dropzone.innerText = "yeah boss this is vanished try another";
+        }
+        if (count === 2) {
+          dropzone.innerText =
+            " all drag item is vanished and mind it you can resize the box";
+        }
       });
       console.error();
     </script>

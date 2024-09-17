@@ -27,7 +27,7 @@
       });
 
       dropZone.addEventListener("drop", function (event) {
-        event.preventDefault();
+        //event.preventDefault();
         let data = event.dataTransfer.getData("text");
         let dragElement = document.getElementById(data);
         dropZone.appendChild(dragElement); // Move the dragged element
