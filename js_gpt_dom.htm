@@ -26,7 +26,8 @@
       <li>list 3</li>
       <li>list 4</li>
     </ul>
-    <form action="post" id="myform">
+    <button id="customEventButton">Click Me customEventButton</button>
+    <form id="myform">
       <input type="text" id="nameinput" placeholder="Enter your name" />
       <button type="submit">Submit</button>
       <input
@@ -49,7 +50,7 @@
       class="dropping"
       style="width: 200px; height: 200px; background: lightblue"
     >
-     Firstly Drop Here!
+      Firstly Drop Here!
     </div>
     <textarea
       id="dropzone"
@@ -59,6 +60,8 @@
     Then  Drop Here!
     </textarea>
     <div id="outputdiv"></div>
+    <div id="hostel">host of shadow</div>
+    <div id="containing">here will 1000 div</div>
     <script>
       let item = document.getElementsByClassName("item");
       let container = document.getElementById("container");
@@ -155,10 +158,10 @@
       // Get the draggable item and dropzone elements
       let dragitem = document.querySelectorAll(".draggable");
       let number = dragitem.length;
-      console.log(number)
-let messagebox=document.getElementById('messagebox');
+      console.log(number);
+      let messagebox = document.getElementById("messagebox");
       let outputdiv = document.getElementById("outputdiv");
-       messagebox.innerText = "your number of dragging element is: " + number;
+      messagebox.innerText = "your number of dragging element is: " + number;
       let dropzone = document.querySelectorAll(".dropping");
       dragitem.forEach((item) => {
         item.addEventListener("dragstart", function (event) {
@@ -189,8 +192,37 @@ let messagebox=document.getElementById('messagebox');
           }
         });
       });
-      console.error('DOM traversal');
-       console.error();
+      console.error("DOM traversal");
+      // Use Document Fragments:
+      let fragment = document.createDocumentFragment();
+      for (let i = 0; i <= 1000; i++) {
+        let newElement = document.createElement("div");
+        newElement.innerText = "Item  " + i;
+        fragment.appendChild(newElement);
+      }
+      document.body.appendChild(fragment);
+      // Mutation Observers
+      let targetnode = document.body;
+      let observer = new MutationObserver(function (Mutations) {
+        Mutations.forEach(function (Mutation) {
+          console.log("dom changed:", Mutation);
+        });
+      });
+      observer.observe(targetnode, { childList: true, subtree: true });
+      let hostel = document.getElementById("hostel");
+      let shadow = hostel.attachShadow({ mode: "open" });
+      shadow.innerHTML = `<p>This is inside the shadow DOM</p>`;
+      let button = document.getElementById("customEventButton");
+      button.addEventListener("click", function () {
+        let customevent = new CustomEvent("myCustomEvent", {
+          detail: { message: "hello from custom event" },
+        });
+        button.dispatchEvent(customevent);
+      });
+      button.addEventListener("myCustomEvent", function (event) {
+        alert(event.detail.message);
+      });
+      console.error();
     </script>
   </body>
 </html>
