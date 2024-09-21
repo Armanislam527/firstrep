@@ -225,7 +225,7 @@
       });
       console.error('mutation observer,dom shadow,custom event');
       async function fetchData(){
-        let response = await fetch('https://jsonplaceholder.typicode/posts');
+        let response = await fetch('https://jsonplaceholder.typicode.com/posts');
         let info = await response.json();
         let  datacont = document.getElementById('dataContainer');
         info.forEach(post=>{
