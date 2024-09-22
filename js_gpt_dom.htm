@@ -270,7 +270,22 @@
       document
         .getElementById("closureButton")
         .addEventListener("click", createClickHandler());
-      console.error();
+        console.error('lazy loading images, infinite scrolling, or triggering animations when an element is in view.');
+       /* throttling*/
+        function throttle(func ,limit){
+          let inThrottle;
+          return function(){
+            if(!inThrottle){
+            func();
+            inThrottle =true;
+            setTimeout(() => inThrottle = false,limit);
+            }
+          }
+        }
+        window.addEventListener('scroll',throttle(() =>{
+          console.log('Throttled Scroll Event');
+        },1000));
+        console.error('');
     </script>
   </body>
 </html>
