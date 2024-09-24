@@ -6,12 +6,16 @@
     <title>DOM tree</title>
   </head>
   <body>
+    <div id="templateContainer"></div>
     <div id="head">old header</div>
     <div id="container">Hello, World!</div>
     <div class="item">Item 1</div>
     <div class="item">Item 2</div>
     <div class="item">Item 3</div>
     <div id="deletion">item to be delete</div>
+    <div id="observeMe" style="height: 200px; background: lightcoral">
+      Observe Me
+    </div>
     <img src="favicon.ico" alt="hare is an image" />
     <button id="btn">click me</button>
     <button onclick="location.reload();">Reload Page</button>
@@ -64,7 +68,17 @@
     <div id="hostel">host of shadow</div>
     <div id="containing">here will 1000 div</div>
     <div id="dataContainer"></div>
+
     <script>
+      let name = "Arman Islam";
+      let age = 22;
+      let contenti = `
+        <div>
+        <h1> Name : ${name}</h1>
+        <p>Age : ${age}</p>
+      </div>
+      `;
+      document.getElementById("templateContainer").innerHTML = contenti;
       let item = document.getElementsByClassName("item");
       let container = document.getElementById("container");
       console.log(item[1].innerText); // Output: "Item 1"
@@ -96,6 +110,15 @@
       deletion = document.getElementById("deletion");
       deletion.remove();
       console.error(" <!-- here removechild is need to learn -->");
+      let observers = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            alert("Element is visible!");
+          }
+        });
+      });
+      let targeting = document.getElementById("observeMe");
+      /*observers.observe(targeting);*/
       let btn = document.querySelector("#btn");
       btn.addEventListener("click", function () {
         location.reload();
@@ -263,29 +286,40 @@
       function createClickHandler() {
         let sum = 0;
         return function () {
-          sum+=1;
+          sum += 1;
           alert("Button Clicked " + sum + " Times");
         };
       }
       document
         .getElementById("closureButton")
         .addEventListener("click", createClickHandler());
-        console.error('lazy loading images, infinite scrolling, or triggering animations when an element is in view.');
-       /* throttling*/
-        function throttle(func ,limit){
-          let inThrottle;
-          return function(){
-            if(!inThrottle){
+      console.error(
+        "lazy loading images, infinite scrolling, or triggering animations when an element is in view."
+      );
+      /* throttling*/
+      function throttle(func, limit) {
+        let inThrottle;
+        return function () {
+          if (!inThrottle) {
             func();
-            inThrottle =true;
-            setTimeout(() => inThrottle = false,limit);
-            }
+            inThrottle = true;
+            setTimeout(() => (inThrottle = false), limit);
           }
-        }
-        window.addEventListener('scroll',throttle(() =>{
-          console.log('Throttled Scroll Event');
-        },1000));
-        console.error('');
+        };
+      }
+      window.addEventListener(
+        "scroll",
+        throttle(() => {
+          console.log("Throttled Scroll Event");
+        }, 1000)
+      );
+      document.addEventListener('DOMContentLoaded',function(){
+        console.log('Dom fully loaded and parsed');
+      });
+      window.addEventListener('load',function(){
+        console.log('All resources finished loading');
+      });
+      console.error("");
     </script>
   </body>
 </html>
