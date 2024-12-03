@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>use of this with bind call and apply</title>
+  </head>
+  <body>
+    <h1>use of this with bind call and apply</h1>
+    <script>
+      console.log(this); // What is `this` here?
+      ("use strict");
+
+      function checkThis() {
+        console.log(this);
+      }
+
+      checkThis(); // What happens now?
+      const person = {
+        name: "Arman Islam",
+        sayName: function () {
+          console.log(this.name);
+        },
+      };
+
+      person.sayName(); // What does `this` refer to?
+      const detachedSayName = person.sayName;
+      detachedSayName(); // What happens to `this`?
+      const user = {
+        name: "Khadiza Akter",
+        greet: function () {
+          console.log("Method this:", this);
+          const arrowGreet = () => {
+            console.log("Arrow this:", this);
+          };
+          arrowGreet();
+        },
+      };
+
+      user.greet();
+    </script>
+  </body>
+</html>
