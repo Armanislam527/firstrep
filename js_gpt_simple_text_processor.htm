@@ -10,9 +10,17 @@
     <p>Enter some text to see various transformations:</p>
 
     <!-- Input form -->
-    <input type="text" id="userInput" placeholder="Type something here" />
+    <!-- <input type="text" id="userInput" placeholder="Type something here" /> -->
+    <textarea name="arman" id="userInput">Type something here</textarea>
     <button onclick="processText()">Process Text</button>
-
+    <button
+      type="button"
+      class="btn btn-info print-button"
+      id="printbtn"
+      onclick="window.print();"
+    >
+      Print
+    </button>
     <!-- Display results -->
     <h2>Results:</h2>
     <p id="originalText"></p>
@@ -26,6 +34,13 @@
     <p id="paddedText"></p>
     <p id="repeatedText"></p>
     <p id="regexResult"></p>
+    <button
+      id="print"
+      style="height: 20px; width: 100px; background: azure; border-radius: 10px"
+      onclick="printitem()"
+    >
+      print page
+    </button>
 
     <script>
       function processText() {
@@ -93,6 +108,9 @@
         document.getElementById(
           "regexResult"
         ).innerText = `Contains 'hello': ${isFound}`;
+      }
+      function printitem() {
+        print();
       }
     </script>
   </body>
