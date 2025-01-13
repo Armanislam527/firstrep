@@ -27,6 +27,19 @@ img{
     border-radius: 70px;
     /* object-fit: cover; */
 }
+#headline{
+    height: 21px;
+    width: 12100px;
+    background-color: red;
+    /* background-image: url(arman.jpg);
+    background-position: center center;
+    object-fit: cover; */
+    border-radius: 70px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: animateX 10s linear infinite reverse;
+}
         .container {
             position: relative;
             height: 80vh;
@@ -51,14 +64,14 @@ img{
                 background: antiquewhite;
             }
             100%{
-background-color: yellow;
+            background-color: yellow;
             }
 
         }
 
         @keyframes animateX {
             from {
-                left: 0;
+                left: -50;
             }
 
             to {
@@ -84,9 +97,7 @@ background-color: yellow;
             <img src="arman.jpg" alt="">
         </div>
     </div>
-    <!-- 
-   
-     -->
+    <div id="headline">this is a headline from arman islam runner who is now learning front-end devolopment with html-5 css-3 javascript and learning </div>
 </body>
 
 </html>
