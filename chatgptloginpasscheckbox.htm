@@ -20,13 +20,57 @@
         margin-bottom: 10px;
       }
       .login-container input[type="text"],
-      .login-container input[type="password"] {
+      .login-container input[type="password"] ,#submit
+      {
         width: calc(100% - 20px);
         padding: 10px;
         margin-bottom: 10px;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 30px;
         box-sizing: border-box;
+      }
+      .login-container input[type="text"]:focus,
+      .login-container input[type="password"]:focus
+      {
+        background-color: antiquewhite;
+      }/* Focus styles for the input fields */
+.login-container input[type="text"]:focus::placeholder,
+.login-container input[type="password"]:focus::placeholder {
+  transform: translateY(10px); /* Move placeholder text to the bottom */
+  font-size: 12px; /* Adjust font size if necessary */
+  color: #888; /* Placeholder color */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+  background-color: antiquewhite;
+  box-shadow: 0 0 5px 4px rgba(255, 0, 150, 0.5),
+              0 0 16px 8px rgba(0, 150, 255, 0.5);
+  outline: none;
+}
+
+      #submit{
+        background-color: blue;
+        color:aliceblue;
+        font:700;
+        font-family: 'Courier New', Courier, monospace;
+      }
+      #submit:hover{
+        background-color: rgb(117, 117, 247);
+     
+      }   #show-password{
+        border-radius: 20px;
+        background-color: goldenrod;
+      }
+      #numberbox{
+        height: 20px;
+        width: 20px;
+        background-color: red;
+        text-align: center;
+        color: white;
+        border-radius: 50%;
+
       }
     </style>
   </head>
@@ -53,17 +97,21 @@
         />
         <input type="checkbox" id="show-password" />
         <label for="show-password">Show Password</label><br />
-        <input type="submit" value="Login" />
+        <input id="submit" type="submit" value="Login" />
       </form>
+      <div id="numberbox">17</div>
     </div>
 
     <script>
-      document
-        .getElementById("show-password")
-        .addEventListener("change", function () {
+      document.getElementById("show-password").addEventListener("change", function () {
           var passwordField = document.getElementById("password");
           if (this.checked) {
             passwordField.type = "text";
+            passwordField.style=" background-color: antiquewhite;
+  box-shadow: 0 0 5px 4px rgba(255, 0, 150, 0.5),
+              0 0 16px 8px rgba(0, 150, 255, 0.5);
+  outline: none;
+}"
           } else {
             passwordField.type = "password";
           }
