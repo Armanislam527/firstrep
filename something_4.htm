@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>তোমার জন্য ভালোবাসার চিঠি</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fef6f9;
+      font-family: 'Noto Serif Bengali', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background: #ff9aa2;
+      border: 2px solid #ff6f91;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .letter {
+      display: none;
+      position: absolute;
+      top: 110%;
+      width: 90%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-size: 16px;
+      line-height: 1.8;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .twinkle {
+      animation: twinkle 0.5s ease infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { box-shadow: 0 0 5px #fff; }
+      to { box-shadow: 0 0 20px #ff6f91; }
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #ff6f91;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ff4e75;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope" id="envelope">
+    💌 এখানে ক্লিক করো... (একটা চিঠি আছে)
+  </div>
+
+  <div class="letter" id="letter">
+    <p>প্রিয় খাদিজা 🌸,<br><br>
+    ভালোবাসার এ চিঠিটা তোমার জন্য, কেবল তোমার জন্যই। আমাদের ভালোবাসা এক গভীর গল্প—যেখানে সুখ, দুঃখ, অভিমান, হাসি সবই একসাথে গাঁথা। তুমি ১ আগস্ট বঙ্গবন্ধু জাদুঘরে আমার সঙ্গে ছিলে, আর মেট্রো রেলে কার্জন হলের রোমাঞ্চ,তুমি আমার চন্দ্রিমা উদ্যানের বিকেল—সবই আজো আমার মনে জ্বলজ্বল করছে।<br><br>
+    আমি তোমাকে ভালোবাসি, কারণ তুমি সেই একমাত্র মানুষ যে আমার রাগ, আনন্দ, দুঃখ—সবকিছুর অংশ। এই ভালোবাসা কোনো একমুহূর্তের না—এই ভালোবাসা চিরস্থায়ী।<br><br>
+    তুমি আমার চন্দ্রিমা উদ্যানের বিকেল, তুমি আমার ফুচকা ভাগ করে খাওয়ার সঙ্গী, আমি তোমার প্রথম চুমুর হৃদকম্প হতে চাই । তুমি আমার জীবন।<br><br>
+    আজও বলি, আমি তোমার রাগী মানুষ, তোমার তালগাছ, তোমার লজিক ম্যান। তুমি কি আজীবনের জন্য আমার হতে পারো? ❤️<br><br>
+    ভালোবাসায়,<br>
+    - আরমান (A.K.A তোমার তালগাছ 🌴)
+    </p>
+  </div>
+
+  <button onclick="twinkleEffect()">✨ প্রেমের আলো জ্বালাও</button>
+  <button onclick="sendVirtualHug()">🤗 একটা ভার্চুয়াল আলিঙ্গন</button>
+  <button onclick="openLove()">📜 চিঠিটা খুলো</button>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
+
+    function openLove() {
+      letter.style.display = 'block';
+    }
+
+    function twinkleEffect() {
+      envelope.classList.add('twinkle');
+      setTimeout(() => {
+        envelope.classList.remove('twinkle');
+      }, 2000);
+    }
+
+    function sendVirtualHug() {
+      alert("একটা মিষ্টি আলিঙ্গন তোমার জন্য পাঠানো হলো 🤗🥰");
+    }
+  </script>
+</body>
+</html>
