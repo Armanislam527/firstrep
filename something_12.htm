@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A + K Dancing Emoji</title>
+  <style>
+    body {
+      background: #fff0f5;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .emoji {
+      font-size: 80px;
+      animation: dance 2s infinite ease-in-out;
+      margin-bottom: 10px;
+    }
+
+    .names {
+      font-size: 36px;
+      color: #ff69b4;
+      font-weight: bold;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes dance {
+      0% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-20px) rotate(15deg); }
+      50% { transform: translateY(0px) rotate(0deg); }
+      75% { transform: translateY(-20px) rotate(-15deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #ff69b4; }
+      100% { text-shadow: 0 0 20px #ff1493; }
+    }
+  </style>
+</head>
+<body>
+  <div class="emoji">🙂</div>
+  <div class="names">A + K</div>
+</body>
+</html>
