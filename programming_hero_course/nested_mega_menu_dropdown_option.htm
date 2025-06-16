@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nested Mega Menu Dropdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 15px;
+        }
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        li:hover >.sub-menu {
+            display: block;
+        }
+        .sub-menu li {
+            display: block;
+            margin: 0;
+        }    
+        .sub-menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sub-menu a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        .sub-menu a:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nested Mega Menu Dropdown Example</h1>  
+    <nav> 
+        <ul>
+        <li><a href="html_5.htm"> HTML 5 serialization</a></li>
+        <li><a href="form.html"> form submission</a></li>
+        <li><a href="external_css.htm"> external css</a></li>
+        <li><a href="external_css_with-video_access.htm"> CSS learning with video</a>
+        <ul class="sub-menu">
+            <li><a href="html_5.htm"> HTML 5 serialization</a></li>
+            <li><a href="form.html"> form submission</a></li>
+            <li><a href="external_css.htm"> external css</a></li>
+            <li><a href="external_css_with-video_access.htm"> CSS learning with video</a></li>
+            <li><a href="border_border_redius_margin.htm"> border border redius margin</a></li>
+            <li>
+                <a href="css_first_with_form_element_explore.html"> CSS first with form element explore</a>
+            <li>
+                <a href="css_first_with_form_element_explore.html"> CSS first with form element explore</a>
+            <ul class="sub-menu">
+            <li><a href="html_5.htm"> HTML 5 serialization</a></li>
+            <li><a href="form.html"> form submission</a></li>
+            <li><a href="external_css.htm"> external css</a></li>
+            <li><a href="external_css_with-video_access.htm"> CSS learning with video</a></li>
+            <li><a href="border_border_redius_margin.htm"> border border redius margin</a></li>
+            <li><a href="css_first_with_form_element_explore.html"> CSS first with form element explore</a></li>
+        </ul>
+            </li>
+        </ul>
+        </li>
+        <li><a href="border_border_redius_margin.htm"> border border redius margin</a></li>
+        <li><a href="css_first_with_form_element_explore.html"> CSS first with form element explore</a></li>
+    </ul>
+</nav>
+</body>
+</html>
