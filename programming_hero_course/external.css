@@ -1,0 +1,16 @@
+video {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+/* This CSS file is used to style video and image elements in the course */
+/* It ensures that videos and images take up the full width of their container
+   while maintaining their aspect ratio. The object-fit property is used to
+   control how the content of a replaced element, such as a video or image,
+   should be resized to fit its container. */
+/* The 'cover' value ensures that the video or image covers the entire area of                      

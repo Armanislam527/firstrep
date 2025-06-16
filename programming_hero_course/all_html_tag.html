@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Webpage with All HTML Tags</title>
+    <base href="https://example.com/">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .center { text-align: center; } /* Replaces <center> */
+        .big { font-size: larger; } /* Replaces <big> */
+        .strike { text-decoration: line-through; } /* Replaces <strike> */
+        .tt { font-family: monospace; } /* Replaces <tt> */
+    </style>
+</head>
+<body>
+    <header>
+        <hgroup>
+            <h1>Welcome to My Webpage</h1>
+            <h2>A Showcase of HTML Tags</h2>
+        </hgroup>
+        <nav>
+            <menu>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <!-- <menuitem> is obsolete but can be simulated with <li> -->
+            </menu>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <article>
+                <h3>Sample Article</h3>
+                <p>This is a <strong>strongly emphasized</strong> paragraph with an <em>emphasized</em> word and an <i>italic</i> style. Here’s a <b>bold</b> text and a <u>underlined</u> text. We also have a <small>smaller text</small> and a <mark>highlighted</mark> section.</p>
+                <blockquote>
+                    This is a <q>short quote</q> within a blockquote. <cite>—Author Name</cite>
+                </blockquote>
+                <p>Here’s some <code>computer code</code>, <kbd>Ctrl + S</kbd> for keyboard input, and <samp>sample output</samp>. A variable is denoted as <var>x</var>.</p>
+                <p>Deleted text: <del>Old content</del>. Inserted text: <ins>New content</ins>.</p>
+                <p>Definition: <dfn>HTML</dfn> stands for HyperText Markup Language. <abbr title="World Wide Web">WWW</abbr> is an abbreviation.</p>
+                <!-- <acronym>WWW</acronym> is obsolete, replaced by <abbr> -->
+                <p>Bidirectional text: <bdi>مرحبا</bdi> and <bdo dir="rtl">Hello reversed</bdo>.</p>
+                <time datetime="2025-06-01T13:42:00+06:00">June 1, 2025, 1:42 PM</time>
+                <p>Ruby annotation: <ruby>漢<rt>kan</rt><rp>(kan)</rp></ruby></p>
+                <p>Superscript: E = MC<sup>2</sup>. Subscript: H<sub>2</sub>O.</p>
+                <p>Line break opportunity: Super<wbr>califragilisticexpialidocious</p>
+            </article>
+
+            <aside>
+                <p>Related content or sidebar information goes here.</p>
+            </aside>
+        </section>
+
+        <figure>
+            <img src="image.jpg" alt="Sample Image">
+            <figcaption>Figure Caption</figcaption>
+        </figure>
+
+        <map name="image-map">
+            <area shape="rect" coords="0,0,100,100" href="link.html" alt="Clickable Area">
+        </map>
+
+        <canvas id="myCanvas" width="200" height="100"></canvas>
+        <script>
+            const canvas = document.getElementById('myCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#FF0000';
+            ctx.fillRect(0, 0, 100, 50);
+        </script>
+
+        <audio controls>
+            <source src="./..audio.mp3" type="audio/mpeg">
+            <track kind="subtitles" src="subtitles.vtt" srclang="en" label="English">
+            Your browser does not support the audio element.
+        </audio>
+
+        <video controls>
+            <source src="./../video.mp4" type="video/mp4">
+            <track kind="captions" src="captions.vtt" srclang="en" label="English">
+            Your browser does not support the video element.
+        </video>
+
+        <embed type="image/png" src="embedded.png" width="100" height="100">
+        <object data="object.pdf" type="application/pdf" width="300" height="200">
+            <param name="view" value="FitH">
+            Fallback content for object.
+        </object>
+        <!-- <applet> is obsolete, replaced by <object> -->
+
+        <form action="/submit" method="post">
+            <fieldset>
+                <legend>User Information</legend>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" list="name-options">
+                <datalist id="name-options">
+                    <option value="Alice">
+                    <option value="Bob">
+                </datalist>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age">
+                <label for="color">Favorite Color:</label>
+                <select name="color">
+                    <optgroup label="Primary Colors">
+                        <option value="red">Red</option>
+                        <option value="blue">Blue</option>
+                    </optgroup>
+                </select>
+                <textarea name="comments" rows="4" cols="50"></textarea>
+                <button type="submit">Submit</button>
+                <output name="result">Form result</output>
+                <!-- <keygen> is obsolete, no modern replacement -->
+            </fieldset>
+        </form>
+
+        <table>
+            <caption>Sample Table</caption>
+            <colgroup>
+                <col span="1" style="background-color: #f0f0f0;">
+                <col span="1" style="background-color: #e0e0e0;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Header 1</th>
+                    <th>Header 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cell 1</td>
+                    <td>Cell 2</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Footer 1</td>
+                    <td>Footer 2</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <dl>
+            <dt>Term</dt>
+            <dd>Description of the term.</dd>
+        </dl>
+
+        <ul>
+            <li>Unordered item 1</li>
+            <li>Unordered item 2</li>
+        </ul>
+        <!-- <dir> is obsolete, replaced by <ul> -->
+
+        <ol>
+            <li>Ordered item 1</li>
+            <li>Ordered item 2</li>
+        </ol>
+
+        <div class="center">
+            <p>This content is centered using CSS (replacing &lt;center&gt;).</p>
+        </div>
+
+        <p class="big">This text is larger using CSS (replacing &lt;big&gt;).</p>
+        <p class="strike">This text is strikethrough using CSS (replacing &lt;strike&gt;).</p>
+        <p class="tt">This text is monospace using CSS (replacing &lt;tt&gt;).</p>
+        <!-- <basefont> and <font> are obsolete, replaced by CSS -->
+
+        <details>
+            <summary>More Information</summary>
+            <p>This is additional content revealed on click.</p>
+        </details>
+
+        <dialog open>
+            <p>This is a dialog box.</p>
+            <button onclick="this.parentElement.close()">Close</button>
+        </dialog>
+
+        <progress value="70" max="100">70%</progress>
+        <meter value="0.6" min="0" max="1">60%</meter>
+
+        <pre>
+            Preformatted
+            Text
+        </pre>
+
+        <data value="12345">Product ID: 12345</data>
+        <s>This content is no longer relevant.</s>
+
+        <picture>
+            <source media="(min-width: 800px)" srcset="large-image.jpg">
+            <img src="small-image.jpg" alt="Responsive Image">
+        </picture>
+
+        <svg width="100" height="100">
+            <circle cx="50" cy="50" r="40" fill="blue" />
+        </svg>
+
+        <template id="my-template">
+            <p>This is a template content.</p>
+        </template>
+
+        <script>
+            const template = document.getElementById('my-template');
+            const clone = template.content.cloneNode(true);
+            document.body.appendChild(clone);
+        </script>
+
+        <iframe src="https://example.com" width="300" height="200"></iframe>
+        <!-- <frameset> and <frame> are obsolete, replaced by <iframe> -->
+
+        <address>
+            Contact: <a href="mailto:info@example.com">info@example.com</a>
+        </address>
+
+        <hr>
+
+        <noscript>
+            <p>Please enable JavaScript to view this content.</p>
+        </noscript>
+    </main>
+
+    <footer>
+        <p>Footer content for the webpage.</p>
+    </footer>
+</body>
+</html>
