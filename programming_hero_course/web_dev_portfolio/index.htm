@@ -8,25 +8,415 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style/portfolio.css">
+<style>
+    .open-sans-normal {
+	font-family: "Open Sans", sans-serif, -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 700;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
+}
+
+/* nav style */
+nav {
+	display: flex;
+	align-items: center;
+	font: var(--open-sans-normal);
+	font-size: 1.2rem;
+	justify-content: space-between;
+	padding: 10px 20px;
+	background-color: #47a056;
+	color: white;
+}
+.nav-title {
+	font-weight: 800;
+	font-size: 45px;
+}
+.primary-color {
+	color: #2b3d42;
+}
+nav ul li {
+	list-style: none;
+	display: inline-block;
+	margin-right: 20px;
+}
+nav ul li a {
+	text-decoration: none;
+	color: white;
+	transition: color 0.3s ease;
+}
+.btn-primary {
+	background-color: darkorange;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	font-size: 1.2rem;
+	font-weight: 700;
+	border: 2px solid #47a056;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	outline: none;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+.btn-primary:hover {
+	background-color: #47a056;
+	color: white;
+	box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+	border: 2px solid #47a056;
+}
+nav ul li a:hover {
+	color: #47a0565e;
+	border: 2px solid #47a056;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	padding: 5px 10px;
+	transition: all 0.3s ease;
+}
+/* nav style end */
+header {
+	background-image: url(images/developer.png), url(images/header_bg.png); /* Replace with your image path */;
+    background-size: 120px 600px, ;
+	background-repeat: no-repeat;
+	background-position: top left, bottom right;
+}
+/* Banner style */
+
+.banner {
+	background-color: #47a0565e;
+	height: 600px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	color: hsla(0, 18%, 29%, 0.767);
+	text-align: center;
+	margin: 0 0 0 120px;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+.banner>img {
+    position: relative;
+    left: -50px;
+    top: 50px;
+}
+.banner-content {
+	max-width: 600px;
+}
+.banner h1 {
+	font-size: 3rem;
+	margin-bottom: 20px;
+}
+.banner p {
+	font-size: 1.5rem;
+	margin-bottom: 30px;
+}
+.btn-secondary {
+	background-color: white;
+	color: #47a056;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	font-size: 1.2rem;
+	font-weight: 700;
+	border: 2px solid #47a056;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	outline: none;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+.btn-secondary:hover {
+	background-color: #47a056;
+	color: white;
+	box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+	border: 2px solid #47a056;
+}
+.banner-greeting {
+	font: "Open Sans", sans-serif;
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+.baner-name {
+	font: "Open Sans", sans-serif;
+	font-size: 3rem;
+	font-weight: 700;
+}
+/* Banner style end */
+/* About section style */
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #47a056;
+}
+.section-description {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+.about {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 130px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+main {
+    max-width: 1120px;
+    margin: 0 auto; 
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+/* About section style end */
+.about-items{
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.skills-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.skills {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #ddcccc;
+}
+.resume-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.experience-description,
+.experience-sub-title
+    {
+        font-size: 1rem;
+        color: #9b8787;
+    }  
+.download-cv {
+    text-align: center;
+    margin-top: 20px;
+} 
+footer {
+    display: flex;
+    gap: 100px;
+    background-color: #47a056;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    padding: 120px 120px;
+}
+footer input{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+</style>
 </head>
 <body class="open-sans-normal">
-    <header>
+    <header class="header">
         <nav>
             <h3 class="nav-title">Ar<span class="primary-color">m</span>an</h3>
             <ul>
                 <li><a href="">portfolio</a></li>
                 <li><a href="">blog</a></li>
                 <li><a href="">
-                    <button>hire me</button>
+                    <button class="btn-primary">hire me</button>
                 </a></li>
             </ul>
         </nav>
+        <div class="banner">
+            <div class="banner-content">
+                <h4 class="banner-greeting">Hi I am</h4>
+                <h1 class="banner-name">Arman Islam</h1>
+                <p class="banner-description">Shot what able cold new see hold.Friendly as an betrayed formerly he. Morning because as to society behaved moments sin</p>
+                <button class="btn-primary">Download CV</button>
+                <button class="btn-primary">Contact</button>
+            </div>
+            <img src="images/arman-removebg-preview__8_-removebg-preview.png" alt="my image">
+        </div>
     </header>
     <main>
+<section class="about">
+        <h3 class="section-title">About Me</h3>
+        <p class="section-description"> My name is Arman Islam, a passionate web developer with a keen interest in creating dynamic and responsive web applications. I have experience in HTML, CSS, JavaScript, and various frameworks that help me build efficient and user-friendly websites.</p>
+        <div class="about-items">
+            <div class="about-item">
+                <p class="item-title">name</p>
+                <p class="item-description">Arman Islam</p>
+            </div>
+            <div class="about-item">
+                <p class="item-title">Email</p>
+                <p class="item-description">armanislam5272@gmail.com</p>
+            </div>
+            <div class="about-item">
+                <p class="item-title">DOB</p>
+                <p class="item-description">01-01-2005</p>
+            </div>
+            <div class="about-item">
+                <p class="item-title">From</p>
+                <p class="item-description">Bangladesh</p>
+            </div>
+        </div>
 
+</section>
+<section class="skill">
+    <h3 class="section-title">What I do</h3>
+    <p class="section-description">I specialize in creating responsive and user-friendly web applications using the latest technologies.</p>
+    <div class="skills-container">
+        <div class="skills">
+                <img src="images/icons/js.png" alt="">
+                <h4 class="skills-title">Vinailis JavaScript</h4>
+            <p class="skill-description">I have a strong understanding of JavaScript and its frameworks.</p>
+        </div>
+        <div class="skills">
+            <img src="images/icons/react.png" alt="">
+            <h4 class="skills-title">Vinailis React</h4>
+            <p class="skill-description">I have experience building user interfaces with React.</p>
+        </div>
+        <div class="skills">
+            <img src="images/icons/nodejs.png" alt="">
+            <h4 class="skills-title">Vinailis Node.js</h4>
+            <p class="skill-description">I have experience building server-side applications with Node.js.</p>
+        </div>
+        <div class="skills">
+            <img src="images/icons/mongo.png" alt="">
+            <h4 class="skills-title">Vinailis MongoDB</h4>
+            <p class="skill-description">I have worked with MongoDB to create scalable and efficient databases.</p>
+        </div>
+    </div>
+</section>
+<section class="resume">
+<h3 class="section-title">A summary of My Resume</h3>
+<div class="resume-container">
+    <!-- <div class="resume-column1">.resume-column*2>h3.resume-column-title+.experience*3>h4.experience-title+h5.experience-sub-title+.experience-description</div> -->
+<div class="resume-column1">
+    <div class="resume-column">
+    <h3 class="resume-column-title">My Education</h3>
+    <div class="experience">
+        <h4 class="experience-title">Bachelor of Science in Computer Science</h4>
+        <h5 class="experience-sub-title">Pabna University of Science and Technology</h5>
+        <div class="experience-description">Graduated in 2027 with a focus on web development.</div>
+    </div>
+    <div class="experience">
+        <h4 class="experience-title">Master of Science in Computer Science</h4>
+        <h5 class="experience-sub-title">Pabna University of Science and Technology</h5>
+        <div class="experience-description">Graduated in 2029 with a focus on advanced web development.</div>
+    </div>
+    <div class="experience">
+        <h4 class="experience-title">PhD in Computer Science</h4>
+        <h5 class="experience-sub-title">Pabna University of Science and Technology</h5>
+        <div class="experience-description">Graduated in 2032 with a focus on artificial intelligence.</div>
+    </div>
+</div>
+<div class="resume-column">
+    <h3 class="resume-column-title">My Work Experience</h3>
+    <div class="experience">
+        <h4 class="experience-title">Web Developer</h4>
+        <h5 class="experience-sub-title">ABC Company</h5>
+        <div class="experience-description">Worked on various web development projects using modern technologies.</div>
+    </div>
+    <div class="experience">
+        <h4 class="experience-title">Senior Web Developer</h4>
+        <h5 class="experience-sub-title">XYZ Company</h5>
+        <div class="experience-description">Led a team of developers to create a large-scale web application.</div>
+    </div>
+    <div class="experience">
+        <h4 class="experience-title">Lead Developer</h4>
+        <h5 class="experience-sub-title">123 Company</h5>
+        <div class="experience-description">Oversaw the development of multiple web projects and ensured best practices.</div>
+    </div>
+</div>
+</div>
+    <div class="resume-column2"><div class="resume-column">
+        <h3 class="resume-column-title">My Skills and Expertise</h3>
+        <div class="experience">
+            <h4 class="experience-title">Web Development</h4>
+            <h5 class="experience-sub-title">Frontend and Backend</h5>
+            <div class="experience-description">Proficient in HTML, CSS, JavaScript, and various frameworks.</div>
+        </div>
+        <div class="experience">
+            <h4 class="experience-title">Database Management</h4>
+            <h5 class="experience-sub-title">MongoDB, MySQL</h5>
+            <div class="experience-description">Experienced in designing and managing databases for web applications.</div>
+        </div>
+        <div class="experience">
+            <h4 class="experience-title">Version Control</h4>
+            <h5 class="experience-sub-title">Git, GitHub</h5>
+            <div class="experience-description">Proficient in using Git for version control and collaboration.</div>
+        </div>
+    </div>
+    <div class="resume-column">
+        <h3 class="resume-column-title">My Certifications</h3>
+        <div class="experience">
+            <h4 class="experience-title">Certified Web Developer</h4>
+            <h5 class="experience-sub-title">FreeCodeCamp</h5>
+            <div class="experience-description">Completed a comprehensive web development course.</div>
+        </div>
+        <div class="experience">
+            <h4 class="experience-title">JavaScript Certification</h4>
+            <h5 class="experience-sub-title">Codecademy</h5>
+            <div class="experience-description">Achieved certification in JavaScript programming.</div>
+        </div>
+        <div class="experience">
+            <h4 class="experience-title">Python Certification</h4>
+            <h5 class="experience-sub-title">Coursera</h5>
+            <div class="experience-description">Completed a course on Python programming and data analysis.</div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="download-cv">
+    <button class="btn-primary">Download CV</button>  
+</div>
+</section>
     </main>
-    <footer>
+    <footer class="secondary-footer">
 
+<div class="footer-column">
+    <h3 class="section-title">
+        Let's Connect
+    </h3>
+
+    <p>Please fill out the form on this section to contact with me or call between 9:00 AM to 10:00 PM ET, Monday to Friday.</p>
+<div>
+    <a href=""><img src="images/icons/facebook.png" alt=""></a>
+    <a href=""><img src="images/icons/twitter.png" alt=""></a>
+    <a href=""><img src="images/icons/insta.png" alt=""></a>
+</div>
+</div>
+<div class="footer-column">
+    <h3 class="section-title">
+        Let's Message Me
+    </h3>
+    <p>Feel free to reach out to me via email or phone for any inquiries or collaborations.</p>
+    <input type="email" placeholder="Your Email">
+    <br>
+    <input type="text" placeholder="Subject">
+    <br>
+    <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+    <br>
+    <button class="btn-primary">Submit</button>
+</div>
     </footer>
 </body>
 </html>
