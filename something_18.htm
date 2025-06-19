@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Letter Blessing ✨❤️</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            font-family: 'Bangla', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .centered {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .blessing {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            animation: blessingGlow 2s infinite alternate;
+            text-align: center;
+        }
+        @keyframes blessingGlow {
+            0% { text-shadow: 0 0 10px #ffb6b9, 0 0 20px #fff6f6; }
+            100% { text-shadow: 0 0 30px #ff6f91, 0 0 60px #fff6f6; }
+        }
+        .love-emoji {
+            font-size: 2.5rem;
+            animation: heartBeat 1.2s infinite;
+            margin: 0 5px;
+        }
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1);}
+            20% { transform: scale(1.2);}
+            40% { transform: scale(0.95);}
+            60% { transform: scale(1.1);}
+            80% { transform: scale(0.98);}
+        }
+        .letter-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.97);
+            padding: 40px 30px 40px 30px;
+            border-radius: 18px;
+            box-shadow: 0 10px 40px rgba(255, 105, 135, 0.18), 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.9) translateY(60px);
+            transition: all 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+            z-index: 2;
+        }
+        .letter-container.open {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            animation: openLetter 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes openLetter {
+            0% { opacity: 0; transform: scale(0.7) translateY(80px);}
+            80% { opacity: 1; transform: scale(1.05) translateY(-10px);}
+            100% { opacity: 1; transform: scale(1) translateY(0);}
+        }
+        .letter-container .blessing-hart {
+            position: absolute;
+            top: -30px;
+            right: 30px;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 8px #ff6f91);
+            animation: blessingHart 2s infinite alternate;
+        }
+        @keyframes blessingHart {
+            0% { transform: scale(1) rotate(-10deg);}
+            100% { transform: scale(1.2) rotate(10deg);}
+        }
+        .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 40px;
+            font-size: 1.2rem;
+        }
+        .btns {
+            margin: 30px 0 20px 0;
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(90deg, #ff6f91 0%, #ffb6b9 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(255, 105, 135, 0.18);
+            transition: background 0.3s, transform 0.2s;
+            outline: none;
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+        .blinking-lights {
+            position: absolute;
+            pointer-events: none;
+            left: 0; top: 0; width: 100%; height: 100%;
+            z-index: 1;
+            display: none;
+        }
+        .blinking-lights.active {
+            display: block;
+        }
+        .blinking-dot {
+            position: absolute;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff6f91 60%, #fff6f6 100%);
+            opacity: 0.7;
+            animation: blink 1.2s infinite alternate;
+        }
+        @keyframes blink {
+            0% { opacity: 0.7;}
+            100% { opacity: 0.1;}
+        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .letter-container {
+                padding: 18px 6px 24px 6px;
+            }
+            .blessing {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="centered">
+        <div class="blessing">
+            <span class="love-emoji">🙏</span>
+            তোমার জন্য আশীর্বাদ ও ভালোবাসা
+            <span class="love-emoji">❤️</span>
+        </div>
+        <div class="btns">
+            <button class="btn" id="openLetterBtn">💌 চিঠি খুলুন</button>
+            <button class="btn" id="blinkBtn">✨ ঝলমলে আলো</button>
+        </div>
+        <div class="letter-container" id="letterContainer">
+            <span class="blessing-hart">❤️‍🔥</span>
+            <p>প্রিয় খাদিজা,</p>
+            <p>তুমি জানো, ভালোবাসা মানেই শুধু হাসি-মজা, “মিস ইউ”, “লাভ ইউ” এই কথাগুলো না। ভালোবাসা মানে হচ্ছে—তুমি যখন ক্লান্ত থাকো, আমি পাশে বসে তোমার মাথাটা একটু হাত দিয়ে চুলে বিলি দিতে চাই। ভালোবাসা মানে হচ্ছে—তুমি যখন দুশ্চিন্তায় রাত জাগো, আমি শুধু চাই, তুমি একটু স্বস্তির নিঃশ্বাস ফেলো, কারণ জানো তো? আমি আছি।</p>
+            <p>তুমি এখন একটু ভেঙে পড়েছো, পড়াশোনা ঠিক মতো হয়নি বলে নিজের উপর রাগ, অভিমান—সব একসাথে জমেছে। কিন্তু আমি চাই তুমি এটা মনে রেখো— তুমি যতটা নিজের দুর্বলতা ভাবছো, তুমি তার চেয়েও অনেক বেশি শক্তিশালী।</p>
+            <p>আমি দেখেছি তোমার মধ্যে একটা অদ্ভুত সাহস আছে। হয়তো তুমি নিজেই সেটা সবসময় বুঝতে পারো না। তুমি ঠাণ্ডা হাওয়ার মতো—চুপচাপ এসে আমার সব উষ্ণতা কেড়ে নিয়ে আবার নিজের মতো হারিয়ে যাও। কিন্তু আমি জানি, তুমি যদি চাও, তুমি পাহাড়ও সরাতে পারো।</p>
+            <p>আজ তোমার পরীক্ষা। হয়তো তুমি পুরোটা পড়তে পারোনি। কিন্তু একটাও ভয় পাওয়ার কিছু নেই। তোমার ঘাম, তোমার ঘুমহীন রাত—এসব বৃথা যাবে না। একটা খারাপ দিন তোমার পুরো ভবিষ্যৎ ঠিক করে দিতে পারবে না।</p>
+            <p>আর তুমি যদি হেরে যাও কখনো, আমি হবো তোমার জয়ের পাশে বসে থাকা সবচেয়ে বড় দর্শক। আর যদি জিতে যাও? আমি হবো সবচেয়ে গর্বিত প্রেমিক—যে জানতো, তুমি পেরে যাবে।</p>
+            <p>তোমার মেহেদি লাগানো হাতটা এখনো আমার চোখে ভাসে। তুমি জানো? আমি একদিন সেই হাত ধরে তোমাকে বলবো, "চলো, এই পৃথিবীর ঝামেলা থেকে একটু দূরে কোথাও ঘুরে আসি—শুধু তুমি আর আমি।"</p>
+            <p>তুমি আমার জীবনে শুধু একটা মানুষ না—তুমি একটা অনুভব, একটা শান্তি, একটা বাসা।</p>
+            <p>চোখে চোখ রাখো না আজ, শুধু মনে রাখো— তুমি একা না। তুমি আমার।</p>
+            <p class="signature">ভালোবাসি, সবটুকু মন দিয়ে।<br>তোমার—<br>আরমান</p>
+            <div class="blinking-lights" id="blinkingLights"></div>
+        </div>
+    </div>
+    <script>
+        // Open letter animation
+        const openBtn = document.getElementById('openLetterBtn');
+        const letter = document.getElementById('letterContainer');
+        openBtn.addEventListener('click', function() {
+            letter.classList.add('open');
+        });
+
+        // Blinking lights
+        const blinkBtn = document.getElementById('blinkBtn');
+        const lights = document.getElementById('blinkingLights');
+        let lightsActive = false;
+        blinkBtn.addEventListener('click', function() {
+            lightsActive = !lightsActive;
+            if (lightsActive) {
+                lights.classList.add('active');
+                createBlinkingDots();
+            } else {
+                lights.classList.remove('active');
+                lights.innerHTML = '';
+            }
+        });
+
+        function createBlinkingDots() {
+            lights.innerHTML = '';
+            const count = 18;
+            for (let i = 0; i < count; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'blinking-dot';
+                dot.style.top = (Math.random() * 90 + 2) + '%';
+                dot.style.left = (Math.random() * 90 + 2) + '%';
+                dot.style.animationDelay = (Math.random() * 1.2) + 's';
+                lights.appendChild(dot);
+            }
+        }
+    </script>
+</body>
+</html>

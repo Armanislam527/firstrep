@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Position property</title>
+    <style>
+        .container {
+            display: flex;
+            height: 100vh;
+            flex-wrap: wrap;
+            background-color: #947272;
+            border: 2px dotted black;
+        }
+        .box {
+            width: 100px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 50px;
+            width: 50px;
+            background-color: red;
+            margin: 10px;
+        }
+
+        .box1 {
+            position: relative;
+            top: 0;
+            left: 0;
+            background-color: rgb(111, 194, 221);
+        }
+        /* Positioning examples */
+        .box2 {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: lightcoral;
+        }
+        .box3 {
+            position: fixed;
+            top: 30px;
+            left: 20px;
+            background-color: lightgreen;
+        }
+        .box4 {
+            position: sticky;
+            top: 40px;
+            left: 30px;
+            background-color: lightsalmon;
+        }   
+        .box5 {
+            position: relative;
+            top: 50px;
+            left: 40px;
+            background-color: blue;
+        }
+        .box6 {
+            position: absolute;
+            top: 60px;
+            left: 50px;
+            background-color: green;
+        }
+        .box7 {
+            position: fixed;
+            top: 70px;
+            left: 50px;
+            background-color: yellow;
+        }
+        .box8 {
+            position: sticky;
+            top: 80px;
+            left: 50px; 
+            background-color: orange;
+        }
+        .box9 {
+            position: relative;
+            top: 90px;
+            left: 100px;
+            background-color: purple;
+        }
+        .box10 {
+            position: absolute;
+            top: 100px;
+            left: 10px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h3>name and their behaviour</h3>
+        <ul>
+    <li>position: static
+        <small><details>This is the default position value. Elements are positioned according to the normal flow of the document, one after another, and are not affected by top, bottom, left, right, or z-index properties. Elements remain in their natural order as they appear in the HTML.</details></small>
+    </li>
+    <li>position: relative
+        <small><details>This position property behaves like static, meaning it follows the normal document flow and comes one after another. However, it can be offset from its original position using top, bottom, left, or right properties without affecting the position of other elements. It also establishes a new positioning context for its absolutely positioned children and respects z-index for stacking.</details></small>
+    </li>
+    <li>position: absolute
+        <small><details>Elements are removed from the normal document flow and positioned relative to the nearest positioned ancestor (an element with position: relative, absolute, or fixed) or the initial containing block if no such ancestor exists. Other elements behave as if the absolutely positioned element is not present. Top, bottom, left, and right properties define its exact position, and z-index can control stacking order.</details></small>
+    </li>
+    <li>position: fixed
+        <small><details>Elements are removed from the normal document flow and positioned relative to the viewport, meaning they stay in the same place even when the page is scrolled. Top, bottom, left, and right properties set its position, and z-index can control stacking. Fixed elements do not affect the layout of other elements, and they are ideal for elements like navigation bars that need to remain visible.</details></small>
+    </li>
+    <li>position: sticky
+        <small><details>Elements are positioned based on the normal document flow but act as a hybrid of relative and fixed positioning. They behave like relatively positioned elements until they reach a specified threshold (defined by top, bottom, left, or right), at which point they become fixed relative to their containing block (usually the viewport or a scrollable parent). Useful for headers that stick when scrolling past a certain point.</details></small>
+    </li>
+    <li>position: inherit
+        <small><details>The element inherits the position property value from its parent element. If the parent has position: relative, the child will also have position: relative, and so on. This is useful for ensuring consistent positioning behavior within a component but is rarely used explicitly.</details></small>
+    </li>
+    <li>position: initial
+        <small><details>Sets the position property to its default value, which is static. This overrides any inherited or explicitly set position values, placing the element back in the normal document flow unaffected by positioning offsets or z-index.</details></small>
+    </li>
+    <li>position: unset
+        <small><details>Resets the position property to its inherited value if one exists; otherwise, it falls back to its initial value (static). This is a combination of inherit and initial, providing flexibility in resetting positioning behavior based on the context.</details></small>
+    </li>
+</ul>
+    </div>
+    <div class="container">
+        <div class="box box1">1</div>
+        <div class="box box2">2</div>
+        <div class="box box3">3</div>
+        <div class="box box4">4</div>
+        <div class="box box5">5</div>
+        <div class="box box6">6</div>
+        <div class="box box7">7</div>
+        <div class="box box8">8</div>
+        <div class="box box9">9</div>
+        <div class="box box10">10</div>
+    </div>
+    <div class="container">
+        <div class="box box11">11</div>
+        <div class="box box12">12</div>
+        <div class="box box13">13</div>
+        <div class="box box14">14</div>
+        <div class="box box15">15</div>
+        <div class="box box16">16</div>
+        <div class="box box17">17</div>
+        <div class="box box18">18</div>
+        <div class="box box19">19</div>
+        <div class="box box20">20</div>
+    </div>
+    <div class="container">
+        <div class="box box21">21</div>
+        <div class="box box22">22</div>
+        <div class="box box23">23</div>
+        <div class="box box24">24</div>
+        <div class="box box25">25</div>
+        <div class="box box26">26</div>
+        <div class="box box27">27</div>
+        <div class="box box28">28</div>
+        <div class="box box29">29</div>
+        <div class="box box30">30</div>
+    </div>
+    <div class="container">
+        <div class="box box31">31</div>
+        <div class="box box32">32</div>
+        <div class="box box33">33</div>
+        <div class="box box34">34</div>
+        <div class="box box35">35</div>
+        <div class="box box36">36</div>
+        <div class="box box37">37</div>
+        <div class="box box38">38</div>
+        <div class="box box39">39</div>
+        <div class="box box40">40</div>
+    </div>
+    <div class="container">
+        <div class="box box41">41</div>
+        <div class="box box42">42</div>
+        <div class="box box43">43</div>
+        <div class="box box44">44</div>
+        <div class="box box45">45</div>
+        <div class="box box46">46</div>
+        <div class="box box47">47</div>
+        <div class="box box48">48</div>
+        <div class="box box49">49</div>
+        <div class="box box50">50</div>
+    </div> 
+    <div class="container">
+        <div class="box box51">51</div>
+        <div class="box box52">52</div>
+        <div class="box box53">53</div>
+        <div class="box box54">54</div>
+        <div class="box box55">55</div>
+        <div class="box box56">56</div>
+        <div class="box box57">57</div>
+        <div class="box box58">58</div>
+        <div class="box box59">59</div>
+        <div class="box box60">60</div>
+    </div>
+    <div class="container">
+        <div class="box box61">61</div>
+        <div class="box box62">62</div>
+        <div class="box box63">63</div>
+        <div class="box box64">64</div>
+        <div class="box box65">65</div>
+        <div class="box box66">66</div>
+        <div class="box box67">67</div>
+        <div class="box box68">68</div>
+        <div class="box box69">69</div>
+        <div class="box box70">70</div>
+    </div>
+    <div class="container">
+        <div class="box box71">71</div>
+        <div class="box box72">72</div>
+        <div class="box box73">73</div>
+        <div class="box box74">74</div>
+        <div class="box box75">75</div>
+        <div class="box box76">76</div>
+        <div class="box box77">77</div>
+        <div class="box box78">78</div>
+        <div class="box box79">79</div>
+        <div class="box box80">80</div>
+    </div>
+    <div class="container">
+        <div class="box box81">81</div>
+        <div class="box box82">82</div>
+        <div class="box box83">83</div>
+        <div class="box box84">84</div>
+        <div class="box box85">85</div>
+        <div class="box box86">86</div>
+        <div class="box box87">87</div>
+        <div class="box box88">88</div>
+        <div class="box box89">89</div>
+        <div class="box box90">90</div>
+    </div>
+    <div class="container">
+        <div class="box box91">91</div>
+        <div class="box box92">92</div>
+        <div class="box box93">93</div>
+        <div class="box box94">94</div>
+        <div class="box box95">95</div>
+        <div class="box box96">96</div>
+        <div class="box box97">97</div>
+        <div class="box box98">98</div>
+        <div class="box box99">99</div>
+        <div class="box box100">100</div>    
+    </div> 
+</body>
+</html>
