@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psudo Elements in Css</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            background: #32865c;
+            border-radius: 5px;
+            text-align: center;
+            margin: 0 auto;
+            width: 700px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        code {
+            background-color: #e0e0e0;
+            padding: 2px 4px;     
+            border-radius: 4px;
+        }
+        li:nth-child(odd) {
+            background-color: #ecf0f1;
+        }
+        li:nth-child(even) {
+            background-color: #bdc3c7;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        pre code {
+            background-color: transparent;
+            color: #333;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 20px;
+        }
+        h2:hover {
+            color: #e74c3c;
+            background: #000;
+        }
+        li:hover {  
+            background-color: #dfe6e9;
+            cursor: pointer;
+        }
+        li:hover code {         
+            color: #2c3e50;
+            background-color: #dfe6e9;
+        }
+        li::before {
+            content: "• ";
+            color: #3498db;             
+        }
+        h3::after{
+            content: " - This is a heading";
+            color: #7f8c8d;
+            font-size: 0.9em;
+            display: block;
+            margin-top: 5px;
+        }
+        p::first-letter {
+            font-size: 2em;
+            color: red;
+            font-weight: bold;
+        }
+        p::first-line {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Psudo Elements in CSS</h1>
+    <p>A pseudo-element is used to style a specific part of an element.</p>
+    <h2>Examples of Pseudo-Elements</h2>
+    <ul>
+        <li><code>::before</code> - inserts content before an element's content</li>
+        <li><code>::after</code> - inserts content after an element's content</li>
+        <li><code>::first-letter</code> - styles the first letter of an element</li>
+        <li><code>::first-line</code> - styles the first line of an element</li>
+        <li><code>::selection</code> - styles the portion of an element that has been highlighted by the user</li>
+        <li><code>::placeholder</code> - styles the placeholder text of an input field</li>
+        <li><code>::marker</code> - styles the marker box of a list item</li>
+        <li><code>::backdrop</code> - styles the backdrop of a dialog or modal element</li>
+    </ul>
+    <p>Example usage:</p>
+    <pre><code>p::first-letter {
+    font-size: 2em;
+    color: red;
+}</code></pre>
+<h3>heading 1</h3>
+<h3>heading 2</h3>
+<h3>heading 3</h3>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis soluta dolorem repudiandae voluptatem in, veniam voluptates a expedita amet facere sunt nam illo adipisci placeat? Animi molestias itaque laudantium deleniti.</p>
+</body>
+</html>

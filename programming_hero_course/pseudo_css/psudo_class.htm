@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psudo In css</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        h1:hover {
+            color: #e74c3c;
+            background: #000;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        code {
+            background-color: #e0e0e0;
+            padding: 2px 4px;    
+            border-radius: 4px;
+        }
+        li:nth-child(odd) {
+            background-color: #ecf0f1;
+        }
+        li:nth-child(even) {
+            background-color: #bdc3c7;
+    </style>
+</head>
+<body>
+    <h1>Psudo Class in CSS</h1>
+    <p>A pseudo-class is a special state of an element.</p>
+    <h2>Examples of Pseudo-Classes</h2>
+    <ul>
+        <li><code>:hover</code> - applies when the user hovers over an element</li>
+        <li><code>:focus</code> - applies when an element has focus</li>
+        <li><code>:nth-child(n)</code> - applies to the nth child of a parent</li>
+        <li><code>:first-child</code> - applies to the first child of a parent</li>
+        <li><code>:last-child</code> - applies to the last child of a parent</li>
+        <li><code>:active</code> - applies when an element is being activated by the user</li>
+        <li><code>:visited</code> - applies to links that have been visited</li>
+        <li><code>:link</code> - applies to links that have not been visited</li>
+        <li><code>:checked</code> - applies to checked checkboxes or radio buttons</li>
+        <li><code>:disabled</code> - applies to disabled form elements</li>
+        <li><code>:enabled</code> - applies to enabled form elements</li>
+        <li><code>:not(selector)</code> - applies to elements that do not match the given selector</li>
+        <li><code>:first-of-type</code> - applies to the first element of its type within its parent</li>
+        <li><code>:last-of-type</code> - applies to the last element of its type within its parent</li>
+    </ul>
+</body>
+</html>

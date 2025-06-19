@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style/portfolio.css">
+<link rel="icon" href="images/icon.svg" type="image/x-icon">
+<script src="https://kit.fontawesome.com/545bfd272f.js" crossorigin="anonymous"></script>
 <style>
     .open-sans-normal {
 	font-family: "Open Sans", sans-serif, -apple-system, BlinkMacSystemFont,
@@ -211,7 +213,12 @@ main {
 .download-cv {
     text-align: center;
     margin-top: 20px;
+
 } 
+button a {
+    text-decoration: none;
+    color: white;
+}
 footer {
     display: flex;
     gap: 100px;
@@ -235,52 +242,52 @@ footer input{
 <body class="open-sans-normal">
     <header class="header">
         <nav>
-            <h3 class="nav-title">Ar<span class="primary-color">m</span>an</h3>
+            <h3 class="nav-title"><i>Ar</i><span class="primary-color"><i>m</i></span><i>an</i></h3>
             <ul>
-                <li><a href="">portfolio</a></li>
-                <li><a href="">blog</a></li>
+                <li><a href=""><i class="fa-solid fa-house"></i> home</a></li><li><a href=""><i class="fa-solid fa-briefcase"></i> portfolio</a></li>
+                <li><a href=""><i class="fa-solid fa-blog"></i> blog</a></li>
                 <li><a href="">
-                    <button class="btn-primary">hire me</button>
+                    <button class="btn-primary"><i class="fa-solid fa-user"></i> hire me</button>
                 </a></li>
             </ul>
         </nav>
         <div class="banner">
             <div class="banner-content">
-                <h4 class="banner-greeting">Hi I am</h4>
+                <h4 class="banner-greeting"><i>Hi there</i> I am</h4>
                 <h1 class="banner-name">Arman Islam</h1>
                 <p class="banner-description">Shot what able cold new see hold.Friendly as an betrayed formerly he. Morning because as to society behaved moments sin</p>
-                <button class="btn-primary">Download CV</button>
-                <button class="btn-primary">Contact</button>
+                <button class="btn-primary"><a href="#download-cv"><i class="fa-solid fa-envelope"></i> Download CV</a></button>
+                <button class="btn-primary"><i class="fa-solid fa-phone"></i> Contact</button>
             </div>
             <img src="images/arman-removebg-preview__8_-removebg-preview.png" alt="my image">
         </div>
     </header>
     <main>
 <section class="about">
-        <h3 class="section-title">About Me</h3>
+        <h3 class="section-title"><i class="fa-solid fa-user"></i> About Me</h3>
         <p class="section-description"> My name is Arman Islam, a passionate web developer with a keen interest in creating dynamic and responsive web applications. I have experience in HTML, CSS, JavaScript, and various frameworks that help me build efficient and user-friendly websites.</p>
         <div class="about-items">
             <div class="about-item">
-                <p class="item-title">name</p>
+                <p class="item-title"><i class="fa-solid fa-user"></i>Name</p>
                 <p class="item-description">Arman Islam</p>
             </div>
             <div class="about-item">
-                <p class="item-title">Email</p>
+                <p class="item-title"><i class="fa-solid fa-envelope"></i>Email</p>
                 <p class="item-description">armanislam5272@gmail.com</p>
             </div>
             <div class="about-item">
-                <p class="item-title">DOB</p>
+                <p class="item-title"><i class="fa-solid fa-calendar"></i> DOB</p>
                 <p class="item-description">01-01-2005</p>
             </div>
             <div class="about-item">
-                <p class="item-title">From</p>
+                <p class="item-title"><i class="fa-solid fa-map-marker-alt"></i> From</p>
                 <p class="item-description">Bangladesh</p>
             </div>
         </div>
 
 </section>
 <section class="skill">
-    <h3 class="section-title">What I do</h3>
+    <h3 class="section-title"><i class="fa-solid fa-laptop"></i> What I do</h3>
     <p class="section-description">I specialize in creating responsive and user-friendly web applications using the latest technologies.</p>
     <div class="skills-container">
         <div class="skills">
@@ -306,95 +313,94 @@ footer input{
     </div>
 </section>
 <section class="resume">
-<h3 class="section-title">A summary of My Resume</h3>
+<h3 class="section-title"><i class="fa-solid fa-file-lines"></i> A summary of My Resume</h3>
 <div class="resume-container">
     <!-- <div class="resume-column1">.resume-column*2>h3.resume-column-title+.experience*3>h4.experience-title+h5.experience-sub-title+.experience-description</div> -->
 <div class="resume-column1">
     <div class="resume-column">
-    <h3 class="resume-column-title">My Education</h3>
+    <h3 class="resume-column-title"><i class="fa-solid fa-graduation-cap"></i>My Education</h3>
     <div class="experience">
-        <h4 class="experience-title">Bachelor of Science in Computer Science</h4>
+        <h4 class="experience-title"> <i class="fa-solid fa-graduation-cap"></i> Bachelor of Science in Computer Science</h4>
         <h5 class="experience-sub-title">Pabna University of Science and Technology</h5>
         <div class="experience-description">Graduated in 2027 with a focus on web development.</div>
     </div>
     <div class="experience">
-        <h4 class="experience-title">Master of Science in Computer Science</h4>
+        <h4 class="experience-title"><i class="fa-solid fa-graduation-cap"></i> Master of Science in Computer Science</h4>
         <h5 class="experience-sub-title">Pabna University of Science and Technology</h5>
         <div class="experience-description">Graduated in 2029 with a focus on advanced web development.</div>
     </div>
     <div class="experience">
-        <h4 class="experience-title">PhD in Computer Science</h4>
+        <h4 class="experience-title"><i class="fa-solid fa-graduation-cap"></i>    PhD in Computer Science</h4>
         <h5 class="experience-sub-title">Pabna University of Science and Technology</h5>
         <div class="experience-description">Graduated in 2032 with a focus on artificial intelligence.</div>
     </div>
 </div>
 <div class="resume-column">
-    <h3 class="resume-column-title">My Work Experience</h3>
+    <h3 class="resume-column-title"><i class="fa-solid fa-briefcase"></i> My Work Experience</h3>
     <div class="experience">
-        <h4 class="experience-title">Web Developer</h4>
+        <h4 class="experience-title"><i class="fa-solid fa-laptop-code"></i> Web Developer</h4>
         <h5 class="experience-sub-title">ABC Company</h5>
         <div class="experience-description">Worked on various web development projects using modern technologies.</div>
     </div>
     <div class="experience">
-        <h4 class="experience-title">Senior Web Developer</h4>
+        <h4 class="experience-title"><i class="fa-solid fa-laptop-code"></i> Senior Web Developer</h4>
         <h5 class="experience-sub-title">XYZ Company</h5>
         <div class="experience-description">Led a team of developers to create a large-scale web application.</div>
     </div>
     <div class="experience">
-        <h4 class="experience-title">Lead Developer</h4>
+        <h4 class="experience-title"><i class="fa-solid fa-laptop-code"></i> Lead Developer</h4>
         <h5 class="experience-sub-title">123 Company</h5>
         <div class="experience-description">Oversaw the development of multiple web projects and ensured best practices.</div>
     </div>
 </div>
 </div>
     <div class="resume-column2"><div class="resume-column">
-        <h3 class="resume-column-title">My Skills and Expertise</h3>
+        <h3 class="resume-column-title"><i class="fa-solid fa-cogs"></i> My Skills and Expertise</h3>
         <div class="experience">
-            <h4 class="experience-title">Web Development</h4>
+            <h4 class="experience-title"><i class="fa-solid fa-code"></i> Web Development</h4>
             <h5 class="experience-sub-title">Frontend and Backend</h5>
             <div class="experience-description">Proficient in HTML, CSS, JavaScript, and various frameworks.</div>
         </div>
         <div class="experience">
-            <h4 class="experience-title">Database Management</h4>
+            <h4 class="experience-title"><i class="fa-solid fa-database"></i> Database Management</h4>
             <h5 class="experience-sub-title">MongoDB, MySQL</h5>
             <div class="experience-description">Experienced in designing and managing databases for web applications.</div>
         </div>
         <div class="experience">
-            <h4 class="experience-title">Version Control</h4>
+            <h4 class="experience-title"><i class="fa-solid fa-code-branch"></i> Version Control</h4>
             <h5 class="experience-sub-title">Git, GitHub</h5>
             <div class="experience-description">Proficient in using Git for version control and collaboration.</div>
         </div>
     </div>
     <div class="resume-column">
-        <h3 class="resume-column-title">My Certifications</h3>
+        <h3 class="resume-column-title"><i class="fa-solid fa-certificate"></i> My Certifications</h3>
         <div class="experience">
-            <h4 class="experience-title">Certified Web Developer</h4>
-            <h5 class="experience-sub-title">FreeCodeCamp</h5>
+            <h4 class="experience-title"><i class="fa-solid fa-certificate"></i> Certified Web Developer</h4>
+            <h5 class="experience-sub-title"> <i>FreeCodeCamp</i></h5>
             <div class="experience-description">Completed a comprehensive web development course.</div>
         </div>
         <div class="experience">
-            <h4 class="experience-title">JavaScript Certification</h4>
-            <h5 class="experience-sub-title">Codecademy</h5>
+            <h4 class="experience-title"><i class="fa-solid fa-certificate"></i> JavaScript Certification</h4>
+            <h5 class="experience-sub-title"> <i>Codecademy</i></h5>
             <div class="experience-description">Achieved certification in JavaScript programming.</div>
         </div>
         <div class="experience">
-            <h4 class="experience-title">Python Certification</h4>
-            <h5 class="experience-sub-title">Coursera</h5>
+            <h4 class="experience-title"><i class="fa-solid fa-certificate"></i>     Python Certification</h4>
+            <h5 class="experience-sub-title"> <i>Coursera</></h5>
             <div class="experience-description">Completed a course on Python programming and data analysis.</div>
         </div>
     </div>
 </div>
 </div>
 <div class="download-cv">
-    <button class="btn-primary">Download CV</button>  
+    <button class="btn-primary"id="download-cv"><i class="fa-solid fa-download"></i> Download CV</button>  
 </div>
 </section>
     </main>
     <footer class="secondary-footer">
 
 <div class="footer-column">
-    <h3 class="section-title">
-        Let's Connect
+    <h3 class="section-title"><i class="fa-solid fa-comments"></i> Let's Connect
     </h3>
 
     <p>Please fill out the form on this section to contact with me or call between 9:00 AM to 10:00 PM ET, Monday to Friday.</p>
@@ -409,13 +415,13 @@ footer input{
         Let's Message Me
     </h3>
     <p>Feel free to reach out to me via email or phone for any inquiries or collaborations.</p>
-    <input type="email" placeholder="Your Email">
+    <input type="email" placeholder="Enter Your Email">
     <br>
-    <input type="text" placeholder="Subject">
+    <input type="text" placeholder=" Enter Your Subject">
     <br>
-    <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+    <textarea name="" id="" cols="30" rows="10" placeholder="Enter Your Message"></textarea>
     <br>
-    <button class="btn-primary">Submit</button>
+    <button class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit</button>
 </div>
     </footer>
 </body>

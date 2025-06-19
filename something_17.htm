@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Love Letter</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            font-family: 'Bangla', Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            padding: 40px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .envelope {
+            background: #fff;
+            width: 800px;
+            height: 500px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+            cursor: pointer;
+        }
+
+        .envelope.open {
+            transform: rotateX(180deg);
+        }
+
+        .front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: rotateX(180deg);
+            backface-visibility: hidden;
+        }
+
+        .letter {
+            max-width: 800px;
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blessing {
+            position: absolute;
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .heart {
+            color: red;
+            font-size: 30px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .blink-btn {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ffc3a0);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px #ff6b6b; }
+            50% { box-shadow: 0 0 20px #ff6b6b; }
+        }
+
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope">
+        <div class="front">
+            <button class="blink-btn" onclick="openLetter()">Open Letter ❤️</button>
+            <div class="blessing">✨ With Love & Blessings ✨</div>
+        </div>
+        <div class="back">
+            <div class="letter">
+                <span class="heart">❤️</span>
+                <p>প্রিয় খাদিজা,</p>
+            <p>
+তুমি জানো, ভালোবাসা মানেই শুধু হাসি-মজা, “মিস ইউ”, “লাভ ইউ” এই কথাগুলো না।
+ভালোবাসা মানে হচ্ছে—তুমি যখন ক্লান্ত থাকো, আমি পাশে বসে তোমার মাথাটা একটু হাত দিয়ে চুলে বিলি দিতে চাই।
+ভালোবাসা মানে হচ্ছে—তুমি যখন দুশ্চিন্তায় রাত জাগো, আমি শুধু চাই, তুমি একটু স্বস্তির নিঃশ্বাস ফেলো, কারণ জানো তো? আমি আছি।
+
+তুমি এখন একটু ভেঙে পড়েছো, পড়াশোনা ঠিক মতো হয়নি বলে নিজের উপর রাগ, অভিমান—সব একসাথে জমেছে।
+কিন্তু আমি চাই তুমি এটা মনে রেখো—
+
+তুমি যতটা নিজের দুর্বলতা ভাবছো, তুমি তার চেয়েও অনেক বেশি শক্তিশালী।
+
+আমি দেখেছি তোমার মধ্যে একটা অদ্ভুত সাহস আছে। হয়তো তুমি নিজেই সেটা সবসময় বুঝতে পারো না।
+তুমি ঠাণ্ডা হাওয়ার মতো—চুপচাপ এসে আমার সব উষ্ণতা কেড়ে নিয়ে আবার নিজের মতো হারিয়ে যাও।
+কিন্তু আমি জানি, তুমি যদি চাও, তুমি পাহাড়ও সরাতে পারো।
+
+আজ তোমার পরীক্ষা। হয়তো তুমি পুরোটা পড়তে পারোনি। কিন্তু একটাও ভয় পাওয়ার কিছু নেই।
+তোমার ঘাম, তোমার ঘুমহীন রাত—এসব বৃথা যাবে না।
+একটা খারাপ দিন তোমার পুরো ভবিষ্যৎ ঠিক করে দিতে পারবে না।
+
+আর তুমি যদি হেরে যাও কখনো, আমি হবো তোমার জয়ের পাশে বসে থাকা সবচেয়ে বড় দর্শক।
+আর যদি জিতে যাও? আমি হবো সবচেয়ে গর্বিত প্রেমিক—যে জানতো, তুমি পেরে যাবে।
+
+তোমার মেহেদি লাগানো হাতটা এখনো আমার চোখে ভাসে।
+তুমি জানো? আমি একদিন সেই হাত ধরে তোমাকে বলবো,
+"চলো, এই পৃথিবীর ঝামেলা থেকে একটু দূরে কোথাও ঘুরে আসি—শুধু তুমি আর আমি।"
+
+তুমি আমার জীবনে শুধু একটা মানুষ না—তুমি একটা অনুভব, একটা শান্তি, একটা বাসা।
+
+চোখে চোখ রাখো না আজ, শুধু মনে রাখো—
+তুমি একা না। তুমি আমার।
+
+ভালোবাসি, সবটুকু মন দিয়ে।
+</p>
+                <p class="signature">তোমার— আরমান</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openLetter() {
+            document.querySelector('.envelope').classList.add('open');
+            createSparkles();
+        }
+
+        function createSparkles() {
+            for(let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.width = Math.random() * 8 + 'px';
+                sparkle.style.height = sparkle.style.width;
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1500);
+            }
+        }
+    </script>
+</body>
+</html>

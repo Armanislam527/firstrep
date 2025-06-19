@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header, .footer {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .box {
+            flex: 1 1 300px;
+            margin: 10px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        @media (max-width: 768px) {
+            .box {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h3>7 Things I need to know about responsive design</h3>
+        <ul>
+            <li>Responsive design ensures that web pages look good on all devices (desktops, tablets, and phones).</li>
+            <li>It uses flexible layouts, images, and CSS media queries to adapt to different screen sizes.</li>
+            <li>Fluid grids allow elements to resize proportionally based on the viewport size.</li>
+            <li>Media queries apply different styles based on device characteristics like width, height, and orientation.</li>
+            <li>Responsive images adjust their size and resolution for optimal display on various devices.</li>
+            <li>Mobile-first design starts with the smallest screen size and progressively enhances for larger screens.</li>
+            <li>Testing across multiple devices and browsers is crucial to ensure a consistent user experience.</li>
+        </ul>
+    <div class="container">
+        <div class="header">
+            <h1>Responsive Design Example</h1>
+        </div>
+        <div class="content">
+            <div class="box">Box 1</div>
+            <div class="box">Box 2</div>
+            <div class="box">Box 3</div>
+            <div class="box">Box 4</div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 Responsive Design</p>
+        </div>
+    </div>
+</body>
+</html>
