@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>তোমার জন্যে ভালোবাসার চিঠি</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&display=swap');
+
+    body {
+      background: linear-gradient(135deg, #f8cdda, #f88fa7);
+      font-family: 'Noto Sans Bengali', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .envelope {
+      width: 320px;
+      height: 200px;
+      background: #fff;
+      border: 2px solid #ff6b81;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 1s;
+    }
+
+    .envelope:click {
+      transform: rotateX(360deg);
+    }
+
+    .letter {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: auto;
+      background: white;
+      padding: 20px;
+      box-sizing: border-box;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border-radius: 10px;
+      transform: translateY(-50%);
+      z-index: -1;
+      animation: fadeIn 2s ease-in-out forwards;
+      opacity: 0;
+    }
+
+    .envelope:hover .letter {
+      z-index: 2;
+      opacity: 1;
+    }
+
+    .typing {
+      border-right: 2px solid #e63946;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 6s steps(60, end), blink .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: #e63946; }
+    }
+
+    .petals {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: fall 8s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="petals" id="petals"></div>
+
+  <div class="envelope">
+    <div class="letter">
+      <h2 style="color:#e63946;">প্রিয়তমা,</h2>
+      <p class="typing">জানো, তোমার প্রতিটা হাসিতে আমার পৃথিবীটা রাঙিয়ে ওঠে।</p>
+      <p>এই পরীক্ষার সময়টায় তোমার মন যেন শান্ত থাকে, সেই প্রার্থনাই করি প্রতিটি নিঃশ্বাসে।
+      তুমি যতটাই ভয় পাও না কেন, আমি জানি তুমি অসাধারণ। তোমার মেধা, মন আর সাহস—তিনটেই তোমাকে জয় এনে দেবে।
+      </p>
+      <p>তুমি পড়তে বসলে যেন আমি পাশে বসে থাকি, নিঃশব্দে, কেবল চোখে চোখ রেখে বলি—"তুমি পারবে, আমার ভালোবাসা।"</p>
+      <p>তুমি শুধু তোমার স্বপ্নের দিকে এগিয়ে চলো। বাকি পৃথিবী, আমি সামলে নেব। ❤️</p>
+      <p style="margin-top: 20px;">শুভকামনায়, ভালোবাসায় ভরা<br><strong>তোমারই,</strong><br>আরমান</p>
+    </div>
+  </div>
+
+  <script>
+    const petalColors = ['#ffc0cb', '#ffb6c1', '#ff69b4', '#ff1493'];
+    const petalsContainer = document.getElementById('petals');
+
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * window.innerWidth + 'px';
+      petal.style.background = petalColors[Math.floor(Math.random() * petalColors.length)];
+      petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+      petalsContainer.appendChild(petal);
+      setTimeout(() => petal.remove(), 8000);
+    }
+
+    setInterval(createPetal, 300);
+  </script>
+</body>
+</html>

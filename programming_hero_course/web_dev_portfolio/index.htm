@@ -16,6 +16,8 @@
 		"Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 	font-optical-sizing: auto;
 	font-weight: 700;
+    flex-shrink: 1;
+    /* width: 100%; */
 	font-style: normal;
 	font-variation-settings: "wdth" 100;
 }
@@ -90,7 +92,7 @@ header {
 	height: 600px;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 	color: hsla(0, 18%, 29%, 0.767);
 	text-align: center;
@@ -170,7 +172,7 @@ header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 main {
-    max-width: 1120px;
+    /* max-width: 1120px; */
     margin: 0 auto; 
     padding: 20px;
     background-color: #f0f0f0;
@@ -185,7 +187,7 @@ main {
 .skills-container{
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 10px;
     justify-content: space-around;
     margin-top: 20px;
 }
@@ -200,7 +202,7 @@ main {
 .resume-container{
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 10px;
     justify-content: space-between;
     margin-top: 20px;
 }
@@ -221,21 +223,95 @@ button a {
 }
 footer {
     display: flex;
-    gap: 100px;
+    gap: 10px;
     background-color: #47a056;
     color: white;
     text-align: center;
     padding: 20px;
     position: relative;
     bottom: 0;
-    padding: 120px 120px;
+    /* padding: 120px 120px; */
 }
 footer input{
     width: 100%;
     padding: 10px;
     margin: 10px 0;
+    background:#35bcce5e;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+@media screen and (max-width: 750px) {
+    .skills-container, .resume-container,.about-items{
+        flex-direction: column;
+    }
+    }
+    @media screen and (max-width: 620px) {
+        footer{
+            flex-direction: column;
+            padding: 20px;
+        }
+    }
+    /* Add this at the end of your <style> block */
+@media screen and (max-width: 400px) {
+    *{
+        padding: 0;
+    }
+    nav {
+        font-size: 1rem;
+        padding: 5px 2px;
+    }
+    .nav-title {
+        font-size: 1.5rem;
+    }
+    header{
+        background-image: none;
+        background-size: auto;
+    }
+    .banner {
+        flex-direction: column;
+        height: auto;
+        margin: 0;
+        padding: 10px 2px;
+    }
+    .banner-content {
+        max-width: 100%;
+    }
+    .banner h1, .baner-name {
+        font-size: 1.5rem;
+    }
+    .banner p, .banner-greeting {
+        font-size: 1rem;
+    }
+    .banner>img {
+        width: 100px;
+        left: 0;
+        top: 0;
+        margin: 0 auto;
+        display: block;
+    }
+    .about, main {
+        padding: 10px 2px;
+        margin-top: 30px;
+        max-width: 100%;
+    }
+    .skills, .resume-container, .about-items {
+        margin: 5px 0;
+        padding: 10px 2px;
+        flex-direction: column !important;
+        max-width: 100%;
+    }
+    footer, .secondary-footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 2px;
+    }
+    .footer-column {
+        width: 100%;
+        min-width: 0;
+    }
+    input, textarea {
+        font-size: 1rem;
+    }
 }
 </style>
 </head>
@@ -419,7 +495,7 @@ footer input{
     <br>
     <input type="text" placeholder=" Enter Your Subject">
     <br>
-    <textarea name="" id="" cols="30" rows="10" placeholder="Enter Your Message"></textarea>
+    <textarea name="" id="" cols="auto" rows="auto" placeholder="Enter Your Message"></textarea>
     <br>
     <button class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit</button>
 </div>
