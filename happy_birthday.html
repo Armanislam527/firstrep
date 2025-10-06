@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>তোমার জন্য সারপ্রাইজ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #ffe6f0, #ffe0e9, #fff5fa);
+      font-family: 'Noto Sans Bengali', sans-serif;
+      overflow: visible;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    h1.typing {
+      font-size: 4em;
+      color: #d63384;
+      white-space: nowrap;
+      overflow:visible;
+      border-right: 3px solid;
+      width: 0;
+      animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .message {
+      /* max-width: 600px; */
+      background-color: rgba(255,255,255,0.8);
+      /* padding: 20px; */
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      font-size: 4em;
+      color: #6a1b9a;
+      overflow-x: scroll;
+    }
+
+    .petal {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background-color: pink;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: fall 10s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="typing">প্রিয়তমা খাদিজা</h1>
+  <div class="message">
+    তুমি আমার জীবনের সেই গল্প, যেটা পড়তে পড়তে বারবার মন কাঁদে আবার ভালোবাসায় ভরে যায়।  
+    আমার পৃথিবীর রং তুমি, আমার সমস্ত সাহসের উৎস তুমি।  
+    দূরত্ব যতই থাকুক, আমার ভালোবাসার কাছে তা শুধুই কিছু পৃষ্ঠার দূরত্ব...  
+    তোমার চোখে আমার স্বপ্ন, তোমার হাসিতে আমার শান্তি।  
+    শুভ জন্মদিন, আমার জীবনের সবচেয়ে দামী মানুষ।  
+    শুধু আজ নয়, প্রতিদিন চাই তোমায় ভালোবাসতে... নতুন করে, গভীরভাবে, চিরকাল। ❤️
+  </div>
+
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Flower falling effect
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * window.innerWidth + 'px';
+      petal.style.top = '-20px';
+      petal.style.backgroundColor = ['#ffc0cb', '#ffb6c1', '#ff69b4', '#ff1493'][Math.floor(Math.random() * 4)];
+      petal.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), 10000);
+    }
+
+    setInterval(createPetal, 300);
+  </script>
+</body>
+</html>

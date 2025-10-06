@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>আমার ভালোবাসার কাছে চিঠি</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&display=swap');
+
+    body {
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Noto Sans Bengali', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: scroll;
+    }
+
+    .envelope {
+      width: 320px;
+      height: 200px;
+      background: #fff;
+      border: 2px solid #ff4d6d;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+      text-align: center;
+      padding-top: 80px;
+      font-size: 18px;
+      color: #ff4d6d;
+      font-weight: bold;
+    }
+
+    .letter {
+      width: 400px;
+      max-height: 0;
+      overflow: scroll;
+      background: #fff;
+      padding: 0 20px;
+      box-sizing: border-box;
+      border-radius: 10px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      position: absolute;
+      top: 220px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: max-height 2s ease;
+    }
+
+    .envelope.open + .letter {
+      max-height: 600px;
+      padding: 20px;
+    }
+
+    .typing {
+      border-right: 2px solid #ff4d6d;
+      white-space: nowrap;
+      overflow: scroll;
+      animation: typing 6s steps(60, end), blink .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: #ff4d6d; }
+    }
+
+    .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: fall 8s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="envelope" onclick="this.classList.toggle('open')">
+    💌 আমার ভালোবাসার জন্য একটি বিশেষ বার্তা 💌<br>
+    👉 খুলতে এখানে ক্লিক করো
+  </div>
+
+  <div class="letter">
+    <h2 style="color:#ff4d6d;">প্রিয়তমা,</h2>
+    <p class="typing">তুমি জানো কি? এই দুই মাস আমি তোমাকে যতটুকু সময় দিতে পারিনি, তার জন্য আমার ভেতরে এক বিশাল শূন্যতা তৈরি হয়েছে।</p>
+    <p>হয়তো তুমি ভাবছো, আমি তোমাকে অবহেলা করেছি—কিন্তু বিশ্বাস করো, তোমার প্রতিটি অভিমান, প্রতিটি নীরবতা আমি বুঝেছি। আর প্রতিদিন নিজেকে দোষী মনে করেছি।</p>
+    <p>আমি স্বীকার করছি, আমি ভুল করেছি। তোমাকে প্রাপ্য সেই মনোযোগ, সেই যত্ন আমি দিতে পারিনি। কিন্তু আমার হৃদয়, আমার সমস্ত ভালোবাসা, সবকিছুই শুধু তোমার জন্য।</p>
+    <p>তুমি আমার জীবনের সবচেয়ে বড় প্রেরণা। আমার স্বপ্নগুলো যদি আকাশ হয়, তবে তুমি সেই আকাশের তারা—যে ছাড়া আমার পৃথিবী অন্ধকার।</p>
+    <p>শুধু একটা সুযোগ দাও আমাকে। আমি প্রতিদিন প্রমাণ করতে চাই—তুমি শুধু আমার ভালোবাসা নও, তুমি আমার বেঁচে থাকার কারণ।</p>
+    <p style="margin-top:20px;">চিরকাল তোমারই,<br>আরমান 💖</p>
+  </div>
+
+  <script>
+    // Falling petals
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * window.innerWidth + 'px';
+      petal.style.background = ['#ffb6c1','#ff69b4','#ff4d6d'][Math.floor(Math.random()*3)];
+      petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), 8000);
+    }
+    setInterval(createPetal, 400);
+  </script>
+</body>
+</html>
