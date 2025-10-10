@@ -1,0 +1,1 @@
+{"name":"Local: n-quuen1","url":"/home/arman/Downloads/dado/DSA/n-quuen1.cpp","tests":[{"id":1760036495285,"input":"4","output":"Enter value of N: Solutions for 4-Queens problem:\n\n.Q..\n...Q\nQ...\n..Q.\n\n..Q.\nQ...\n...Q\n.Q..\n\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/arman/Downloads/dado/DSA/n-quuen1.cpp","group":"local","local":true}
