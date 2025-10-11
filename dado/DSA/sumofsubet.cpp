@@ -45,10 +45,10 @@ void findSubsets(const vector<int>& set, vector<int>& subset, int index, int tar
 
 int main() {
     // Given set and target sum
-    vector<int> S = {5, 10, 12, 13, 15, 18};
+    vector<int> S = {5, 10, 12, 13, 15, 17, 18, 20, 25};
     int d = 30;
 
-    cout << "Given Set S = {5, 10, 12, 13, 15, 18} and d = " << d << endl;
+    cout << "Given Set S = {5, 10, 12, 13, 15, 17, 18, 20, 25} and d = " << d << endl;
     cout << "The subsets that sum to 30 are:" << endl;
 
     // A vector to store the current subset being considered
