@@ -1,0 +1,1 @@
+{"name":"Local: knspsack","url":"/home/arman/arman/github/firstrep/dado/DSA/knspsack.cpp","tests":[{"id":1760206547853,"input":"4 20\n15 2\n25 6\n13 12\n23 9","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/arman/arman/github/firstrep/dado/DSA/knspsack.cpp","group":"local","local":true}
