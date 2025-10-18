@@ -1,6 +1,6 @@
 # Lab-03: Compare t-distribution with normal distribution for small sample sizes.
 # Parameters
-n <- 10	
+n <- 10
 N_sim <- 1000
 	
 # Generate data
