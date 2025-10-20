@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ধন্যবাদ, জারা আপু 🌸</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&display=swap');
+  body {
+    font-family: 'Noto Sans Bengali', sans-serif;
+    background: linear-gradient(135deg, #fce1ec, #ffe6f0);
+    color: #333;
+    text-align: center;
+    overflow: scroll;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+  }
+  h1 {
+    color: #e75480;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  p {
+    line-height: 1.8;
+    font-size: 18px;
+  }
+  .emoji {
+    font-size: 22px;
+  }
+  .footer {
+    margin-top: 25px;
+    color: #e75480;
+    font-weight: bold;
+  }
+  /* Flower petals animation */
+  .petal {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: fall 10s linear infinite;
+  }
+  @keyframes fall {
+    0% {transform: translateY(0) rotate(0deg);}
+    100% {transform: translateY(100vh) rotate(720deg); opacity: 0;}
+  }
+</style>
+</head>
+<body>
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_d9b13ce89f.mp3?filename=soft-piano-ambient-110928.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <h1>💖 ধন্যবাদ, প্রিয় জারিন আপু 💖</h1>
+  <p>আপু, আপনার মতো একজন মানুষকে জীবনে পাওয়া সত্যিই আমার জন্য এক আশীর্বাদ 🌸।  
+  আপনি শুধু আমার সিনিয়র নন, আমার পথপ্রদর্শক, আমার অভিভাবকসুলভ এক আপনজন। 💕</p>
+
+  <p>গতকাল আমি একটু অসুস্থ ছিলাম, আর তখন আপনি নিজের সময়, যত্ন, ভালোবাসা দিয়ে  
+  আমার পাশে এসে দাঁড়ালেন 🥺। খাবার, ফল, হাসি—সবকিছু নিয়ে আপনি যেমনভাবে  
+  আমাকে আদর করেছেন, তাতে আমার মনটা ভরে গেছে। 🥰</p>
+
+  <p>শুধু গতকাল নয়, প্রতিদিনের ছোট ছোট মুহূর্তে আপনি যেভাবে খেয়াল রাখেন—  
+  কখন বাড়ি যাচ্ছি, কখন বিশ্রাম নিচ্ছি—এসবের মধ্যেই আপনার যত্নের গভীরতা বুঝতে পারি। 🌼  
+  আপনি যেন আমার কলেজ জীবনের এক অবিচ্ছেদ্য ভালোবাসা হয়ে উঠেছেন।</p>
+
+  <p>আপু, আপনি যেমন মানুষ, তেমন মানুষ সত্যিই বিরল।  
+  আল্লাহ যেন সবসময় আপনাকে সুস্থ রাখেন, সুখে রাখেন, আর আপনার জীবনে হাসির আলো ছড়িয়ে দেন। 🌹✨</p>
+
+  <p class="footer">ভালোবাসা ও কৃতজ্ঞতায়,<br>💌 খাদিজা 💌</p>
+</div>
+
+<script>
+  const colors = ['#ffb6c1', '#ffc0cb', '#ff69b4', '#ff1493'];
+  for (let i = 0; i < 20; i++) {
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    petal.style.left = Math.random() * window.innerWidth + 'px';
+    petal.style.background = colors[Math.floor(Math.random() * colors.length)];
+    petal.style.animationDuration = (6 + Math.random() * 6) + 's';
+    document.body.appendChild(petal);
+  }
+</script>
+</body>
+</html>
