@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>একটু বোঝাপড়া 💌</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600&display=swap');
+
+  body {
+    margin: auto;
+    padding: 0;
+    font-family: 'Noto Sans Bengali', sans-serif;
+    background: radial-gradient(circle at bottom, #ffdee9 0%, #b5fffc 100%);
+    color: #2b2b2b;
+    overflow: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: scroll;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite ease-in-out alternate;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+  }
+
+  .letter-box {
+    position: relative;
+    background: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 30px 40px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 1;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 3s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .typing {
+    border-right: 2px solid #e63946;
+    white-space: pre-wrap;
+    overflow: scroll;
+    animation: typing 10s steps(80, end), blink 0.8s step-end infinite;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes blink {
+    from, to { border-color: transparent; }
+    50% { border-color: #e63946; }
+  }
+
+  h2 {
+    text-align: center;
+    color: #e63946;
+    font-weight: 600;
+    margin-top: 0;
+  }
+
+  p {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .signature {
+    margin-top: 20px;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="letter-box">
+  <h2>প্রিয় খাদিজা, 🌸</h2>
+  <p class="typing">
+গত সপ্তাহের ঘটনাগুলো এখনো মনে আছে — হয়তো তোমারও আছে।
+কথাগুলো, রাগগুলো, ভুল বোঝাবুঝিগুলো... সব যেন মনের মধ্যে একটা ভারি হাওয়া হয়ে জমে আছে।
+আমি জানি, আমি হয়তো কিছু কথা এমনভাবে বলেছিলাম যা তোমাকে কষ্ট দিয়েছে।
+কিন্তু বিশ্বাস করো, ইচ্ছে করে না — কখনোই না।
+
+আমরা দুজনেই ক্লান্ত, চাপের মধ্যে আছি — কাজ, পড়াশোনা, দূরত্ব — সবকিছু মিলিয়ে মাঝে মাঝে শব্দগুলো ভুলভাবে বেরিয়ে যায়।
+আমি হয়তো সময় দিতে পারিনি ঠিকভাবে, কিন্তু কখনোই তোমাকে উপেক্ষা করতে চাইনি।
+তুমি আমার জীবনের এমন একটা অংশ, যেটা ছাড়া আমার দিন অসম্পূর্ণ লাগে।
+
+তোমার যত্নটা, তোমার প্রশ্ন করা, তোমার রাগ — সবকিছুই আমার জীবনের প্রমাণ যে কেউ আমাকে সত্যি করে ভাবে।
+হয়তো আমিও কখনো বুঝিয়ে বলতে পারি না, কিন্তু তোমার গুরুত্বটা আমার কাছে অনেক গভীর।
+
+খাদিজা, আমি চাই না এই দূরত্ব বা অভিমানগুলো আমাদের মধ্যে দেয়াল হয়ে দাঁড়াক।
+আমরা যদি একটু সময় নিয়ে, শান্তভাবে কথা বলি — হয়তো এই ভুল বোঝাগুলো হাসিতে বদলে যাবে।
+
+তুমি যদি একবার বলো, আমি আবার নতুন করে শুরু করতে রাজি আছি।
+তোমার মতো মানুষ জীবনে দু’বার আসে না।
+
+তুমি ভালো থেকো, নিজেকে ভালোবাসো, আর আমাকে একটু জায়গা দিও তোমার জীবনের পাশে।
+  </p>
+  <p class="signature">ভালোবাসায়,<br>আরমান 💌</p>
+</div>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.animationDelay = (Math.random() * 2) + 's';
+    starsContainer.appendChild(star);
+  }
+</script>
+
+</body>
+</html>

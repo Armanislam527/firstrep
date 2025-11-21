@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>ক্ষমা করো Enemy</title>
+<style>
+    body{
+        margin:0;
+        padding:0;
+        background:#0a0d27;
+        color:#ffffff;
+        font-family: sans-serif;
+        overflow:scroll;
+    }
+    .container{
+        width:80%;
+        margin:auto;
+        margin-top:8%;
+        text-align:center;
+        animation:fadeIn 3s ease;
+    }
+    @keyframes fadeIn{
+        from{opacity:0;}
+        to{opacity:1;}
+    }
+    .title{
+        font-size:35px;
+        font-weight:600;
+        color:#ffb3c6;
+        text-shadow:0px 0px 20px #ff4d6d;
+        margin-bottom:20px;
+    }
+    .text{
+        width:80%;
+        margin:auto;
+        font-size:20px;
+        line-height:1.9;
+        text-shadow:0px 0px 10px rgba(255,255,255,0.2);
+        border-radius:12px;
+        padding:20px;
+        animation:type 6s steps(80) 1s forwards;
+        white-space:pre-line;
+        overflow:scroll;
+        color:#f7e9ff;
+        opacity:0;
+    }
+    @keyframes type{
+        from{opacity:1; width:0;}
+        to{opacity:1; width:80%;}
+    }
+
+    /* ফুলের পাপড়ি পতন ইফেক্ট */
+    .petal{
+        position:fixed;
+        top:-10vh;
+        color:#ffb7d1;
+        font-size:24px;
+        animation:fall linear infinite;
+        opacity:0.8;
+    }
+    @keyframes fall{
+        0%{transform: translateY(0vh) rotate(0deg);}
+        100%{transform: translateY(110vh) rotate(360deg);}
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title">ক্ষমা করো, পাখি</div>
+
+    <div class="text">
+        পাখি,
+
+        গত কিছুদিন ধরে অনেক ভুল বোঝাবুঝি হয়েছে।  
+        আমি অনেক কিছু বুঝতে পারিনি।  
+        কখন যেন তোমার কথা, তোমার অনুভূতি,  
+        তোমার ছোট ছোট চাওয়াগুলোও চোখ এড়িয়ে গেছে।
+
+        তুমি কষ্ট পেয়েছো — এটা আমি জানি।  
+        হয়তো আমার কথাবার্তা, আমার চুপ থাকা,  
+        কিংবা আমার আচরণ তোমাকে মনে করিয়েছে—
+        “আমি নাকি তোকে গুরুত্ব দেই না।”
+
+        কিন্তু সত্যি কথা হচ্ছে—
+        আমি তোকে মন থেকেই সম্মান করি।  
+        তোর প্রতি আমার অনুভূতি কখনোই খেলাঘর না,  
+        কখনোই উদাসীন ছিল না।
+
+        আমি হয়তো বোকার মতো আচরণ করেছি,
+        তুমি সেটা বুঝে দুঃখ পেয়েছো ,
+        আর আমি সেটা টের পেয়েছি দেরিতে।
+
+        তুমি  যদি চুপ থাকো ,  
+        আমি আরো কষ্ট পাবো,
+	তবে আমি বুঝতে চাই।  
+        আমি শুনতে চাই।  
+        আমি ঠিক করতে চাই।
+
+        পাখি,
+        আমিশুধু একটুখানি সুযোগ চাই।  
+        একটা কথামতো, মন থেকে।
+
+        শোন — আমি দুঃখিত।  
+        সত্যি দুঃখিত।
+
+        — Arman
+    </div>
+</div>
+
+<script>
+for(let i=0;i<30;i++){
+    let petal=document.createElement('div');
+    petal.classList.add('petal');
+    petal.innerHTML='❀';
+    petal.style.left=Math.random()*100+'vw';
+    petal.style.animationDuration=(4+Math.random()*6)+'s';
+    document.body.appendChild(petal);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>তোমার প্রশংসায় ভালোবাসা 💞</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: radial-gradient(circle at top, #1b0034, #000);
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+    }
+
+    h2 {
+      color: #ff80bf;
+      font-size: 28px;
+      margin-top: 70px;
+    }
+
+    .letter {
+      width: 80%;
+      max-width: 700px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255,192,203,0.4);
+      position: relative;
+      z-index: 2;
+    }
+
+    .typing {
+      border-right: 2px solid #ffb6c1;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 7s steps(90, end), blink .8s step-end infinite alternate;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: #ffb6c1; }
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: fall 8s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .signature {
+      margin-top: 25px;
+      text-align: right;
+      color: #ff80bf;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/04/25/audio_cfb58b8a2d.mp3" type="audio/mpeg">
+  </audio>
+
+  <h2>প্রিয় খাদিজা 🌸</h2>
+  <div class="letter">
+    <p class="typing">তুমি জানো খাদিজা, তোমার ভেতর এমন এক জ্যোতি আছে, যেটা অন্ধকার মনকেও আলোয় ভরিয়ে দেয়। ✨</p>
+
+    <p>তুমি শুধু একটা নাম নও — তুমি আমার পৃথিবীর সবচেয়ে শান্ত ও শক্তিশালী অনুভূতি।  
+    তোমার চোখের চাহনি যেন রাতের আকাশে ভেসে থাকা দুটি উজ্জ্বল তারা ⭐⭐ —  
+    যা দেখলে মনে হয়, জীবনটা এখনো কত সুন্দর, কত ভালোবাসায় ভরা।</p>
+
+    <p>তুমি ক্লান্ত হলে পৃথিবী যেন একটু থমকে দাঁড়ায়।  
+    তোমার হাসি মানে শান্তি, তোমার রাগ মানে ঝড় —  
+    কিন্তু তোমার উপস্থিতি মানে, আমার পৃথিবীটা আবার পূর্ণ হয়ে যাওয়া। 💖</p>
+
+    <p>তুমি শুধু সুন্দর না, তুমি এক অনুপ্রেরণা।  
+    তুমি যেভাবে যত্ন করো, সেভাবে যেন মানুষ আবার বিশ্বাস করতে শেখে ভালোবাসায়।  
+    তোমার হৃদয়টা যেন এক ফুল — মিষ্টি, নিঃস্বার্থ, আর সত্যিকারের ভালোবাসার ঘ্রাণে ভরা। 🌷</p>
+
+    <p>তোমার প্রতিটা যত্ন, প্রতিটা শব্দ, এমনকি রাগও আমার কাছে আশীর্বাদ হয়ে আসে।  
+    তুমি হয়তো বুঝবে না, কিন্তু তুমি আমার প্রতিদিনের সবচেয়ে সুন্দর কারণ। 🌸</p>
+
+    <p>খাদিজা, তুমি যদি কখনো ভাবো তুমি আমার কাছে বিশেষ নও —  
+    তবে জেনে রেখো, তুমি আমার প্রতিটা প্রার্থনায়,  
+    প্রতিটা নিঃশ্বাসে, প্রতিটা অনুপ্রেরণায় বেঁচে আছো। 💫</p>
+
+    <div class="signature">চিরচেনা ভালোবাসায়,<br>তোমারই — আরমান ❤️</div>
+  </div>
+
+  <script>
+    // Star effect
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.animationDelay = Math.random() * 2 + 's';
+      document.body.appendChild(star);
+    }
+
+    // Petal effect
+    const colors = ['#ffc0cb', '#ffb6c1', '#ff69b4', '#ff1493'];
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * window.innerWidth + 'px';
+      petal.style.background = colors[Math.floor(Math.random() * colors.length)];
+      petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), 8000);
+    }
+    setInterval(createPetal, 300);
+  </script>
+</body>
+</html>
