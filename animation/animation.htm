@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Bees Around a Flower</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #87CEEB;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+</script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // --- Scene Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 10, 20);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+        sunLight.position.set(5, 10, 7);
+        scene.add(sunLight);
+
+        // --- The Flower ---
+        const flowerGroup = new THREE.Group();
+
+        // Center (Pistil)
+        const centerGeo = new THREE.SphereGeometry(1, 32, 32);
+        const centerMat = new THREE.MeshStandardMaterial({ color: 0x5e3a00 });
+        const center = new THREE.Mesh(centerGeo, centerMat);
+        flowerGroup.add(center);
+
+        // Petals
+        const petalGeo = new THREE.CapsuleGeometry(0.5, 2, 4, 8);
+        const petalMat = new THREE.MeshStandardMaterial({ color: 0xffd700 });
+        for (let i = 0; i < 8; i++) {
+            const petal = new THREE.Mesh(petalGeo, petalMat);
+            const angle = (i / 8) * Math.PI * 2;
+            petal.position.x = Math.cos(angle) * 1.5;
+            petal.position.z = Math.sin(angle) * 1.5;
+            petal.rotation.z = Math.PI / 2.5;
+            petal.rotation.y = -angle;
+            flowerGroup.add(petal);
+        }
+
+        // Stem
+        const stemGeo = new THREE.CylinderGeometry(0.2, 0.2, 10);
+        const stemMat = new THREE.MeshStandardMaterial({ color: 0x228B22 });
+        const stem = new THREE.Mesh(stemGeo, stemMat);
+        stem.position.y = -5;
+        flowerGroup.add(stem);
+
+        scene.add(flowerGroup);
+
+        // --- The Bees ---
+        const bees = [];
+        const beeCount = 5;
+        const beeGroup = new THREE.Group();
+
+        for (let i = 0; i < beeCount; i++) {
+            // Simple Bee Mesh
+            const beeBodyGeo = new THREE.SphereGeometry(0.3, 16, 16);
+            const beeBodyMat = new THREE.MeshStandardMaterial({ color: 0xffff00 });
+            const beeBody = new THREE.Mesh(beeBodyGeo, beeBodyMat);
+
+            // Give each bee random movement properties
+            const beeData = {
+                mesh: beeBody,
+                r1: 4 + Math.random() * 4, // X radius
+                r2: 4 + Math.random() * 4, // Z radius
+                r3: (Math.random() - 0.5) * 4, // Y height variation
+                speed: 0.5 + Math.random() * 1.5,
+                theta: Math.random() * Math.PI * 2,
+                phaseShift: Math.PI / 2 // Your +90 degrees request
+            };
+
+            bees.push(beeData);
+            scene.add(beeBody);
+        }
+
+        // --- Animation Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = performance.now() * 0.001;
+
+            bees.forEach(bee => {
+                bee.theta += 0.02 * bee.speed;
+
+                // Applying your formulas: r1*cos(theta+90), r2*sin(theta+90)
+                // Note: Math.PI/2 is 90 degrees
+                bee.mesh.position.x = bee.r1 * Math.cos(bee.theta + bee.phaseShift);
+                bee.mesh.position.z = bee.r2 * Math.sin(bee.theta + bee.phaseShift);
+
+                // Adding a little vertical randomness/bobbing using r3
+                bee.mesh.position.y = bee.r3 + Math.sin(time * bee.speed) * 0.5;
+
+                // Make bee look toward where it's going
+                bee.mesh.lookAt(0, 0, 0);
+            });
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+
+</html>
