@@ -5,3 +5,9 @@ something*.htm*
 *.bak
 *.swp
 .DS_Store
+*.pdf
+*.doc*
+*.jpeg
+*.png
+*.gif
+*.jpe
