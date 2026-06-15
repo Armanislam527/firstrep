@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>প্রিয় আপুকে</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffe6f0,#fff7e6,#e6f7ff);
+    overflow:auto;
+    font-family:"Noto Sans Bengali",sans-serif;
+}
+
+.envelope{
+    position:relative;
+    width:320px;
+    height:220px;
+    cursor:pointer;
+    transition:.6s;
+}
+
+.cover{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#ffb6c1;
+    border-radius:12px;
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+.flap{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:110px;
+    background:#ff9eb5;
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    transform-origin:top;
+    transition:1s;
+}
+
+.open .flap{
+    transform:rotateX(180deg);
+}
+
+.letter{
+    position:absolute;
+    left:50%;
+    top:15px;
+    transform:translateX(-50%);
+    width:90%;
+    height:0;
+    overflow:auto;
+    background:white;
+    border-radius:12px;
+    padding:0 20px;
+    transition:1s;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.open .letter{
+    height:540px;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    color:#d63384;
+    margin-bottom:15px;
+}
+
+p{
+    color:#444;
+    line-height:1.9;
+    font-size:15px;
+}
+
+.signature{
+    text-align:right;
+    margin-top:20px;
+    color:#d63384;
+    font-weight:bold;
+}
+
+.floating{
+    position:absolute;
+    color:#ff6b9d;
+    animation:float 8s linear infinite;
+    opacity:.5;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+    }
+    to{
+        transform:translateY(-100px);
+    }
+}
+
+.btn{
+    position:absolute;
+    bottom:40px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#d63384;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+    box-shadow:0 8px 20px rgba(214,51,132,.3);
+}
+</style>
+</head>
+
+<body>
+
+<div class="floating" style="left:10%">🌸</div>
+<div class="floating" style="left:30%;animation-delay:2s">💖</div>
+<div class="floating" style="left:50%;animation-delay:4s">🌷</div>
+<div class="floating" style="left:70%;animation-delay:1s">✨</div>
+<div class="floating" style="left:90%;animation-delay:5s">💐</div>
+
+<div class="envelope" id="env">
+    <div class="cover"></div>
+    <div class="flap"></div>
+
+    <div class="letter">
+        <h1>প্রিয় জারিন আপু ❤️</h1>
+
+        <p>
+            আজ আপনার কলেজ জীবনের সমাপ্তির দিন। এই বিশেষ মুহূর্তে
+            আপনাকে কিছু কথা না বললে আমার মন ভরবে না।
+            <br><br>
+
+            কলেজে আসার পর অনেক মানুষের সাথে পরিচয় হয়েছে,
+            কিন্তু আপনার মতো একজন মানুষ পাওয়া সত্যিই আমার জন্য
+            আশীর্বাদ ছিল।
+            স্কুল জীবন থেকে পরিচিত হলেও কলেজে এসে আপনার
+            স্নেহ, মায়া আর যত্নকে নতুন করে চিনেছি।
+            <br><br>
+
+            কনসবিএনসি ঢাকায় ভর্তি হওয়ার সময় থেকে শুরু করে
+            প্রতিটি ধাপে আপনি যেভাবে সাহায্য করেছেন,
+            তা আমি কখনো ভুলতে পারব না।
+            নতুন পরিবেশে যখন সবকিছু অচেনা ছিল,
+            তখন আপনি ছিলেন সবচেয়ে ভরসার মানুষ।
+            <br><br>
+
+            বাসায় যাওয়া-আসার দীর্ঘ পথগুলোও আপনার কারণে
+            অনেক সহজ হয়ে গিয়েছিল।
+            আমার ভ্রমণে বমি হওয়ার সমস্যার কথা মনে রেখে
+            আপনি সবসময় জানালার পাশের আসনটা আমাকে দিয়েছেন,
+            যেন আমি একটু স্বস্তি পাই।
+            কখনো খাবার, কখনো চকলেট,
+            কখনো শুধু খোঁজ নেওয়া—
+            ছোট ছোট এই যত্নগুলো আমার কাছে অনেক বড় ভালোবাসা।
+            <br><br>
+
+            আপনার রুমে ডাকা, গল্প করা,
+            নিজের ছোট বোনের মতো করে আগলে রাখা—
+            এগুলো আমার কলেজ জীবনের সবচেয়ে সুন্দর স্মৃতিগুলোর অংশ হয়ে থাকবে।
+            <br><br>
+
+            আজ আপনি কলেজ থেকে বিদায় নিচ্ছেন,
+            কিন্তু আপনার দেওয়া স্নেহ, উপদেশ আর স্মৃতিগুলো
+            কখনো বিদায় নেবে না।
+            আমি সবসময় গর্ব করে বলব,
+            আমার জীবনে এমন একজন আপু ছিলেন,
+            যিনি রক্তের সম্পর্ক না হয়েও
+            নিজের মানুষের মতো পাশে ছিলেন।
+            <br><br>
+
+            আপনার আগামী জীবন সুন্দর হোক,
+            আপনার সকল স্বপ্ন পূরণ হোক,
+            আর আপনি যেখানেই থাকুন না কেন,
+            সুখ, শান্তি আর ভালোবাসায় ভরে থাকুন।
+            <br><br>
+
+            আপনাকে অনেক ভালোবাসি ও শ্রদ্ধা করি, আপু।
+            আপনার ছোট বোন হিসেবে আপনাকে সবসময় মনে রাখব।
+        </p>
+
+        <div class="signature">
+            ভালোবাসা ও শ্রদ্ধাসহ,<br>
+            খাদিজা 🌷
+        </div>
+    </div>
+</div>
+
+<button class="btn" onclick="openLetter()">💌 চিঠি খুলুন</button>
+
+<script>
+function openLetter(){
+    document.getElementById("env").classList.toggle("open");
+    document.querySelector(".btn").style.display = "none";
+}
+</script>
+
+</body>
+</html>

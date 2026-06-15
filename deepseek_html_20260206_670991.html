@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message in Bees - For My Special Someone</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FontLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/geometries/TextGeometry.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow: auto;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            padding: 15px;
+            background: rgba(10, 10, 30, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255, 204, 0, 0.3);
+            z-index: 100;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, #ffcc00, #ff6699);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 25px rgba(255, 102, 153, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #aaccff;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 12px;
+            /* flex-wrap: wrap; */
+        }
+
+        button {
+            background: linear-gradient(45deg, rgba(255, 204, 0, 0.15), rgba(255, 102, 153, 0.15));
+            border: 1.5px solid #ffcc00;
+            color: #ffcc00;
+            padding: 8px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, rgba(255, 204, 0, 0.3), rgba(255, 102, 153, 0.3));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.3);
+        }
+
+        #animationCanvas {
+            flex: 1;
+            width: 100%;
+            position: relative;
+        }
+
+        .message-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            background: rgba(10, 10, 30, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 204, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            z-index: 50;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .message-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 102, 153, 0.4);
+        }
+
+        .message-header h2 {
+            font-size: 2.2rem;
+            color: #ffcc00;
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+
+        .message-header p {
+            color: #aaccff;
+            font-size: 1.1rem;
+        }
+
+        .message-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #e6f2ff;
+            text-align: justify;
+            margin-bottom: 25px;
+        }
+
+        .message-signature {
+            text-align: right;
+            font-size: 1.3rem;
+            color: #ff6699;
+            font-style: italic;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 102, 153, 0.3);
+        }
+
+        .message-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .heart {
+            color: #ff3366;
+            font-size: 2rem;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .close-message {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 51, 102, 0.2);
+            border: 1px solid #ff3366;
+            color: #ffcc00;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-message:hover {
+            background: rgba(255, 51, 102, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .particle-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+
+        .loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        .loading-text {
+            font-size: 1.8rem;
+            color: #ffcc00;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(255, 204, 0, 0.2);
+            border-top: 6px solid #ffcc00;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .message-container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .message-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .message-content {
+                font-size: 1rem;
+            }
+
+            .particle-counter {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>A Message Carried by Bees</h1>
+            <p class="subtitle">Watch as bees carry words of love around a magical flower</p>
+            <div class="controls">
+                <button id="showMessageBtn">Read My Message</button>
+                <button id="addBeeBtn">Add Bee</button>
+                <button id="releaseWordsBtn">Release Words</button>
+                <button id="speedUpBtn">Speed Up</button>
+                <button id="slowDownBtn">Slow Down</button>
+                <button id="toggleMusicBtn">Toggle Music</button>
+            </div>
+        </header>
+
+        <div id="animationCanvas"></div>
+
+        <div class="particle-counter">
+            Words Collected: <span id="wordCount">0</span>/<span id="totalWords">0</span>
+        </div>
+
+        <div class="message-container" id="messageContainer">
+            <div class="close-message" id="closeMessageBtn">×</div>
+            <div class="message-header">
+                <h2>প্রিয়তমা</h2>
+                <p>A message carried on bee wings</p>
+            </div>
+            <div class="message-content">
+                <p>আজকের এই গোলাপের দিনে তোমাকে একটা গোলাপ পাঠাতে ইচ্ছে করছে… 🌹</p>
+                <p>কারণ আমার কাছে গোলাপ মানেই তুমি — নরম, সুন্দর, আর আমার জীবনের সবচেয়ে প্রিয় অনুভূতি।</p>
+                <p>তুমি এখন পরীক্ষার জন্য অনেক কষ্ট করছো, জানি চাপও আছে। কিন্তু একটা কথা মনে রেখো — তোমার চেষ্টা আর
+                    পরিশ্রমটাই আমার কাছে সবচেয়ে গর্বের বিষয়। তুমি শুধু ভালো রেজাল্টের জন্য না, তুমি যেমন মানুষ — ঠিক সেই
+                    জন্যই তোমাকে ভালোবাসি।</p>
+                <p>যখন পড়তে পড়তে ক্লান্ত লাগবে, ভাববে কেউ একজন দূর থেকে তোমার জন্য দোয়া করছে, তোমার হাসিটা যেন সবসময় ঠিক
+                    থাকে সেটাই চাইছে।</p>
+                <p>তুমি আমার জীবনের সেই গোলাপ, যার সৌরভে আমার প্রতিটা দিন সুন্দর হয়ে যায়। পরীক্ষা ভালো করে দিও, কোনো চাপ
+                    নিও না। আমি সবসময় তোমার পাশে আছি — নীরবে, গভীরভাবে, সত্যি করে।</p>
+            </div>
+            <div class="message-signature">
+                <p>🌹 শুভ রোজ ডে, আমার সবচেয়ে প্রিয় মানুষ।</p>
+                <p>তুমি কি আমার এই ভালোবাসার গোলাপটা গ্রহণ করবে? 🌹❤️</p>
+            </div>
+            <div class="message-footer">
+                <div class="heart">❤️</div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-day-583.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Main variables
+        let scene, camera, renderer;
+        let flower, bees = [];
+        let wordParticles = [];
+        let collectedWords = 0;
+        let animationSpeed = 1.0;
+        let musicEnabled = false;
+        let font = null;
+
+        // Message words to be carried by bees
+        const messageWords = [
+            "প্রিয়তমা", "গোলাপ", "দিন", "তুমি", "নরম", "সুন্দর", "জীবন",
+            "প্রিয়", "অনুভূতি", "পরীক্ষা", "কষ্ট", "চাপ", "চেষ্টা",
+            "পরিশ্রম", "গর্ব", "ভালোবাসি", "ক্লান্ত", "দোয়া", "হাসি",
+            "সৌরভ", "দিন", "সুন্দর", "পাশে", "নীরবে", "গভীরভাবে",
+            "সত্যি", "রোজ", "ডে", "মানুষ", "ভালোবাসা", "গ্রহণ"
+        ];
+
+        // Initialize the scene
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x0a0a1a, 15, 100);
+
+            // Create camera
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(20, 15, 25);
+
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight - 120);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('animationCanvas').appendChild(renderer.domElement);
+
+            // Add lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffccaa, 0.9);
+            directionalLight.position.set(15, 25, 10);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            scene.add(directionalLight);
+
+            // Add colored point lights for magical effect
+            const pinkLight = new THREE.PointLight(0xff6699, 0.8, 40);
+            pinkLight.position.set(-10, 15, 5);
+            scene.add(pinkLight);
+
+            const yellowLight = new THREE.PointLight(0xffcc00, 0.8, 40);
+            yellowLight.position.set(10, 15, -5);
+            scene.add(yellowLight);
+
+            // Create flower
+            createFlower();
+
+            // Create initial bees
+            for (let i = 0; i < 6; i++) {
+                createBee();
+            }
+
+            // Add magical ground
+            createGround();
+
+            // Add floating particles
+            createFloatingParticles();
+
+            // Load font for text
+            const fontLoader = new THREE.FontLoader();
+            fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (loadedFont) {
+                font = loadedFont;
+
+                // Create word particles after font is loaded
+                createWordParticles();
+
+                // Loading screen was removed, so no need to hide it
+            });
+
+            // Add controls
+            setupControls();
+
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize);
+
+            // Update UI
+            updateUI();
+        }
+
+        // Create the flower with more detail
+        function createFlower() {
+            const flowerGroup = new THREE.Group();
+
+            // Enhanced flower stem with leaves
+            const stemGeometry = new THREE.CylinderGeometry(0.15, 0.25, 12, 10);
+            const stemMaterial = new THREE.MeshLambertMaterial({
+                color: 0x4a9c3a,
+                shininess: 30
+            });
+            const stem = new THREE.Mesh(stemGeometry, stemMaterial);
+            stem.position.y = 6;
+            stem.castShadow = true;
+            flowerGroup.add(stem);
+
+            // Flower center with glow
+            const centerGeometry = new THREE.SphereGeometry(1.5, 24, 24);
+            const centerMaterial = new THREE.MeshLambertMaterial({
+                color: 0xffcc00,
+                emissive: 0xffcc00,
+                emissiveIntensity: 0.2
+            });
+            const center = new THREE.Mesh(centerGeometry, centerMaterial);
+            center.position.y = 12;
+            center.castShadow = true;
+            flowerGroup.add(center);
+
+            // Inner petals
+            const innerPetalGeometry = new THREE.ConeGeometry(0.8, 2.5, 8);
+            const innerPetalMaterial = new THREE.MeshLambertMaterial({
+                color: 0xff3366,
+                emissive: 0xff3366,
+                emissiveIntensity: 0.1
+            });
+
+            for (let i = 0; i < 8; i++) {
+                const petal = new THREE.Mesh(innerPetalGeometry, innerPetalMaterial);
+                const angle = (i / 8) * Math.PI * 2;
+                petal.position.set(Math.cos(angle) * 1.8, 12, Math.sin(angle) * 1.8);
+                petal.rotation.z = Math.PI / 2;
+                petal.rotation.y = -angle;
+                petal.castShadow = true;
+                flowerGroup.add(petal);
+            }
+
+            // Outer petals
+            const outerPetalGeometry = new THREE.ConeGeometry(1.2, 4, 8);
+            const outerPetalMaterial = new THREE.MeshLambertMaterial({
+                color: 0xff6699,
+                transparent: true,
+                opacity: 0.9
+            });
+
+            for (let i = 0; i < 12; i++) {
+                const petal = new THREE.Mesh(outerPetalGeometry, outerPetalMaterial);
+                const angle = (i / 12) * Math.PI * 2;
+                petal.position.set(Math.cos(angle) * 3.5, 10.5, Math.sin(angle) * 3.5);
+                petal.rotation.z = Math.PI / 2;
+                petal.rotation.y = -angle;
+                petal.castShadow = true;
+                flowerGroup.add(petal);
+            }
+
+            // Leaves with more detail
+            const leafGeometry = new THREE.SphereGeometry(1.2, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2);
+            const leafMaterial = new THREE.MeshLambertMaterial({ color: 0x3a8c2a });
+
+            for (let i = 0; i < 6; i++) {
+                const leaf = new THREE.Mesh(leafGeometry, leafMaterial);
+                const angle = (i / 6) * Math.PI * 2;
+                const height = 2 + i * 1.5;
+                leaf.position.set(Math.cos(angle) * 1.5, height, Math.sin(angle) * 1.5);
+                leaf.rotation.y = angle;
+                leaf.rotation.x = Math.PI / 6;
+                leaf.scale.set(2, 1, 0.4);
+                leaf.castShadow = true;
+                flowerGroup.add(leaf);
+            }
+
+            // Add a glow effect around the flower
+            const glowGeometry = new THREE.SphereGeometry(8, 16, 16);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffcc00,
+                transparent: true,
+                opacity: 0.05,
+                side: THREE.BackSide
+            });
+            const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+            glow.position.y = 10;
+            flowerGroup.add(glow);
+
+            flowerGroup.position.y = -5;
+            scene.add(flowerGroup);
+            flower = flowerGroup;
+        }
+
+        // Create a bee with enhanced details
+        function createBee() {
+            // Create bee group
+            const beeGroup = new THREE.Group();
+
+            // Bee body with better shape
+            const bodyGeometry = new THREE.CapsuleGeometry(0.5, 1, 4, 8);
+            const bodyMaterial = new THREE.MeshLambertMaterial({
+                color: 0xffcc00,
+                emissive: 0x553300,
+                emissiveIntensity: 0.2
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            beeGroup.add(body);
+
+            // Bee stripes with glow
+            const stripeGeometry = new THREE.SphereGeometry(0.52, 10, 10, 0, Math.PI * 2, 0, Math.PI);
+            const stripeMaterial = new THREE.MeshLambertMaterial({
+                color: 0x222222,
+                emissive: 0x111111,
+                emissiveIntensity: 0.1
+            });
+
+            for (let i = 0; i < 3; i++) {
+                const stripe = new THREE.Mesh(stripeGeometry, stripeMaterial);
+                stripe.position.y = -0.4 + i * 0.4;
+                stripe.rotation.x = Math.PI;
+                beeGroup.add(stripe);
+            }
+
+            // Bee wings with iridescent effect
+            const wingGeometry = new THREE.CircleGeometry(0.6, 8);
+            const wingMaterial = new THREE.MeshLambertMaterial({
+                color: 0xaaccff,
+                transparent: true,
+                opacity: 0.4,
+                emissive: 0x88aaff,
+                emissiveIntensity: 0.3
+            });
+
+            const leftWing = new THREE.Mesh(wingGeometry, wingMaterial);
+            leftWing.position.set(-0.6, 0.3, 0);
+            leftWing.rotation.y = Math.PI / 4;
+            leftWing.rotation.x = Math.PI / 6;
+            beeGroup.add(leftWing);
+
+            const rightWing = new THREE.Mesh(wingGeometry, wingMaterial);
+            rightWing.position.set(0.6, 0.3, 0);
+            rightWing.rotation.y = -Math.PI / 4;
+            rightWing.rotation.x = Math.PI / 6;
+            beeGroup.add(rightWing);
+
+            // Bee eyes
+            const eyeGeometry = new THREE.SphereGeometry(0.12, 8, 8);
+            const eyeMaterial = new THREE.MeshLambertMaterial({
+                color: 0x000000,
+                emissive: 0x111111,
+                emissiveIntensity: 0.3
+            });
+
+            const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            leftEye.position.set(-0.25, 0.15, 0.45);
+            beeGroup.add(leftEye);
+
+            const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            rightEye.position.set(0.25, 0.15, 0.45);
+            beeGroup.add(rightEye);
+
+            // Bee antennae
+            const antennaGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.5, 4);
+            const antennaMaterial = new THREE.MeshLambertMaterial({ color: 0x333333 });
+
+            const leftAntenna = new THREE.Mesh(antennaGeometry, antennaMaterial);
+            leftAntenna.position.set(-0.2, 0.4, 0.2);
+            leftAntenna.rotation.z = Math.PI / 6;
+            beeGroup.add(leftAntenna);
+
+            const rightAntenna = new THREE.Mesh(antennaGeometry, antennaMaterial);
+            rightAntenna.position.set(0.2, 0.4, 0.2);
+            rightAntenna.rotation.z = -Math.PI / 6;
+            beeGroup.add(rightAntenna);
+
+            // Random motion parameters for this bee
+            // Using parametric equations: r1*cos(theta+90), r2*sin(theta+90), r3*sin(theta*frequency)
+            const params = {
+                // Radius parameters
+                r1: 10 + Math.random() * 12,  // x-axis radius
+                r2: 8 + Math.random() * 10,   // y-axis radius  
+                r3: 3 + Math.random() * 6,    // z-axis amplitude
+
+                // Motion parameters
+                theta: Math.random() * Math.PI * 2,  // Starting angle
+                speed: 0.5 + Math.random() * 1.5,    // Angular speed
+                frequency: 1 + Math.random() * 3,    // Z-axis frequency
+
+                // Offset for phase difference
+                offset: Math.random() * Math.PI * 2,
+
+                // Wing flapping
+                wingFlapSpeed: 12 + Math.random() * 25,
+                wingAngle: 0,
+
+                // Bee carries a word?
+                carryingWord: null,
+                wordParticle: null
+            };
+
+            // Store parameters with bee
+            beeGroup.userData = params;
+
+            // Add to scene and bees array
+            scene.add(beeGroup);
+            bees.push({
+                mesh: beeGroup,
+                wings: [leftWing, rightWing],
+                params: params,
+                trail: []
+            });
+
+            updateUI();
+        }
+
+        // Create magical ground
+        function createGround() {
+            // Main ground
+            const groundGeometry = new THREE.CircleGeometry(40, 64);
+            const groundMaterial = new THREE.MeshLambertMaterial({
+                color: 0x1a3c2a,
+                side: THREE.DoubleSide
+            });
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -5;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            // Add magical glowing patches
+            const patchGeometry = new THREE.CircleGeometry(2, 16);
+            const patchMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffcc00,
+                transparent: true,
+                opacity: 0.1,
+                side: THREE.DoubleSide
+            });
+
+            for (let i = 0; i < 8; i++) {
+                const patch = new THREE.Mesh(patchGeometry, patchMaterial);
+                const angle = (i / 8) * Math.PI * 2;
+                const distance = 5 + Math.random() * 25;
+                patch.position.set(
+                    Math.cos(angle) * distance,
+                    -4.9,
+                    Math.sin(angle) * distance
+                );
+                patch.rotation.x = -Math.PI / 2;
+                scene.add(patch);
+            }
+        }
+
+        // Create floating magical particles
+        function createFloatingParticles() {
+            const particleCount = 200;
+            const particleGeometry = new THREE.SphereGeometry(0.05, 4, 4);
+
+            for (let i = 0; i < particleCount; i++) {
+                const material = new THREE.MeshBasicMaterial({
+                    color: Math.random() > 0.5 ? 0xffcc00 : 0xff6699,
+                    transparent: true,
+                    opacity: 0.3 + Math.random() * 0.4
+                });
+
+                const particle = new THREE.Mesh(particleGeometry, material);
+
+                // Random position in a sphere around the scene
+                const radius = 15 + Math.random() * 20;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI;
+
+                particle.position.set(
+                    radius * Math.sin(phi) * Math.cos(theta),
+                    -2 + Math.random() * 20,
+                    radius * Math.sin(phi) * Math.sin(theta)
+                );
+
+                // Random movement parameters
+                particle.userData = {
+                    speed: 0.01 + Math.random() * 0.02,
+                    angle: Math.random() * Math.PI * 2,
+                    amplitude: 0.5 + Math.random() * 2
+                };
+
+                scene.add(particle);
+            }
+        }
+
+        // Create word particles from the message
+        function createWordParticles() {
+            if (!font) return;
+
+            const totalWords = messageWords.length;
+            document.getElementById('totalWords').textContent = totalWords;
+
+            messageWords.forEach((word, index) => {
+                // Create text geometry
+                const textGeometry = new THREE.TextGeometry(word, {
+                    font: font,
+                    size: 0.5,
+                    height: 0.1,
+                    curveSegments: 4
+                });
+
+                // Center the text
+                textGeometry.computeBoundingBox();
+                const textWidth = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
+                textGeometry.translate(-textWidth / 2, 0, 0);
+
+                // Create material with glow effect
+                const textMaterial = new THREE.MeshLambertMaterial({
+                    color: 0xffcc00,
+                    emissive: 0xff9900,
+                    emissiveIntensity: 0.3
+                });
+
+                const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+                // Position words in a circle around the flower
+                const angle = (index / totalWords) * Math.PI * 2;
+                const radius = 20 + Math.random() * 10;
+
+                textMesh.position.set(
+                    Math.cos(angle) * radius,
+                    5 + Math.random() * 10,
+                    Math.sin(angle) * radius
+                );
+
+                // Store word data
+                textMesh.userData = {
+                    word: word,
+                    collected: false,
+                    originalPosition: textMesh.position.clone(),
+                    floatOffset: Math.random() * Math.PI * 2,
+                    floatSpeed: 0.5 + Math.random() * 1
+                };
+
+                scene.add(textMesh);
+                wordParticles.push(textMesh);
+            });
+        }
+
+        // Setup UI controls
+        function setupControls() {
+            document.getElementById('showMessageBtn').addEventListener('click', function () {
+                const messageContainer = document.getElementById('messageContainer');
+                messageContainer.style.display = 'block';
+                setTimeout(() => {
+                    messageContainer.style.opacity = '1';
+                }, 10);
+            });
+
+            document.getElementById('closeMessageBtn').addEventListener('click', function () {
+                const messageContainer = document.getElementById('messageContainer');
+                messageContainer.style.opacity = '0';
+                setTimeout(() => {
+                    messageContainer.style.display = 'none';
+                }, 1000);
+            });
+
+            document.getElementById('addBeeBtn').addEventListener('click', function () {
+                createBee();
+            });
+
+            document.getElementById('releaseWordsBtn').addEventListener('click', function () {
+                // Reset all words to uncollected state
+                wordParticles.forEach(particle => {
+                    particle.userData.collected = false;
+                    particle.visible = true;
+                });
+                collectedWords = 0;
+                updateUI();
+            });
+
+            document.getElementById('speedUpBtn').addEventListener('click', function () {
+                animationSpeed = Math.min(animationSpeed + 0.5, 3.0);
+                updateUI();
+            });
+
+            document.getElementById('slowDownBtn').addEventListener('click', function () {
+                animationSpeed = Math.max(animationSpeed - 0.5, 0.2);
+                updateUI();
+            });
+
+            document.getElementById('toggleMusicBtn').addEventListener('click', function () {
+                const music = document.getElementById('backgroundMusic');
+                if (musicEnabled) {
+                    music.pause();
+                    musicEnabled = false;
+                    this.textContent = "Play Music";
+                } else {
+                    music.play().catch(e => {
+                        console.log("Audio play failed:", e);
+                        // If autoplay is blocked, we'll handle it gracefully
+                    });
+                    musicEnabled = true;
+                    this.textContent = "Pause Music";
+                }
+            });
+
+            // Try to play music automatically (with user interaction)
+            document.addEventListener('click', function initMusic() {
+                const music = document.getElementById('backgroundMusic');
+                music.volume = 0.3;
+                if (!musicEnabled) {
+                    music.play().catch(e => console.log("Autoplay prevented"));
+                }
+                document.removeEventListener('click', initMusic);
+            });
+        }
+
+        // Update UI elements
+        function updateUI() {
+            document.getElementById('wordCount').textContent = collectedWords;
+
+            let speedText = "";
+            if (animationSpeed <= 0.5) speedText = "Very Slow";
+            else if (animationSpeed <= 1.0) speedText = "Slow";
+            else if (animationSpeed <= 1.5) speedText = "Normal";
+            else if (animationSpeed <= 2.0) speedText = "Fast";
+            else speedText = "Very Fast";
+
+            // Update button text for music
+            const musicBtn = document.getElementById('toggleMusicBtn');
+            musicBtn.textContent = musicEnabled ? "Pause Music" : "Play Music";
+        }
+
+        // Handle window resize
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / (window.innerHeight - 120);
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight - 120);
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Update each bee
+            bees.forEach(bee => {
+                const params = bee.params;
+
+                // Update theta (angle) based on speed
+                params.theta += 0.01 * params.speed * animationSpeed;
+
+                // Calculate new position using parametric equations
+                // Using the format: r1*cos(theta+90), r2*sin(theta+90), r3*sin(theta*frequency)
+                const x = params.r1 * Math.cos(params.theta + Math.PI / 2); // cos(theta+90°)
+                const y = params.r2 * Math.sin(params.theta + Math.PI / 2) + 5; // sin(theta+90°) + offset for height
+                const z = params.r3 * Math.sin(params.theta * params.frequency + params.offset);
+
+                // Update bee position
+                bee.mesh.position.set(x, y, z);
+
+                // Make the bee face the direction of motion
+                bee.mesh.lookAt(
+                    params.r1 * Math.cos(params.theta + 0.1 + Math.PI / 2),
+                    params.r2 * Math.sin(params.theta + 0.1 + Math.PI / 2) + 5,
+                    params.r3 * Math.sin((params.theta + 0.1) * params.frequency + params.offset)
+                );
+
+                // Rotate wings for flapping effect
+                params.wingAngle += params.wingFlapSpeed * animationSpeed;
+                const wingRotation = Math.sin(params.wingAngle * 0.01) * 0.8;
+
+                bee.wings[0].rotation.z = wingRotation;
+                bee.wings[1].rotation.z = -wingRotation;
+
+                // Slight bobbing motion
+                bee.mesh.position.y += Math.sin(Date.now() * 0.002 + params.offset) * 0.1;
+
+                // If bee is carrying a word, update word position
+                if (params.carryingWord && params.wordParticle) {
+                    params.wordParticle.position.copy(bee.mesh.position);
+                    params.wordParticle.position.y += 1.5;
+                    params.wordParticle.rotation.y += 0.02 * animationSpeed;
+                }
+
+                // Bee collection logic - bee tries to collect a word
+                if (!params.carryingWord && Math.random() < 0.01) {
+                    // Find a nearby uncollected word
+                    const nearbyWord = wordParticles.find(p =>
+                        !p.userData.collected &&
+                        p.position.distanceTo(bee.mesh.position) < 8
+                    );
+
+                    if (nearbyWord) {
+                        params.carryingWord = nearbyWord.userData.word;
+                        params.wordParticle = nearbyWord;
+                        nearbyWord.userData.collected = true;
+
+                        // Move word to bee
+                        collectedWords++;
+                        updateUI();
+
+                        // After some time, bee releases the word
+                        setTimeout(() => {
+                            if (params.wordParticle) {
+                                params.wordParticle.visible = false;
+                                params.carryingWord = null;
+                                params.wordParticle = null;
+                            }
+                        }, 5000 + Math.random() * 5000);
+                    }
+                }
+            });
+
+            // Update word particles (floating animation)
+            wordParticles.forEach(particle => {
+                if (!particle.userData.collected) {
+                    // Floating animation
+                    const time = Date.now() * 0.001;
+                    particle.position.y = particle.userData.originalPosition.y +
+                        Math.sin(time * particle.userData.floatSpeed + particle.userData.floatOffset) * 0.5;
+
+                    // Gentle rotation
+                    particle.rotation.y += 0.005 * animationSpeed;
+                }
+            });
+
+            // Slowly rotate the flower
+            if (flower) {
+                flower.rotation.y += 0.001 * animationSpeed;
+
+                // Gentle bobbing motion for flower
+                flower.position.y = -5 + Math.sin(Date.now() * 0.001) * 0.2;
+            }
+
+            // Rotate camera around the scene with varying distance
+            const time = Date.now() * 0.0003;
+            const cameraDistance = 25 + Math.sin(time * 0.5) * 5;
+            camera.position.x = cameraDistance * Math.cos(time);
+            camera.position.z = cameraDistance * Math.sin(time);
+            camera.position.y = 12 + Math.sin(time * 0.7) * 3;
+            camera.lookAt(0, 8, 0);
+
+            // Render the scene
+            renderer.render(scene, camera);
+        }
+
+        // Start the application when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+                init();
+                animate();
+            });
+        } else {
+            init();
+            animate();
+        }
+    </script>
+</body>
+
+</html>
