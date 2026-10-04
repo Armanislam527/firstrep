@@ -1,0 +1,2 @@
+sudo rfcomm connect rfcomm0 B8:27:EB:BC:2F:09 1
+sudo screen /dev/rfcomm0 115200

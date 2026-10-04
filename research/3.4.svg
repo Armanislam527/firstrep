@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" font-family="Arial, sans-serif">
+
+  <!-- Flask server box -->
+  <rect x="250" y="20" width="400" height="70" rx="5" ry="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="450" y="48" text-anchor="middle" font-size="18" font-weight="bold" fill="black">Flask server</text>
+  <text x="450" y="72" text-anchor="middle" font-size="14" fill="black">Web application backend</text>
+
+  <!-- Arrow from Flask to Raspberry Pi -->
+  <line x1="450" y1="90" x2="450" y2="130" stroke="black" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="470" y="115" font-size="13" fill="black">HTTP / WebSocket</text>
+
+  <!-- Raspberry Pi Zero 2W box -->
+  <rect x="200" y="130" width="500" height="70" rx="5" ry="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="450" y="158" text-anchor="middle" font-size="18" font-weight="bold" fill="black">Raspberry Pi Zero 2W</text>
+  <text x="450" y="182" text-anchor="middle" font-size="14" fill="black">Gateway: relays commands to PICkit2</text>
+
+  <!-- Arrow from Raspberry Pi to PICkit2 -->
+  <line x1="450" y1="200" x2="450" y2="240" stroke="black" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="470" y="225" font-size="13" fill="black">USB (serial)</text>
+
+  <!-- PICkit2 programmer box -->
+  <rect x="250" y="240" width="400" height="70" rx="5" ry="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="450" y="268" text-anchor="middle" font-size="18" font-weight="bold" fill="black">PICkit2 programmer</text>
+  <text x="450" y="292" text-anchor="middle" font-size="14" fill="black">Erase, program, verify</text>
+
+  <!-- Vertical line from PICkit2 down -->
+  <line x1="450" y1="310" x2="450" y2="360" stroke="black" stroke-width="1.5"/>
+
+  <!-- ICSP label -->
+  <text x="470" y="345" font-size="13" fill="black">ICSP (PGC, PGD, MCLR)</text>
+
+  <!-- Horizontal distribution line -->
+  <line x1="100" y1="360" x2="700" y2="360" stroke="black" stroke-width="1.5"/>
+
+  <!-- Branch lines to each channel box -->
+  <line x1="100" y1="360" x2="100" y2="410" stroke="black" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="300" y1="360" x2="300" y2="410" stroke="black" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="500" y1="360" x2="500" y2="410" stroke="black" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="700" y1="360" x2="700" y2="410" stroke="black" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+  <!-- Channel 1 box -->
+  <rect x="20" y="410" width="160" height="70" rx="5" ry="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="100" y="440" text-anchor="middle" font-size="16" font-weight="bold" fill="black">PIC16F877A</text>
+  <text x="100" y="464" text-anchor="middle" font-size="14" fill="black">Channel 1</text>
+
+  <!-- Channel 2 box -->
+  <rect x="220" y="410" width="160" height="70" rx="5" ry="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="300" y="440" text-anchor="middle" font-size="16" font-weight="bold" fill="black">PIC16F877A</text>
+  <text x="300" y="464" text-anchor="middle" font-size="14" fill="black">Channel 2</text>
+
+  <!-- Channel 3 box -->
+  <rect x="420" y="410" width="160" height="70" rx="5" ry="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500" y="440" text-anchor="middle" font-size="16" font-weight="bold" fill="black">PIC18452</text>
+  <text x="500" y="464" text-anchor="middle" font-size="14" fill="black">Channel 3</text>
+
+  <!-- Channel 4 box -->
+  <rect x="620" y="410" width="160" height="70" rx="5" ry="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="700" y="440" text-anchor="middle" font-size="16" font-weight="bold" fill="black">PIC18F4520</text>
+  <text x="700" y="464" text-anchor="middle" font-size="14" fill="black">Channel 4</text>
+
+  <!-- Arrowhead marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="black"/>
+    </marker>
+  </defs>
+
+</svg>

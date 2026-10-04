@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Drone Flip Mechanism Simulator</title>
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#121821e6; --border:#26313f; --accent:#4fc3f7;
+    --accent2:#ff7043; --good:#66bb6a; --text:#e6edf3; --dim:#8ba0b3;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;overflow:hidden;}
+  #canvasWrap{position:fixed;inset:0;}
+  canvas{display:block;}
+
+  .panel{
+    position:fixed;background:var(--panel);border:1px solid var(--border);
+    border-radius:12px;padding:14px 16px;backdrop-filter:blur(6px);
+    box-shadow:0 8px 24px rgba(0,0,0,.4);
+  }
+
+  #hud{top:14px;left:14px;width:290px;}
+  #hud h2{margin:0 0 8px;font-size:14px;letter-spacing:.04em;color:var(--accent);text-transform:uppercase;}
+  #hud .row{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin:3px 0;}
+  #hud .row b{color:var(--text);font-weight:600;}
+
+  .motor{margin-top:8px;}
+  .motor-label{font-size:11px;color:var(--dim);display:flex;justify-content:space-between;}
+  .bar-track{height:8px;background:#1b2531;border-radius:5px;overflow:hidden;margin-top:2px;}
+  .bar-fill{height:100%;border-radius:5px;transition:width .05s linear;}
+  .fl,.rr{background:linear-gradient(90deg,#4fc3f7,#29b6f6);}
+  .fr,.rl{background:linear-gradient(90deg,#ff7043,#ff8a65);}
+
+  #controls{top:14px;right:14px;width:250px;}
+  #controls h2{margin:0 0 10px;font-size:14px;letter-spacing:.04em;color:var(--accent);text-transform:uppercase;}
+  #controls button{
+    width:100%;padding:9px 10px;margin-bottom:8px;border-radius:8px;border:1px solid var(--border);
+    background:#1a2330;color:var(--text);font-size:12.5px;cursor:pointer;text-align:left;
+    transition:background .15s;
+  }
+  #controls button:hover{background:#243044;}
+  #controls button.active{border-color:var(--accent);background:#183041;}
+  #controls .hint{font-size:10.5px;color:var(--dim);margin:2px 0 10px;line-height:1.4;}
+  #controls label{font-size:11px;color:var(--dim);display:block;margin-bottom:4px;}
+  #controls input[type=range]{width:100%;}
+
+  #explain{
+    bottom:14px;left:14px;right:14px;max-width:980px;margin:0 auto;
+    font-size:12.5px;line-height:1.5;color:var(--dim);
+  }
+  #explain b{color:var(--text);}
+  #explain #phaseText{color:var(--accent);font-weight:600;}
+
+  #axisLegend{top:14px;left:50%;transform:translateX(-50%);width:auto;font-size:11px;color:var(--dim);
+    display:flex;gap:16px;padding:8px 16px;}
+  #axisLegend span b{color:var(--text)}
+  .dotX{color:#ff5252}.dotY{color:#69f0ae}.dotZ{color:#40c4ff}
+</style>
+</head>
+<body>
+
+<div id="canvasWrap"></div>
+
+<div class="panel" id="hud">
+  <h2>Flight State</h2>
+  <div class="row"><span>Mode</span><b id="modeText">Hover</b></div>
+  <div class="row"><span>Rotation angle</span><b id="thetaText">0°</b></div>
+  <div class="row"><span>Angular rate</span><b id="omegaText">0°/s</b></div>
+  <div class="row"><span>Altitude Δ</span><b id="altText">0.00 m</b></div>
+  <div class="row"><span>Vertical speed</span><b id="vyText">0.00 m/s</b></div>
+
+  <div class="motor">
+    <div class="motor-label"><span>FL (front-left, CW)</span><span id="flPct">50%</span></div>
+    <div class="bar-track"><div class="bar-fill fl" id="flBar" style="width:50%"></div></div>
+  </div>
+  <div class="motor">
+    <div class="motor-label"><span>FR (front-right, CCW)</span><span id="frPct">50%</span></div>
+    <div class="bar-track"><div class="bar-fill fr" id="frBar" style="width:50%"></div></div>
+  </div>
+  <div class="motor">
+    <div class="motor-label"><span>RL (rear-left, CCW)</span><span id="rlPct">50%</span></div>
+    <div class="bar-track"><div class="bar-fill rl" id="rlBar" style="width:50%"></div></div>
+  </div>
+  <div class="motor">
+    <div class="motor-label"><span>RR (rear-right, CW)</span><span id="rrPct">50%</span></div>
+    <div class="bar-track"><div class="bar-fill rr" id="rrBar" style="width:50%"></div></div>
+  </div>
+</div>
+
+<div class="panel" id="controls">
+  <h2>Maneuvers</h2>
+  <button id="btnHover" class="active">🟢 Hover / Stabilize</button>
+  <div class="hint">All motors equal thrust. Net force cancels gravity, no rotation.</div>
+
+  <button id="btnRoll">🔄 Roll Flip — about X</button>
+  <div class="hint">Left motors vs right motors go to opposite extremes. Drone inverts sideways.</div>
+
+  <button id="btnPitch">🔃 Pitch Flip — about Z</button>
+  <div class="hint">Front motors vs rear motors go to opposite extremes. Drone somersaults.</div>
+
+  <button id="btnYaw">🌀 Yaw Spin — about Y</button>
+  <div class="hint">Thrust stays balanced (altitude holds); only CW/CCW reactive drag torque differs. No inversion.</div>
+
+  <label style="margin-top:10px;">Flip aggressiveness (motor authority)</label>
+  <input type="range" id="speedSlider" min="0.4" max="2.2" step="0.05" value="1.1">
+
+  <button id="btnReset" style="margin-top:10px;background:#2a1a1a;border-color:#4a2a2a;">↺ Reset altitude &amp; angle</button>
+</div>
+
+<div class="panel" id="axisLegend">
+  <span class="dotX">■</span><span><b>X</b> = your ground x-axis (roll)</span>
+  <span class="dotZ">■</span><span><b>Z</b> = your ground y-axis (pitch)</span>
+  <span class="dotY">■</span><span><b>Y (up)</b> = your vertical z-axis (yaw)</span>
+</div>
+
+<div class="panel" id="explain">
+  <div id="phaseText">Hovering — all four rotors balanced, total thrust equals weight.</div>
+  <div style="margin-top:6px;">
+    <b>Why altitude dips during a flip:</b> total thrust magnitude stays constant (two motors high + two low, the whole time) —
+    but as the airframe rotates, that thrust vector rotates with it. Near 180° the thrust points toward the ground and adds
+    to gravity instead of opposing it. Watch the world-space thrust arrows and the altitude readout above. Faster flips
+    (higher "aggressiveness") spend less time inverted and lose less height — that's why acro pilots snap flips quickly.
+  </div>
+</div>
+
+<div id="loadError" style="display:none;position:fixed;inset:0;background:#0b0f14;color:#e6edf3;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;z-index:9999;
+  padding:40px;line-height:1.6;">
+  <h2 style="color:#ff7043;">The 3D library failed to load</h2>
+  <p id="loadErrorMsg">Trying multiple sources…</p>
+  <p style="color:#8ba0b3;font-size:13px;">This usually means your network, firewall, or an ad-blocker is
+  blocking requests to unpkg.com / jsdelivr.net / cdnjs.cloudflare.com. Try a different network, disable
+  ad-blockers for this page, or open the file in a different browser.</p>
+</div>
+
+<script>
+function loadScript(src){
+  return new Promise((resolve, reject)=>{
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = ()=>resolve(src);
+    s.onerror = ()=>reject(new Error('failed to load '+src));
+    document.head.appendChild(s);
+  });
+}
+async function loadFirstWorking(urls, checkFn){
+  for(const url of urls){
+    try{
+      await loadScript(url);
+      if(checkFn()) return true;
+    }catch(e){ /* try next */ }
+  }
+  return false;
+}
+function showLoadError(msg){
+  document.getElementById('loadErrorMsg').textContent = msg;
+  document.getElementById('loadError').style.display = 'block';
+}
+
+(async ()=>{
+  const threeUrls = [
+    'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js',
+    'https://unpkg.com/three@0.128.0/build/three.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
+  ];
+  const okThree = await loadFirstWorking(threeUrls, ()=>typeof THREE !== 'undefined');
+  if(!okThree){
+    showLoadError('Could not load three.js from jsdelivr, unpkg, or cdnjs. Please check your internet connection.');
+    return;
+  }
+
+  const orbitUrls = [
+    'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js',
+    'https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js'
+  ];
+  const okOrbit = await loadFirstWorking(orbitUrls, ()=>typeof THREE !== 'undefined' && typeof THREE.OrbitControls !== 'undefined');
+  if(!okOrbit){
+    showLoadError('three.js loaded, but OrbitControls (camera drag/orbit) failed to load from any source.');
+    return;
+  }
+
+  try{
+    initApp();
+  }catch(e){
+    showLoadError('three.js loaded but the simulation crashed while starting: ' + e.message);
+    console.error(e);
+  }
+})();
+
+function initApp(){
+/* ---------- basic scene ---------- */
+const wrap = document.getElementById('canvasWrap');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b0f14);
+scene.fog = new THREE.Fog(0x0b0f14, 12, 30);
+
+const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(5.5, 4, 6.5);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+wrap.appendChild(renderer.domElement);
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.target.set(0,1.2,0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+
+scene.add(new THREE.AmbientLight(0x8899aa, 0.9));
+const key = new THREE.DirectionalLight(0xffffff, 1.1);
+key.position.set(4,7,3);
+scene.add(key);
+const rim = new THREE.DirectionalLight(0x4fc3f7, 0.4);
+rim.position.set(-4,2,-5);
+scene.add(rim);
+
+/* ground = user's XY plane (rendered as three.js XZ plane) */
+const grid = new THREE.GridHelper(20, 20, 0x2b3648, 0x1a222c);
+scene.add(grid);
+const groundMat = new THREE.MeshStandardMaterial({color:0x111820, roughness:1});
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(20,20), groundMat);
+ground.rotation.x = -Math.PI/2;
+ground.position.y = -0.01;
+scene.add(ground);
+
+// world axes helper (small, near origin corner)
+const axesHelper = new THREE.AxesHelper(1.4);
+axesHelper.position.set(-6,0.02,-6);
+scene.add(axesHelper);
+
+/* ---------- drone geometry ---------- */
+const drone = new THREE.Group();
+drone.position.y = 1.2;
+scene.add(drone);
+
+const bodyMat = new THREE.MeshStandardMaterial({color:0x5c7ca3, metalness:0.35, roughness:0.45});
+const armMat  = new THREE.MeshStandardMaterial({color:0x7d95b3, metalness:0.4, roughness:0.4});
+const podMat  = new THREE.MeshStandardMaterial({color:0x3a4a60, metalness:0.5, roughness:0.4});
+
+const body = new THREE.Mesh(new THREE.BoxGeometry(0.5,0.16,0.5), bodyMat);
+drone.add(body);
+// direction indicator (front)
+const nose = new THREE.Mesh(new THREE.ConeGeometry(0.08,0.22,8), new THREE.MeshStandardMaterial({color:0xff5252}));
+nose.rotation.x = Math.PI/2;
+nose.position.set(0,0.05,-0.32);
+drone.add(nose);
+
+const armLen = 0.75; // distance from center to each motor pod (x,z)
+const motorDefs = [
+  {name:'FL', x:-armLen, z:-armLen, spin: 1, colorClass:'fl'},
+  {name:'FR', x: armLen, z:-armLen, spin:-1, colorClass:'fr'},
+  {name:'RL', x:-armLen, z: armLen, spin:-1, colorClass:'rl'},
+  {name:'RR', x: armLen, z: armLen, spin: 1, colorClass:'rr'},
+];
+
+const propGroups = {};
+const thrustArrows = {};
+
+motorDefs.forEach(m=>{
+  // arm
+  const dx = m.x, dz = m.z;
+  const len = Math.hypot(dx,dz);
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(len,0.05,0.06), armMat);
+  arm.position.set(dx/2, 0, dz/2);
+  arm.rotation.y = Math.atan2(dz,dx) + Math.PI/2; // align box length along arm
+  // easier: rotate around Y so local X axis points from center to (dx,dz)
+  arm.rotation.y = -Math.atan2(dz,dx);
+  drone.add(arm);
+
+  // motor pod
+  const pod = new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.12,12), podMat);
+  pod.position.set(dx,0.08,dz);
+  drone.add(pod);
+
+  // propeller group (spins around its own Y)
+  const propGroup = new THREE.Group();
+  propGroup.position.set(dx,0.14,dz);
+  const bladeMat = new THREE.MeshStandardMaterial({color: m.spin>0?0x4fc3f7:0xff7043, metalness:0.2, roughness:0.5, side:THREE.DoubleSide});
+  const blade1 = new THREE.Mesh(new THREE.BoxGeometry(0.5,0.015,0.06), bladeMat);
+  const blade2 = new THREE.Mesh(new THREE.BoxGeometry(0.06,0.015,0.5), bladeMat);
+  propGroup.add(blade1, blade2);
+  drone.add(propGroup);
+  propGroups[m.name] = propGroup;
+
+  // thrust arrow (added to scene directly, positioned in world space each frame)
+  const arrow = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(dx,0.2,dz), 0.6,
+      m.spin>0?0x4fc3f7:0xff7043, 0.14, 0.09);
+  scene.add(arrow);
+  thrustArrows[m.name] = arrow;
+});
+
+// gravity arrow (fixed, world down, at drone center)
+const gravityArrow = new THREE.ArrowHelper(new THREE.Vector3(0,-1,0), new THREE.Vector3(0,0,0), 0.9, 0xffee58, 0.16, 0.09);
+scene.add(gravityArrow);
+
+/* ---------- physics / control state ---------- */
+const AXIS = {
+  roll:  new THREE.Vector3(1,0,0), // user's x
+  pitch: new THREE.Vector3(0,0,1), // user's y
+  yaw:   new THREE.Vector3(0,1,0), // user's z (vertical)
+};
+
+let mode = 'hover';        // 'hover' | 'roll' | 'pitch' | 'yaw'
+let theta = 0;              // rotation progress 0..2PI for current maneuver
+let omega = 0;               // rad/s
+let y = 0, vy = 0;            // altitude offset & vertical velocity
+const baseY = 1.2;
+
+const G = 3.2;               // scaled gravity
+const massMotorsTotal = 1.0; // normalized
+const Fhover = 0.5;           // per-motor hover throttle fraction (of Fmax below), used for display baseline
+
+let aggressiveness = 1.1;
+const speedSlider = document.getElementById('speedSlider');
+speedSlider.addEventListener('input', ()=> aggressiveness = parseFloat(speedSlider.value));
+
+// throttle fractions 0..1 for each motor, updated per frame
+let throttle = {FL:0.5, FR:0.5, RL:0.5, RR:0.5};
+let propSpinRate = {FL:0, FR:0, RL:0, RR:0}; // visual spin speed (rad/s), separate axis for yaw reactive-torque look
+
+function setMode(newMode){
+  mode = newMode;
+  theta = 0; omega = 0;
+  ['btnHover','btnRoll','btnPitch','btnYaw'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  const map = {hover:'btnHover', roll:'btnRoll', pitch:'btnPitch', yaw:'btnYaw'};
+  document.getElementById(map[newMode]).classList.add('active');
+  document.getElementById('modeText').textContent =
+    newMode==='hover' ? 'Hover' : newMode==='roll' ? 'Roll Flip (X)' : newMode==='pitch' ? 'Pitch Flip (Z)' : 'Yaw Spin (Y)';
+}
+
+document.getElementById('btnHover').onclick = ()=>setMode('hover');
+document.getElementById('btnRoll').onclick  = ()=>setMode('roll');
+document.getElementById('btnPitch').onclick = ()=>setMode('pitch');
+document.getElementById('btnYaw').onclick   = ()=>setMode('yaw');
+document.getElementById('btnReset').onclick = ()=>{ y=0; vy=0; theta=0; omega=0; setMode('hover'); };
+
+const phaseTextEl = document.getElementById('phaseText');
+
+/* ---------- main loop ---------- */
+const clock = new THREE.Clock();
+const droneQuat = new THREE.Quaternion();
+const tmpQuat = new THREE.Quaternion();
+
+function updatePhysics(dt){
+  const Fmax = 1.0, Fmin = 0.03;
+  const armForTorque = 0.9;
+  const torqueMax = (Fmax - Fmin) * armForTorque * aggressiveness;
+  const I = 0.55;
+  const alphaMag = torqueMax / I;
+
+  if(mode==='roll' || mode==='pitch'){
+    let alpha;
+    if(theta < Math.PI){ alpha = alphaMag; } else { alpha = -alphaMag; }
+    omega += alpha*dt;
+    theta += omega*dt;
+
+    if(theta >= Math.PI*2){
+      theta = 0; omega = 0; setMode('hover');
+    } else {
+      // assign motor throttles
+      const highSideHigh = theta < Math.PI; // which half we're in
+      if(mode==='roll'){
+        // left pair vs right pair
+        const leftF  = highSideHigh ? Fmax : Fmin;
+        const rightF = highSideHigh ? Fmin : Fmax;
+        throttle.FL = leftF; throttle.RL = leftF;
+        throttle.FR = rightF; throttle.RR = rightF;
+        phaseTextEl.textContent = highSideHigh
+          ? `Roll flip — kicking: LEFT motors at ${Math.round(leftF*100)}%, RIGHT motors at ${Math.round(rightF*100)}%. Torque spins drone about the X axis.`
+          : `Roll flip — braking: RIGHT motors at ${Math.round(rightF*100)}%, LEFT motors at ${Math.round(leftF*100)}%. Reversed torque stops the spin near 360°.`;
+      } else {
+        // front pair vs rear pair
+        const frontF = highSideHigh ? Fmax : Fmin;
+        const rearF  = highSideHigh ? Fmin : Fmax;
+        throttle.FL = frontF; throttle.FR = frontF;
+        throttle.RL = rearF; throttle.RR = rearF;
+        phaseTextEl.textContent = highSideHigh
+          ? `Pitch flip — kicking: REAR motors at ${Math.round(rearF*100)}%, FRONT motors at ${Math.round(frontF*100)}%. Torque spins drone about the Z axis.`
+          : `Pitch flip — braking: FRONT motors at ${Math.round(frontF*100)}%, REAR motors at ${Math.round(rearF*100)}%. Reversed torque stops the spin near 360°.`;
+      }
+    }
+
+    // total thrust constant magnitude, but direction rotates with body -> altitude effect
+    const totalThrust = (Fmax+Fmin); // per pair-of-two sum normalized ~ constant
+    const worldVertComponent = totalThrust * Math.cos(theta); // 1 at level, -1 inverted
+    const netForce = worldVertComponent*G*1.15 - G; // *1.15 gives slight excess authority
+    vy += (netForce/massMotorsTotal)*dt;
+    y += vy*dt;
+
+  } else if(mode==='yaw'){
+    // bump profile, thrust stays balanced (altitude holds), only reactive torque differs
+    const yawAuthority = 2.2*aggressiveness;
+    let alpha = theta < Math.PI ? yawAuthority : -yawAuthority;
+    omega += alpha*dt;
+    theta += omega*dt;
+    if(theta >= Math.PI*2){ theta=0; omega=0; setMode('hover'); }
+
+    // keep lift balanced near hover on all four
+    throttle.FL = throttle.FR = throttle.RL = throttle.RR = 0.5;
+    // differential prop spin (reactive torque) shown separately for CW vs CCW pair
+    const cwBoost = theta < Math.PI ? 1 : -1;
+    propSpinRate.FL = (6 + cwBoost*3*aggressiveness); // CW pair (FL,RR)
+    propSpinRate.RR = (6 + cwBoost*3*aggressiveness);
+    propSpinRate.FR = -(6 - cwBoost*3*aggressiveness); // CCW pair (FR,RL)
+    propSpinRate.RL = -(6 - cwBoost*3*aggressiveness);
+
+    phaseTextEl.textContent = `Yaw spin — thrust stays balanced (~50% all motors) so altitude holds. CW motor pair (FL/RR) and CCW pair (FR/RL) run at slightly different RPM, producing a reactive drag-torque imbalance that rotates the frame about the vertical (Y) axis — no inversion, no altitude loss.`;
+
+    // gentle altitude settle back toward baseline
+    vy += (-vy*2 - (y)*1.5)*dt;
+    y += vy*dt;
+
+  } else {
+    // hover: settle throttle back to 50%, settle altitude to 0 offset
+    throttle.FL += (0.5-throttle.FL)*Math.min(1,dt*6);
+    throttle.FR += (0.5-throttle.FR)*Math.min(1,dt*6);
+    throttle.RL += (0.5-throttle.RL)*Math.min(1,dt*6);
+    throttle.RR += (0.5-throttle.RR)*Math.min(1,dt*6);
+    vy += (-vy*2 - y*1.5)*dt;
+    y += vy*dt;
+    theta = 0; omega = 0;
+    phaseTextEl.textContent = 'Hovering — all four rotors balanced (~50% throttle), total thrust equals weight, no net torque.';
+  }
+
+  // baseline visual prop spin for roll/pitch modes (not yaw) proportional to throttle
+  if(mode!=='yaw'){
+    for(const k of ['FL','FR','RL','RR']){
+      const dir = (k==='FL'||k==='RR') ? 1 : -1;
+      propSpinRate[k] = dir*(4 + throttle[k]*14);
+    }
+  }
+}
+
+function applyVisuals(dt){
+  // body rotation
+  droneQuat.identity();
+  if(mode==='roll') tmpQuat.setFromAxisAngle(AXIS.roll, theta);
+  else if(mode==='pitch') tmpQuat.setFromAxisAngle(AXIS.pitch, theta);
+  else if(mode==='yaw') tmpQuat.setFromAxisAngle(AXIS.yaw, theta);
+  else tmpQuat.identity();
+  drone.quaternion.copy(tmpQuat);
+  drone.position.y = baseY + y;
+
+  // propeller spin (local Y axis of each propGroup)
+  for(const k of Object.keys(propGroups)){
+    propGroups[k].rotation.y += propSpinRate[k]*dt;
+  }
+
+  // thrust arrows: world position = drone.position + rotated motor offset; direction = drone's local up rotated to world
+  const upLocal = new THREE.Vector3(0,1,0);
+  motorDefs.forEach(m=>{
+    const offset = new THREE.Vector3(m.x,0.14,m.z).applyQuaternion(drone.quaternion);
+    const pos = offset.clone().add(drone.position);
+    const dir = upLocal.clone().applyQuaternion(drone.quaternion);
+    const arrow = thrustArrows[m.name];
+    arrow.position.copy(pos);
+    arrow.setDirection(dir);
+    const len = 0.25 + throttle[m.name]*0.9;
+    arrow.setLength(len, len*0.22, len*0.14);
+  });
+
+  // HUD text
+  document.getElementById('thetaText').textContent = `${(theta*180/Math.PI).toFixed(0)}°`;
+  document.getElementById('omegaText').textContent = `${(omega*180/Math.PI).toFixed(0)}°/s`;
+  document.getElementById('altText').textContent = `${y.toFixed(2)} m`;
+  document.getElementById('vyText').textContent = `${vy.toFixed(2)} m/s`;
+
+  const pct = k => Math.round(throttle[k]*100);
+  document.getElementById('flPct').textContent = pct('FL')+'%';
+  document.getElementById('frPct').textContent = pct('FR')+'%';
+  document.getElementById('rlPct').textContent = pct('RL')+'%';
+  document.getElementById('rrPct').textContent = pct('RR')+'%';
+  document.getElementById('flBar').style.width = pct('FL')+'%';
+  document.getElementById('frBar').style.width = pct('FR')+'%';
+  document.getElementById('rlBar').style.width = pct('RL')+'%';
+  document.getElementById('rrBar').style.width = pct('RR')+'%';
+}
+
+function animate(){
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.033);
+  updatePhysics(dt);
+  applyVisuals(dt);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', ()=>{
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+} // end initApp
+</script>
+</body>
+</html>

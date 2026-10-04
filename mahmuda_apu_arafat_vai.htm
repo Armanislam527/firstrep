@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Autofill Profile Generator - Mahmuda</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f9f9f9; }
+        .form-container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .field-group { margin-bottom: 12px; display: flex; align-items: center; }
+        label { width: 220px; font-weight: bold; font-size: 13px; color: #333; }
+        input[type="text"] { flex: 1; padding: 6px; font-size: 13px; border: 1px solid #ccc; border-radius: 4px; }
+        h2 { text-align: center; color: #0056b3; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Profile Data Lookup Table</h2>
+    <form>
+        <!-- Basic Settings -->
+        <div class="field-group"><label>user-name</label><input type="text" id="user-name" value="Mst. Mahmuda Akter"></div>
+        <div class="field-group"><label>email</label><input type="text" id="email" value=""></div>
+        <div class="field-group"><label>title</label><input type="text" id="title" value="Ms."></div>
+        <div class="field-group"><label>gender</label><input type="text" id="gender" value="Female"></div>
+        <div class="field-group"><label>age</label><input type="text" id="age" value=""></div>
+        
+        <!-- Name Configurations -->
+        <div class="field-group"><label>first-name</label><input type="text" id="first-name" value=""></div>
+        <div class="field-group"><label>middle-name</label><input type="text" id="middle-name" value=""></div>
+        <div class="field-group"><label>last-name</label><input type="text" id="last-name" value=""></div>
+        <div class="field-group"><label>name-suffix</label><input type="text" id="name-suffix" value=""></div>
+        <div class="field-group"><label>full-name</label><input type="text" id="full-name" value="Mst. Mahmuda Akter"></div>
+        
+        <!-- Address Settings (General) -->
+        <div class="field-group"><label>street-line-1</label><input type="text" id="street-line-1" value=""></div>
+        <div class="field-group"><label>street-line-2</label><input type="text" id="street-line-2" value=""></div>
+        <div class="field-group"><label>street-line-3</label><input type="text" id="street-line-3" value=""></div>
+        <div class="field-group"><label>full-street</label><input type="text" id="full-street" value=""></div>
+        <div class="field-group"><label>city</label><input type="text" id="city" value=""></div>
+        <div class="field-group"><label>state</label><input type="text" id="state" value=""></div>
+        <div class="field-group"><label>zip-code</label><input type="text" id="zip-code" value="6682"></div>
+        <div class="field-group"><label>country-code</label><input type="text" id="country-code" value="BD"></div>
+        <div class="field-group"><label>country</label><input type="text" id="country" value="Bangladesh"></div>
+        <div class="field-group"><label>lang</label><input type="text" id="lang" value=""></div>
+        
+        <!-- Date of Birth Splits -->
+        <div class="field-group"><label>birth-day-type-1</label><input type="text" id="birth-day-type-1" value="22"></div>
+        <div class="field-group"><label>birth-day-type-2</label><input type="text" id="birth-day-type-2" value="22"></div>
+        <div class="field-group"><label>birth-month-number-type-1</label><input type="text" id="birth-month-number-type-1" value="6"></div>
+        <div class="field-group"><label>birth-month-number-type-2</label><input type="text" id="birth-month-number-type-2" value="06"></div>
+        <div class="field-group"><label>birth-month-string</label><input type="text" id="birth-month-string" value="June"></div>
+        <div class="field-group"><label>birth-year</label><input type="text" id="birth-year" value="1995"></div>
+        
+        <!-- Meta / Info Fields -->
+        <div class="field-group"><label>company</label><input type="text" id="company" value=""></div>
+        <div class="field-group"><label>occupation</label><input type="text" id="occupation" value=""></div>
+        <div class="field-group"><label>phone</label><input type="text" id="phone" value=""></div>
+        <div class="field-group"><label>homepage</label><input type="text" id="homepage" value=""></div>
+        <div class="field-group"><label>comment</label><input type="text" id="comment" value=""></div>
+        
+        
+        <div class="field-group"><label>name</label><input type="text" id="name" value="MST. MAHMUDA AKTER"></div>
+        <div class="field-group"><label>name_bn</label><input type="text" id="name_bn" value="মোছাঃ মাহমুদা আক্তার"></div>
+        <div class="field-group"><label>father</label><input type="text" id="father" value="MD. ABUL KALAM AZAD"></div>
+        <div class="field-group"><label>father_bn</label><input type="text" id="father_bn" value="মোঃ আবুল কালাম আজাদ"></div>
+        <div class="field-group"><label>mother</label><input type="text" id="mother" value="ANJUMANARA"></div>
+        <div class="field-group"><label>mother_bn</label><input type="text" id="mother_bn" value="আঞ্জুমান আরা"></div>
+        
+        <!-- Primary National Settings -->
+        <div class="field-group"><label>nationality</label><input type="text" id="nationality" value="Bangladeshi"></div>
+        <div class="field-group"><label>religion</label><input type="text" id="religion" value="1"></div>
+        <div class="field-group"><label>nid</label><input type="text" id="nid" value="1"></div>
+        <div class="field-group"><label>same_as_present</label><input type="text" id="same_as_present" value="false"></div>
+        <div class="field-group"><label>if_applicable_mas</label><input type="text" id="if_applicable_mas" value="true"></div>
+        <div class="field-group"><label>if_applicable_exp</label><input type="text" id="if_applicable_exp" value="false"></div>
+        <div class="field-group"><label>agree</label><input type="text" id="agree" value="true"></div>
+        <div class="field-group"><label>nid_no</label><input type="text" id="nid_no" value="1953499850"></div>
+        <div class="field-group"><label>breg</label><input type="text" id="breg" value="0"></div>
+        <div class="field-group"><label>passport</label><input type="text" id="passport" value="0"></div>
+        <div class="field-group"><label>marital_status</label><input type="text" id="marital_status" value="Unmarried"></div>
+        <div class="field-group"><label>spouse_name</label><input type="text" id="spouse_name" value=""></div>
+        <div class="field-group"><label>mobile</label><input type="text" id="mobile" value=""></div>
+        <div class="field-group"><label>confirm_mobile</label><input type="text" id="confirm_mobile" value=""></div>
+        <div class="field-group"><label>quota</label><input type="text" id="quota" value=""></div>
+        <div class="field-group"><label>dep_status</label><input type="text" id="dep_status" value=""></div>
+        
+        <!-- Present Address Coordinates -->
+        <div class="field-group"><label>present_careof</label><input type="text" id="present_careof" value=""></div>
+        <div class="field-group"><label>present_village</label><input type="text" id="present_village" value=""></div>
+        <div class="field-group"><label>present_district</label><input type="text" id="present_district" value=""></div>
+        <div class="field-group"><label>present_upazila</label><input type="text" id="present_upazila" value=""></div>
+        <div class="field-group"><label>present_post</label><input type="text" id="present_post" value=""></div>
+        <div class="field-group"><label>present_postcode</label><input type="text" id="present_postcode" value=""></div>
+        
+        <!-- Permanent Address Coordinates -->
+        <div class="field-group"><label>permanent_careof</label><input type="text" id="permanent_careof" value="MD. ABUL KALAM AZAD"></div>
+        <div class="field-group"><label>permanent_village</label><input type="text" id="permanent_village" value="Diyapara, Ahammadpur"></div>
+        <div class="field-group"><label>permanent_district</label><input type="text" id="permanent_district" value=""></div>
+        <div class="field-group"><label>permanent_upazila</label><input type="text" id="permanent_upazila" value=""></div>
+        <div class="field-group"><label>permanent_post</label><input type="text" id="permanent_post" value="Ahammadpur"></div>
+        <div class="field-group"><label>permanent_postcode</label><input type="text" id="permanent_postcode" value="6682"></div>
+        
+        <!-- Academic: Secondary School Certificate (SSC) -->
+        <div class="field-group"><label>ssc_exam</label><input type="text" id="ssc_exam" value="2"></div>
+        <div class="field-group"><label>ssc_roll</label><input type="text" id="ssc_roll" value="597303"></div>
+        <div class="field-group"><label>ssc_group</label><input type="text" id="ssc_group" value="1"></div>
+        <div class="field-group"><label>ssc_board</label><input type="text" id="ssc_board" value="15"></div>
+        <div class="field-group"><label>ssc_result</label><input type="text" id="ssc_result" value="2.88"></div>
+        <div class="field-group"><label>ssc_year</label><input type="text" id="ssc_year" value="2011"></div>
+        
+        <!-- Academic: Higher Secondary Certificate (HSC) -->
+        <div class="field-group"><label>hsc_exam</label><input type="text" id="hsc_exam" value="1"></div>
+        <div class="field-group"><label>hsc_roll</label><input type="text" id="hsc_roll" value="806011"></div>
+        <div class="field-group"><label>hsc_group</label><input type="text" id="hsc_group" value="3"></div>

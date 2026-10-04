@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Flip Mechanism – 3D Simulation</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+            border-left: 4px solid #ffaa00;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        #info h1 {
+            margin: 0 0 6px 0;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: #ffaa00;
+        }
+        #info p {
+            margin: 4px 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        #info .highlight {
+            color: #88ddff;
+            font-weight: bold;
+        }
+        #status {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: #eee;
+            padding: 12px 24px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #555;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            pointer-events: none;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        #status span {
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        .note {
+            position: absolute;
+            bottom: 100px;
+            right: 20px;
+            color: #aaa;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(2px);
+            border: 1px solid #444;
+            pointer-events: none;
+            z-index: 100;
+        }
+        @media (max-width: 700px) {
+            #info { top: 10px; left: 10px; padding: 10px 15px; }
+            #info h1 { font-size: 1.0rem; }
+            #status { font-size: 0.8rem; padding: 8px 16px; bottom: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h1>⚡ DRONE FLIP MECHANISM</h1>
+        <p>Roll <span class="highlight">360°</span> around X‑axis · Rotor speed &amp; air thrust visualized</p>
+        <p style="font-size:0.8rem; opacity:0.7;">🟡 High thrust · 🔵 Low thrust · Arrows = airflow direction</p>
+    </div>
+    <div id="status">⏳ Flip progress: <span id="progressDisplay">0%</span></div>
+    <div class="note">← drag to rotate · scroll to zoom</div>
+
+    <!-- Import maps and 3.js libraries -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+        // --- Setup Scene ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x112233);
+
+        // --- Camera ---
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(6, 4, 8);
+        camera.lookAt(0, 0, 0);
+
+        // --- Renderers ---
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        const labelRenderer = new CSS2DRenderer();
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        labelRenderer.domElement.style.position = 'absolute';
+        labelRenderer.domElement.style.top = '0px';
+        labelRenderer.domElement.style.left = '0px';
+        labelRenderer.domElement.style.pointerEvents = 'none'; // allow click-through to orbit controls
+        document.body.appendChild(labelRenderer.domElement);
+
+        // --- Controls ---
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = false;
+        controls.target.set(0, 0.5, 0);
+        controls.update();
+
+        // --- Lights ---
+        // Ambient light
+        const ambient = new THREE.AmbientLight(0x404060);
+        scene.add(ambient);
+
+        // Main directional light
+        const dirLight = new THREE.DirectionalLight(0xffeedd, 1);
+        dirLight.position.set(5, 10, 7);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 1024;
+        dirLight.shadow.mapSize.height = 1024;
+        scene.add(dirLight);
+
+        // Fill light
+        const fillLight = new THREE.DirectionalLight(0x4488ff, 0.3);
+        fillLight.position.set(-5, 0, 5);
+        scene.add(fillLight);
+
+        // Back light
+        const backLight = new THREE.DirectionalLight(0xffaa88, 0.2);
+        backLight.position.set(-2, 1, -8);
+        scene.add(backLight);
+
+        // --- Helpers & Ground ---
+        const gridHelper = new THREE.GridHelper(12, 20, 0x88aaff, 0x335577);
+        gridHelper.position.y = -0.5;
+        scene.add(gridHelper);
+
+        // subtle ground plane for shadows
+        const groundMat = new THREE.ShadowMaterial({ opacity: 0.3, color: 0x000000 });
+        const groundPlane = new THREE.Mesh(
+            new THREE.PlaneGeometry(12, 12),
+            groundMat
+        );
+        groundPlane.rotation.x = -Math.PI / 2;
+        groundPlane.position.y = -0.5;
+        groundPlane.receiveShadow = true;
+        scene.add(groundPlane);
+
+        // Axis helper (small)
+        // const axesHelper = new THREE.AxesHelper(2);
+        // scene.add(axesHelper);
+
+        // --- Drone Group (will be rotated) ---
+        const droneGroup = new THREE.Group();
+        droneGroup.position.y = 1.5;
+        scene.add(droneGroup);
+
+        // --- Drone Body ---
+        const bodyGeo = new THREE.BoxGeometry(0.8, 0.2, 1.2);
+        const bodyMat = new THREE.MeshStandardMaterial({ color: 0x3399ff, roughness: 0.4, metalness: 0.6 });
+        const body = new THREE.Mesh(bodyGeo, bodyMat);
+        body.castShadow = true;
+        body.receiveShadow = true;
+        body.position.y = 0;
+        droneGroup.add(body);
+
+        // Arms
+        const armMat = new THREE.MeshStandardMaterial({ color: 0xddddff, roughness: 0.5, metalness: 0.3 });
+        const armPositions = [
+            [-0.9, 0, 0.7], [0.9, 0, 0.7], [-0.9, 0, -0.7], [0.9, 0, -0.7]
+        ];
+        armPositions.forEach(pos => {
+            const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 1.0, 6), armMat);
+            arm.rotation.z = Math.PI / 2;
+            arm.position.set(pos[0], pos[1], pos[2]);
+            arm.castShadow = true;
+            arm.receiveShadow = true;
+            droneGroup.add(arm);
+        });
+
+        // --- Rotors (4) with thrust visualization ---
+        const rotorGroup = new THREE.Group();
+        droneGroup.add(rotorGroup);
+
+        // Store rotor references for animation
+        const rotors = [];
+        const rotorPositions = [
+            { x: -1.2, z: 0.9, label: 'M1' },
+            { x: 1.2, z: 0.9, label: 'M2' },
+            { x: -1.2, z: -0.9, label: 'M3' },
+            { x: 1.2, z: -0.9, label: 'M4' }
+        ];
+
+        // Colors for thrust (will be updated)
+        const thrustColors = [0xffaa00, 0x44aaff, 0xffaa00, 0x44aaff];
+
+        rotorPositions.forEach((pos, index) => {
+            const group = new THREE.Group();
+            group.position.set(pos.x, 0.15, pos.z);
+
+            // Rotor hub
+            const hub = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.15, 0.15, 0.08, 8),
+                new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.3, metalness: 0.7 })
+            );
+            hub.rotation.x = Math.PI / 2;
+            hub.position.y = 0;
+            group.add(hub);
+
+            // Blades (4 blades per rotor)
+            const bladeMat = new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.5, metalness: 0.1 });
+            for (let i = 0; i < 4; i++) {
+                const angle = (i / 4) * Math.PI * 2;
+                const blade = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.5, 0.02, 0.08),
+                    bladeMat
+                );
+                blade.position.set(Math.cos(angle) * 0.35, 0, Math.sin(angle) * 0.35);
+                blade.rotation.y = angle;
+                blade.castShadow = true;
+                blade.receiveShadow = true;
+                group.add(blade);
+            }
+
+            // --- Thrust cone (visualizes air thrust) ---
+            const coneMat = new THREE.MeshPhongMaterial({
+                color: thrustColors[index % thrustColors.length],
+                transparent: true,
+                opacity: 0.35,
+                emissive: thrustColors[index % thrustColors.length],
+                emissiveIntensity: 0.2,
+                side: THREE.DoubleSide
+            });
+            const cone = new THREE.Mesh(
+                new THREE.ConeGeometry(0.3, 0.6, 8),
+                coneMat
+            );
+            cone.rotation.x = Math.PI; // point downward
+            cone.position.y = -0.4;
+            cone.name = 'thrustCone';
+            group.add(cone);
+
+            // Small arrow indicator (airflow direction)
+            const arrowDir = new THREE.ArrowHelper(
+                new THREE.Vector3(0, -1, 0),
+                new THREE.Vector3(0, -0.9, 0),
+                0.5,
+                0x88ddff,
+                0.2,
+                0.15
+            );
+            group.add(arrowDir);
+
+            // Label for motor (CSS2DRenderer)
+            const labelDiv = document.createElement('div');
+            labelDiv.textContent = pos.label;
+            labelDiv.style.color = '#aaccff';
+            labelDiv.style.fontSize = '12px';
+            labelDiv.style.fontWeight = 'bold';
+            labelDiv.style.textShadow = '1px 1px 3px rgba(0,0,0,0.8)';
+            labelDiv.style.background = 'rgba(0,0,0,0.4)';
+            labelDiv.style.padding = '2px 8px';
+            labelDiv.style.borderRadius = '12px';
+            labelDiv.style.border = '1px solid #446688';
+            const label = new CSS2DObject(labelDiv);
+            label.position.set(0, 0.4, 0);
+            group.add(label);
+
+            droneGroup.add(group);
+            rotors.push({
+                group: group,
+                cone: cone,
+                baseColor: thrustColors[index % thrustColors.length],
+                speed: 0,
+                phase: index * 0.5
+            });
+        });
+
+        // --- Add some small particles to show airflow (dynamic) ---
+        const particleCount = 200;
+        const particleGeo = new THREE.BufferGeometry();
+        const particlePos = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount; i++) {
+            particlePos[i*3] = (Math.random() - 0.5) * 6;
+            particlePos[i*3+1] = (Math.random() - 0.5) * 4 + 1;
+            particlePos[i*3+2] = (Math.random() - 0.5) * 6;
+        }
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+        const particleMat = new THREE.PointsMaterial({
+            color: 0x88ddff,
+            size: 0.04,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending
+        });
+        const particles = new THREE.Points(particleGeo, particleMat);
+        scene.add(particles);
+
+        // --- Animation state ---
+        let flipProgress = 0; // 0 to 1
+        let isFlipping = true;
+        const flipDuration = 4000; // ms for one full flip
+        let lastTime = performance.now();
+
+        // --- UI elements ---
+        const progressSpan = document.getElementById('progressDisplay');
+
+        // --- Animate ---
+        function animate(time) {
+            const delta = Math.min((time - lastTime) / 1000, 0.05);
+            lastTime = time;
+
+            // --- Update flip ---
+            if (isFlipping) {
+                // Increment progress over time
+                flipProgress += delta / (flipDuration / 1000);
+                if (flipProgress >= 1.0) {
+                    flipProgress = 0.0; // loop
+                }
+            }
+
+            // Compute angle: 360° roll around X axis
+            const angle = flipProgress * Math.PI * 2;
+            droneGroup.rotation.x = angle;
+
+            // Update progress display
+            const percent = Math.round(flipProgress * 100);
+            progressSpan.textContent = percent + '%';
+
+            // --- Rotor speeds & thrust visualization ---
+            // During flip, we simulate differential thrust: 
+            // rotors on one side increase, opposite decrease to create torque.
+            // We use sin(angle) to modulate thrust: at 0° (upright) all equal, 
+            // at 90° one pair high, other low, etc.
+            const thrustFactor = Math.sin(angle); // -1 .. 1
+            
+            rotors.forEach((rotor, idx) => {
+                // Each rotor gets a base speed + differential based on position
+                // Rotors at x>0 get positive thrust when thrustFactor>0 (right side)
+                // Rotors at x<0 get negative (left side)
+                const xPos = rotor.group.position.x;
+                // Normalize: for x=1.2 => 1, x=-1.2 => -1
+                const xNorm = xPos / 1.2;
+                // Combine: base 0.6 + 0.4 * (thrustFactor * xNorm) 
+                // but we want to keep speed between 0.2 and 1.0
+                let speed = 0.6 + 0.4 * (thrustFactor * xNorm);
+                // Clamp
+                speed = Math.max(0.15, Math.min(1.0, speed));
+                rotor.speed = speed;
+
+                // Rotate blades
+                const bladeGroup = rotor.group;
+                // rotate all children that are blades (we stored blades as children, but we can rotate the whole group around Y)
+                // Actually we want to rotate the blades: we rotate the group's children that are meshes with box geometry? 
+                // simpler: rotate the whole rotor group around Y (but that also rotates cone and label, not ideal)
+                // Let's just rotate the blades manually: we stored blades inside group, we can find them by type.
+                bladeGroup.children.forEach(child => {
+                    if (child.isMesh && child.geometry.type === 'BoxGeometry' && child.geometry.parameters.width === 0.5) {
+                        child.rotation.y += delta * speed * 8;
+                    }
+                });
+
+                // Update thrust cone: scale and opacity based on speed
+                const cone = rotor.cone;
+                if (cone) {
+                    const scaleY = 0.5 + speed * 0.8;
+                    cone.scale.set(0.5 + speed * 0.6, scaleY, 0.5 + speed * 0.6);
+                    cone.material.opacity = 0.2 + speed * 0.5;
+                    // Color intensity
+                    const color = new THREE.Color(rotor.baseColor);
+                    color.lerp(new THREE.Color(0xff8800), speed * 0.6);
+                    cone.material.color.set(color);
+                    cone.material.emissive.set(color);
+                    cone.material.emissiveIntensity = 0.1 + speed * 0.4;
+                }
+            });
+
+            // --- Animate particles (airflow) ---
+            const positions = particles.geometry.attributes.position.array;
+            for (let i = 0; i < particleCount; i++) {
+                // drift downward with some randomness
+                positions[i*3+1] -= delta * (0.4 + 0.3 * Math.sin(i + time * 0.001));
+                // horizontal drift
+                positions[i*3] += delta * (0.1 * Math.sin(i * 0.5 + time * 0.001));
+                positions[i*3+2] += delta * (0.1 * Math.cos(i * 0.3 + time * 0.001));
+                // reset if too low
+                if (positions[i*3+1] < -1.0) {
+                    positions[i*3] = (Math.random() - 0.5) * 6;
+                    positions[i*3+1] = 3.0 + Math.random() * 2;
+                    positions[i*3+2] = (Math.random() - 0.5) * 6;
+                }
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+
+            // --- Update controls ---
+            controls.update();
+
+            // --- Render ---
+            renderer.render(scene, camera);
+            labelRenderer.render(scene, camera);
+
+            requestAnimationFrame(animate);
+        }
+
+        animate(performance.now());
+
+        // --- Resize handler ---
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- Minor: add some stars ---
+        function addStars() {
+            const starsGeo = new THREE.BufferGeometry();
+            const starsCount = 1000;
+            const starsPos = new Float32Array(starsCount * 3);
+            for (let i = 0; i < starsCount * 3; i+=3) {
+                starsPos[i] = (Math.random() - 0.5) * 200;
+                starsPos[i+1] = (Math.random() - 0.5) * 200;
+                starsPos[i+2] = (Math.random() - 0.5) * 200 - 50;
+            }
+            starsGeo.setAttribute('position', new THREE.BufferAttribute(starsPos, 3));
+            const starsMat = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.15, transparent: true });
+            const stars = new THREE.Points(starsGeo, starsMat);
+            scene.add(stars);
+        }
+        addStars();
+
+        console.log('Drone flip simulation started.');
+    </script>
+</body>
+</html>

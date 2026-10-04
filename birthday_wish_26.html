@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 শুভ জন্মদিন, আমার পাখি 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
+            background: linear-gradient(135deg, #ffeef8, #fff5f9, #f0f4ff, #ffeef8);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #4a3548;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating flowers */
+        .flowers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 24px;
+            animation: floatFlower linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatFlower {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Floating birds */
+        .birds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .bird {
+            position: absolute;
+            font-size: 28px;
+            animation: flyBird linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes flyBird {
+            0% {
+                transform: translateX(-100px) translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        /* Floating clouds */
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            font-size: 40px;
+            animation: driftCloud linear infinite;
+            opacity: 0.2;
+        }
+
+        @keyframes driftCloud {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.2;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px));
+                opacity: 0;
+            }
+        }
+
+        /* Sparkles */
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ffd700, transparent);
+            border-radius: 50%;
+            animation: sparkle linear infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Letter header */
+        .letter-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1.5s ease;
+        }
+
+        .letter-header .birthday-icon {
+            font-size: 70px;
+            display: block;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 182, 193, 0.6));
+        }
+
+        .letter-header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #ff6b9d, #c06c84, #f67280, #ff6b9d);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease infinite;
+            font-weight: 700;
+            text-shadow: 0 0 30px rgba(255, 107, 157, 0.3);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Letter body */
+        .letter-body {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 240, 245, 0.9));
+            border: 2px solid rgba(255, 182, 193, 0.4);
+            border-radius: 25px;
+            padding: 50px 45px;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 25px 70px rgba(255, 182, 193, 0.2),
+                0 0 50px rgba(255, 107, 157, 0.1),
+                inset 0 0 80px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-body::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ae6bff, #ffd700, #ff6b9d, #c06c84, #ff6b9d);
+            background-size: 400% 400%;
+            border-radius: 26px;
+            z-index: -1;
+            animation: borderGlow 5s ease infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Paragraphs */
+        .letter-body p {
+            font-size: 1.15rem;
+            line-height: 2;
+            margin-bottom: 20px;
+            color: #4a3548;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            position: relative;
+        }
+
+        .letter-body p:nth-child(1) { animation-delay: 0.2s; }
+        .letter-body p:nth-child(2) { animation-delay: 0.4s; }
+        .letter-body p:nth-child(3) { animation-delay: 0.6s; }
+        .letter-body p:nth-child(4) { animation-delay: 0.8s; }
+        .letter-body p:nth-child(5) { animation-delay: 1.0s; }
+        .letter-body p:nth-child(6) { animation-delay: 1.2s; }
+        .letter-body p:nth-child(7) { animation-delay: 1.4s; }
+        .letter-body p:nth-child(8) { animation-delay: 1.6s; }
+        .letter-body p:nth-child(9) { animation-delay: 1.8s; }
+        .letter-body p:nth-child(10) { animation-delay: 2.0s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Special emphasis */
+        .highlight {
+            background: linear-gradient(135deg, #ff6b9d, #c06c84);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .golden {
+            background: linear-gradient(135deg, #d9ff00, #ffe100, #6f5f02);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 1.4rem;
+            animation: shimmer 2s ease infinite;
+        }
+
+        .sky-blue {
+            background: linear-gradient(135deg, #87ceeb, #4682b4, #87ceeb);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            animation: shimmer 3s ease infinite;
+        }
+
+        .emphasis {
+            color: #c06c84;
+            font-style: italic;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .section-break {
+            text-align: center;
+            margin: 35px 0;
+            font-size: 1.5rem;
+            color: rgba(255, 107, 157, 0.6);
+            letter-spacing: 10px;
+        }
+
+        .poetic-line {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #c06c84;
+            margin: 12px 0;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+
+        .big-reveal {
+            text-align: center;
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 30px 0;
+            background: linear-gradient(135deg, #2b2829, #407e60, #ff6b9d);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease infinite;
+            line-height: 1.8;
+        }
+
+        .dream-section {
+            border-left: 3px solid rgba(135, 206, 235, 0.5);
+            padding-left: 25px;
+            margin: 25px 0;
+            background: linear-gradient(90deg, rgba(135, 206, 235, 0.05), transparent);
+            border-radius: 10px;
+        }
+
+        .prayer-section {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(255, 182, 193, 0.1));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .prayer-section p {
+            color: #8b6914;
+            font-weight: 500;
+        }
+
+        .ending-line {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255, 107, 157, 0.3);
+            background: linear-gradient(135deg, #ff6b9d, #c06c84);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            animation: shimmer 3s ease infinite;
+        }
+
+        /* Glowing divider */
+        .glow-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff6b9d, #ffd700, #ff6b9d, transparent);
+            margin: 30px 0;
+            border: none;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.5; box-shadow: 0 0 10px rgba(255, 107, 157, 0.3); }
+            50% { opacity: 1; box-shadow: 0 0 20px rgba(255, 107, 157, 0.6); }
+        }
+
+        /* Footer */
+        .letter-footer {
+            text-align: center;
+            margin-top: 50px;
+            animation: fadeInUp 1s ease 3s forwards;
+            opacity: 0;
+        }
+
+        .letter-footer .signature {
+            font-size: 1.4rem;
+            color: #c06c84;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .letter-footer .hearts-row {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            font-size: 1.5rem;
+            animation: bounce 2s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .letter-body {
+                padding: 35px 25px;
+            }
+            .letter-header h1 {
+                font-size: 2.2rem;
+            }
+            .letter-body p {
+                font-size: 1.05rem;
+            }
+            .big-reveal {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #ffeef8;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff6b9d, #c06c84);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ff85b1, #d4849c);
+        }
+
+        /* Heart animation */
+        .heart-beat {
+            /* display: inline-block; */
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating clouds -->
+    <div class="clouds" id="clouds"></div>
+
+    <!-- Floating flowers -->
+    <div class="flowers" id="flowers"></div>
+    
+    <!-- Floating birds -->
+    <div class="birds" id="birds"></div>
+
+    <!-- Sparkles -->
+    <div class="sparkles" id="sparkles"></div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">↓</div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="letter-header">
+            <span class="birthday-icon">🎂</span>
+            <h1>🌸 শুভ জন্মদিন, আমার পাখি 🌸</h1>
+        </div>
+
+        <!-- Letter Body -->
+        <div class="letter-body">
+            <p><strong class="highlight">আমার আদরের পাখি,</strong></p>
+
+            <p><span class="golden">শুভ জন্মদিন। <span class="heart-beat">❤️</span></span></p>
+
+            <p>আজকের দিনটা শুধু তোমার জন্মদিন নয়, আজ সেই দিন, যেদিন পৃথিবী এমন একজন মানুষকে পেয়েছিল, যে একদিন এসে আমার জীবনটাকেও নতুন করে বাঁচতে শিখিয়েছে।</p>
+
+            <p>অনেকেই বলে, জীবনে একজন মানুষ আসে আর সবকিছু বদলে যায়। আমি আগে বিশ্বাস করতাম না। কিন্তু তোমাকে পাওয়ার পর বুঝেছি—এই কথাটা একদম সত্যি।</p>
+
+            <p>তুমি আমার জীবনে আসার পর থেকে আমার প্রতিটা সকাল, প্রতিটা বিকেল, প্রতিটা রাতের অর্থ বদলে গেছে। এখন কোনো সুন্দর দৃশ্য দেখলে প্রথমেই মনে হয়, "ইশ! তুমি যদি পাশে থাকতে!"</p>
+
+            <p>তুমি একা কুষ্টিয়া ঘুরছিলে। কুষ্টিয়ার অলিগলি, লালনের মেলার পরিবেশ, চুয়াডাঙ্গা, মেহেরপুর, বৈদ্যনাথতলার ইতিহাস—সবকিছু তুমি নিজের চোখে দেখছিলে, আর আমি দূর থেকে তোমার প্রতিটা খবরের অপেক্ষা করছিলাম। তোমার পাঠানো প্রতিটা ছবি, প্রতিটা গল্প আমি শুধু দেখিনি; মনে হচ্ছিল, তোমার চোখ দিয়েই আমিও সেই জায়গাগুলো ঘুরে দেখছি।</p>
+
+            <p class="emphasis">তারপর...</p>
+
+            <p><strong class="highlight">আলমডাঙ্গা থেকে পাকশীতে</strong> তুমি যখন নামলে, তখন থেকেই যেন গল্পটার ভেতরে আমিও ঢুকে পড়লাম।</p>
+
+            <p>হার্ডিঞ্জ ব্রিজের নিচে দাঁড়িয়ে পদ্মার বাতাসে তোমার পাশে থাকা, নৌকার হালকা দোলায় সময়কে থামিয়ে দিতে ইচ্ছে হওয়া, টেবুনিয়া ফার্মে ঘুরে বেড়ানো, কাশ্মীরীতে রাতের খাবার, পরদিন রাজশাহী বিশ্ববিদ্যালয়ের সবুজ ক্যাম্পাস, পদ্মাপাড়ের বিকেল, টি-বাঁধ, কাটাখালীর কালাভুনা, সাহেববাজারের ব্যস্ততা, টার্মিনালে বসে মোগলাই খাওয়া...</p>
+
+            <p>এসব জায়গা হয়তো অনেকেই দেখে।</p>
+
+            <p>কিন্তু আমি এগুলোকে মনে রাখব শুধু একটা কারণেই—</p>
+
+            <p class="big-reveal">এই স্মৃতিগুলোর প্রতিটাতেই তুমি আছো।</p>
+
+            <hr class="glow-divider">
+
+            <p>তুমি বলো তুমি একটা পাখি হতে চাও...</p>
+
+            <p class="sky-blue">আর আমি যেন হই তোমার আকাশ।</p>
+
+            <p class="emphasis">জানো?</p>
+
+            <p>আমি সত্যিই তোমার সেই আকাশ হতে চাই।</p>
+
+            <p>যেখানে তুমি যত দূর খুশি উড়বে, আমি কখনো তোমাকে আটকে রাখব না।</p>
+
+            <div class="dream-section">
+                <p>তুমি ক্লান্ত হলে আমি তোমার বিশ্রাম হব।</p>
+                <p>তুমি ভয় পেলে আমি তোমার সাহস হব।</p>
+                <p>তুমি হারিয়ে গেলে আমি তোমার পথ হব।</p>
+                <p>আর তুমি যখন খুশিতে ডানা মেলে উড়বে, আমি শুধু চুপচাপ আকাশ হয়ে তোমাকে দেখে যাব।</p>
+            </div>
+
+            <p>কারণ ভালোবাসা মানে বন্দি করা নয়...</p>
+
+            <p class="big-reveal">ভালোবাসা মানে এমন একটা আকাশ হওয়া,<br>যেখানে পাখিটা নিশ্চিন্তে উড়তে পারে।</p>
+
+            <div class="section-break">✦ ✦ ✦</div>
+
+            <p class="emphasis">তুমি জানো?</p>
+
+            <p>তোমার ছোট ছোট স্বপ্নগুলো এখন আমার সবচেয়ে বড় দায়িত্ব।</p>
+
+            <p>তুমি দেশ-বিদেশ ঘুরতে চাও।</p>
+
+            <p>আমি চাই, একদিন আমাদের দু'জনের পাসপোর্টে এত দেশের সিল জমুক যে আমরা গুনে শেষ করতে না পারি।</p>
+
+            <div class="dream-section">
+                <p>কোনো এক সকালে নতুন একটা শহরে ঘুম ভাঙবে।</p>
+                <p>কোনো এক বিকেলে সমুদ্রের ধারে বসে সূর্যাস্ত দেখব।</p>
+                <p>কোনো এক রাতে পাহাড়ের চূড়ায় দাঁড়িয়ে বলব—</p>
+                <p class="golden">"দেখো, আল্লাহ আমাদের আরেকটা স্বপ্ন পূরণ করে দিলেন।"</p>
+            </div>
+
+            <p>তুমি বলেছিলে...</p>
+
+            <p>তোমার মহর হিসেবে তুমি একটা উমরাহ চাও।</p>
+
+            <p>সেদিন তোমার এই কথাটা শুনে আমি আরও একবার তোমার প্রেমে পড়েছিলাম।</p>
+
+            <p>কারণ তোমার স্বপ্নগুলো শুধু সুন্দর নয়...</p>
+
+            <p class="highlight">খুব পবিত্র।</p>
+
+            <div class="prayer-section">
+                <p>আমি জানি না কবে পারব।</p>
+                <p>কিন্তু আমি দোয়া করি, আল্লাহ যেন আমাকে সেই সামর্থ্য দেন, যেদিন তোমার হাত ধরে তাঁর ঘরের সামনে দাঁড়িয়ে বলতে পারব—</p>
+                <p class="golden">"এই প্রতিশ্রুতিটা আমি রাখতে পেরেছি।"</p>
+            </div>
+
+            <hr class="glow-divider">
+
+            <p class="emphasis">আর জানো?</p>
+
+            <p>আমি মাঝে মাঝে একটা ছবি কল্পনা করি।</p>
+
+            <div class="dream-section">
+                <p>একটা ছোট্ট কিন্তু খুব সুন্দর ডুপ্লেক্স বাড়ি।</p>
+                <p>বাড়িটার সামনে একটা সাদা গেট।</p>
+                <p>চারপাশে রঙিন ফুলে ভরা একটা বাগান।</p>
+                <p>সেই বাগানের প্রতিটা গাছ তুমি নিজের হাতে লাগাবে।</p>
+                <p>আমি সন্ধ্যায় অফিস থেকে ফিরে তোমার সঙ্গে গাছে পানি দেব।</p>
+                <p>তুমি নতুন একটা ফুল ফুটলে ছোট বাচ্চার মতো দৌড়ে এসে আমাকে ডাকবে।</p>
+                <p>আমি ফুল দেখতে আসব...</p>
+                <p class="highlight">কিন্তু শেষ পর্যন্ত ফুলের চেয়ে তোমার হাসিটাই বেশি দেখব।</p>
+            </div>
+
+            <p class="emphasis">তারপর...</p>
+
+            <p>একদিন সেই বাড়িটাতে ছোট ছোট পায়ের শব্দ হবে।</p>
+
+            <p>তুমি তো জানো, আমাদের দু'জনেরই স্বপ্ন—</p>
+
+            <p class="golden">একটা মেয়ে আর একটা ছেলে ... যমজ।</p>
+
+            <p>ভাবতেই কী অদ্ভুত ভালো লাগে!</p>
+
+            <p>ওরা দৌড়ে এসে তোমাকে জড়িয়ে ধরবে।</p>
+
+            <p>আমি দূর থেকে দাঁড়িয়ে তোমাদের দেখব।</p>
+
+            <p>আর মনে মনে বলব—</p>
+
+            <p class="big-reveal">"আলহামদুলিল্লাহ... আমার পৃথিবীটা পূর্ণ হয়ে গেছে।"</p>
+
+            <div class="section-break">✦ ✦ ✦</div>
+
+            <p>তুমি একসময় ম্যাজিস্ট্রেট হওয়ার স্বপ্ন দেখতে।</p>
+
+            <p>আজ তুমি নার্সিং পড়ছো।</p>
+
+            <p>স্বপ্নের পথ বদলেছে, কিন্তু মানুষের পাশে দাঁড়ানোর মনটা বদলায়নি।</p>
+
+            <p>এই মনটাই আমাকে প্রতিদিন নতুন করে তোমার প্রেমে ফেলে।</p>
+
+            <p>তুমি তাড়াতাড়ি বিয়ে করতে চাও।</p>
+
+            <p>আমিও চাই।</p>
+
+            <p>হয়তো এখনো আমাদের অনেক পথ বাকি।</p>
+
+            <p>হয়তো অনেক কথা এখনো পরিবারকে বলা হয়নি।</p>
+
+            <p>কিন্তু আমি জানি—</p>
+
+            <p>অপেক্ষা যত দীর্ঘই হোক, আমার গন্তব্য বদলাবে না।</p>
+
+            <p class="big-reveal">আমার গন্তব্য সবসময়—<br>তুমি।</p>
+
+            <hr class="glow-divider">
+
+            <p>তুমি শুধু আমার ভালোবাসা নও।</p>
+
+            <p>তুমি আমার মানসিক শান্তি।</p>
+
+            <p>তুমি আমার সবচেয়ে নিরাপদ আশ্রয়।</p>
+
+            <p>তুমি আমার প্রতিটা দোয়ার সবচেয়ে সুন্দর অংশ।</p>
+
+            <p>তুমি সেই মানুষ, যার সঙ্গে আমি শুধু আজ নয়...</p>
+
+            <p class="highlight">সারা জীবন কাটাতে চাই।</p>
+
+            <div class="section-break">✦ ✦ ✦</div>
+
+            <p>আজ তোমার জন্মদিনে আমি আল্লাহর কাছে শুধু একটা দোয়া করি—</p>
+
+            <div class="prayer-section">
+                <p>আল্লাহ যেন তোমার মুখের হাসিটা কখনো ম্লান না করেন।</p>
+                <p>তোমার সব হালাল স্বপ্ন পূরণ করেন।</p>
+                <p>তোমার সব কষ্ট আমার ভাগ্যে লিখে দেন।</p>
+                <p>আর আমাদের দু'জনকে এমনভাবে এক করে দেন, যেন একদিন সত্যিই তুমি আমার পাখি হও...</p>
+                <p class="sky-blue">আর আমি তোমার আজীবনের আকাশ।</p>
+            </div>
+
+            <hr class="glow-divider">
+
+            <p class="emphasis">শেষে শুধু একটা কথা...</p>
+
+            <p>যদি কেউ কোনোদিন আমাকে জিজ্ঞেস করে—</p>
+
+            <p>"তোমার জীবনের সবচেয়ে সুন্দর উপহার কী?"</p>
+
+            <p>আমি কোনো জিনিসের নাম বলব না।</p>
+
+            <p>আমি শুধু হাসব...</p>
+
+            <p>আর বলব—</p>
+
+            <p class="ending-line">"তুমি।" <span class="heart-beat">❤️</span></p>
+        </div>
+
+        <!-- Footer -->
+        <div class="letter-footer">
+            <p class="signature">🌹 শুভ জন্মদিন, আমার পাখি।</p>
+            <p class="signature">আজ তোমাকে গতকালের চেয়েও বেশি ভালোবাসি।</p>
+            <p class="signature">আর আগামীকাল, আজকের চেয়েও একটু বেশি ভালোবাসব—ইন শা আল্লাহ।</p>
+            <br>
+            <p class="signature">অশেষ ভালোবাসা আর হাজারো দোয়া রইল,</p>
+            <p class="signature" style="font-size: 1.6rem; margin-top: 15px;">তোমার আকাশ। ☁️🕊️💙</p>
+            <div class="hearts-row">🌸 💕 🌺 💕 🌸</div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating clouds
+        const cloudsContainer = document.getElementById('clouds');
+        for (let i = 0; i < 8; i++) {
+            const cloud = document.createElement('div');
+            cloud.className = 'cloud';
+            cloud.textContent = '☁️';
+            cloud.style.top = (Math.random() * 60) + '%';
+            cloud.style.animationDuration = (Math.random() * 30 + 40) + 's';
+            cloud.style.animationDelay = Math.random() * 20 + 's';
+            cloud.style.fontSize = (Math.random() * 30 + 30) + 'px';
+            cloudsContainer.appendChild(cloud);
+        }
+
+        // Create floating flowers
+        const flowersContainer = document.getElementById('flowers');
+        const flowerEmojis = ['🌸', '🌹', '🌺', '🌷', '💐', '🌼'];
+        for (let i = 0; i < 25; i++) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+            flower.style.left = Math.random() * 100 + '%';
+            flower.style.animationDuration = (Math.random() * 15 + 12) + 's';
+            flower.style.animationDelay = Math.random() * 15 + 's';
+            flower.style.fontSize = (Math.random() * 20 + 16) + 'px';
+            flowersContainer.appendChild(flower);
+        }
+
+        // Create flying birds
+        const birdsContainer = document.getElementById('birds');
+        for (let i = 0; i < 6; i++) {
+            const bird = document.createElement('div');
+            bird.className = 'bird';
+            bird.textContent = '🕊️';
+            bird.style.top = (Math.random() * 70) + '%';
+            bird.style.animationDuration = (Math.random() * 20 + 25) + 's';
+            bird.style.animationDelay = Math.random() * 20 + 's';
+            bird.style.fontSize = (Math.random() * 15 + 20) + 'px';
+            birdsContainer.appendChild(bird);
+        }
+
+        // Create sparkles
+        const sparklesContainer = document.getElementById('sparkles');
+        for (let i = 0; i < 40; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            sparkle.style.animationDelay = Math.random() * 5 + 's';
+            sparkle.style.width = (Math.random() * 6 + 2) + 'px';
+            sparkle.style.height = sparkle.style.width;
+            sparklesContainer.appendChild(sparkle);
+        }
+
+        // Scroll reveal animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.letter-body p, .letter-body .dream-section, .letter-body .prayer-section').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
