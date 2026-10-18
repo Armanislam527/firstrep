@@ -1,4 +1,4 @@
-*.jpg
+
 something*.htm*
 *.log
 *.tmp
@@ -8,4 +8,3 @@ something*.htm*
 *.jpeg
 *.png
 *.gif
-*.jpe
